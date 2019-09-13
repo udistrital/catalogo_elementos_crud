@@ -1,4 +1,4 @@
-# ENTRADAS CRUD
+# CATÁLOGO ELEMENTOS CRUD
 
 API CRUD para el módulo de catálogo de elementos del sistema ARKA II. El proyecto está escrito en el lenguaje GO, generado mediante el [framework beego](https://beego.me/).
 
