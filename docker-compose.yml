@@ -13,15 +13,15 @@ services:
     ports: 
       - "${PORT}:${PORT}"
     environment:
-      - ENTRADAS_CRUD_HTTP_PORT=${PORT}
+      - CATALOGO_ELEMENTOS_CRUD_HTTP_PORT=${PORT}
       - API_NAME=${API_NAME}
-      - ENTRADAS_CRUD_PGUSER=${POSTGRES_USER}
-      - ENTRADAS_CRUD_PGPASS=${POSTGRES_PASSWORD}
-      - ENTRADAS_CRUD_PGURLS=${POSTGRES_HOST}
-      - ENTRADAS_CRUD_PGDB=${POSTGRES_DB}
-      - ENTRADAS_CRUD_PGPORT=5432
+      - CATALOGO_ELEMENTOS_CRUD_PGUSER=${POSTGRES_USER}
+      - CATALOGO_ELEMENTOS_CRUD_PGPASS=${POSTGRES_PASSWORD}
+      - CATALOGO_ELEMENTOS_CRUD_PGURLS=${POSTGRES_HOST}
+      - CATALOGO_ELEMENTOS_CRUD_PGDB=${POSTGRES_DB}
+      - CATALOGO_ELEMENTOS_CRUD_PGPORT=5432
       - RUN_MODE=${RUN_MODE}
-      - ENTRADAS_CRUD_SCHEMA=${POSTGRES_SCHEMA}
+      - CATALOGO_ELEMENTOS_CRUD_SCHEMA=${POSTGRES_SCHEMA}
       - SERVICE_TAGS=traefik.enable=true,traefik.frontend.entryPoints=http,traefik.frontend.rule=Host:${SERVICE_NAME}.localhost   
     command: sh -c 'cd ${API_BASE_DIR}/${API_NAME};go get -v -u ./...; bee migrate -driver=postgres -conn="postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:5432/${POSTGRES_DB}?sslmode=disable&search_path=public" || true; bee run -downdoc=true -gendoc=true'
     networks: 
