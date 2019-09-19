@@ -57,6 +57,12 @@ func init() {
 				&controllers.ElementoController{},
 			),
 		),
+
+		beego.NSNamespace("/tr_grupo",
+			beego.NSInclude(
+				&controllers.TrGrupoController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
 }
