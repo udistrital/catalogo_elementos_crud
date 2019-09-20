@@ -1304,7 +1304,7 @@
                     "201": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/models.Tr_catalogo"
+                            "$ref": "#/definitions/models.TrGrupo"
                         }
                     },
                     "403": {
@@ -1401,9 +1401,189 @@
                     }
                 }
             }
+        },
+        "/tr_subgrupo/": {
+            "get": {
+                "tags": [
+                    "tr_subgrupo"
+                ],
+                "description": "get TrSubgrupo",
+                "operationId": "TrSubgrupoController.GetAll",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "query",
+                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sortby",
+                        "description": "Sorted-by fields. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "order",
+                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "offset",
+                        "description": "Start position of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.TrSubgrupo"
+                        }
+                    },
+                    "403": {
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "tr_subgrupo"
+                ],
+                "description": "create TrSubgrupo",
+                "operationId": "TrSubgrupoController.Create",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for TrSubgrupo content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Tr_subgrupo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.TrSubgrupo"
+                        }
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/tr_subgrupo/{id}": {
+            "get": {
+                "tags": [
+                    "tr_subgrupo"
+                ],
+                "description": "get TrSubgrupo by id",
+                "operationId": "TrSubgrupoController.GetOne",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.TrSubgrupo"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is empty"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "tr_subgrupo"
+                ],
+                "description": "update the TrSubgrupo",
+                "operationId": "TrSubgrupoController.Put",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for TrSubgrupo content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.TrSubgrupo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.TrSubgrupo"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is not int"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "tr_subgrupo"
+                ],
+                "description": "delete the Tr_subgrupo",
+                "operationId": "TrSubgrupoController.Delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} delete success!"
+                    },
+                    "403": {
+                        "description": "id is empty"
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "17623.\u003cnil\u003e.Subgrupo": {
+            "title": "Subgrupo",
+            "type": "object"
+        },
         "models.Catalogo": {
             "title": "Catalogo",
             "type": "object",
@@ -1631,12 +1811,36 @@
                 }
             }
         },
+        "models.TrGrupo": {
+            "title": "TrGrupo",
+            "type": "object",
+            "properties": {
+                "Catalogo": {
+                    "$ref": "#/definitions/models.Catalogo"
+                },
+                "Subgrupo": {
+                    "$ref": "#/definitions/models.Subgrupo"
+                }
+            }
+        },
         "models.TrGrupoController": {
             "title": "TrGrupoController",
             "type": "object"
         },
-        "models.Tr_catalogo": {
-            "title": "Tr_catalogo",
+        "models.TrSubgrupo": {
+            "title": "TrSubgrupo",
+            "type": "object",
+            "properties": {
+                "SubgrupoHijo": {
+                    "$ref": "#/definitions/17623.\u003cnil\u003e.Subgrupo"
+                },
+                "SubgrupoPadre": {
+                    "$ref": "#/definitions/models.Subgrupo"
+                }
+            }
+        },
+        "models.Tr_subgrupo": {
+            "title": "Tr_subgrupo",
             "type": "object"
         }
     },
@@ -1672,6 +1876,10 @@
         {
             "name": "tr_grupo",
             "description": "TrGrupoController operations for TrGrupoController\n"
+        },
+        {
+            "name": "tr_subgrupo",
+            "description": "TrSubgrupoController operations for Tr_subgrupo\n"
         }
     ]
 }

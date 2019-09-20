@@ -27,13 +27,13 @@ func (c *TrGrupoController) URLMapping() {
 // @Title Create
 // @Description create TrGrupoController
 // @Param	body		body 	models.TrGrupoController	true		"body for TrGrupoController content"
-// @Success 201 {object} models.Tr_catalogo
+// @Success 201 {object} models.TrGrupo
 // @Failure 403 body is empty
 // @router / [post]
 func (c *TrGrupoController) Post() {
 	var v models.TrGrupo
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if err := models.AddTransaccionProduccionAcademica(&v); err == nil {
+		if err := models.AddTransaccionGrupo(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = v
 		} else {

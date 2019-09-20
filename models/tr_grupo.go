@@ -12,13 +12,24 @@ type TrGrupo struct {
 }
 
 // AddTransaccionProduccionAcademica Transacción para registrar toda la información de un grupo asociándolo a un catálogo
-func AddTransaccionProduccionAcademica(m *TrGrupo) (err error) {
+func AddTransaccionGrupo(m *TrGrupo) (err error) {
 	o := orm.NewOrm()
 	err = o.Begin()
 
-	logs.Debug("Entre aqui")
+	if err != nil {
+		return
+	}
 
-	if idSubgrupo, errTr := o.Insert(m.Subgrupo); errTr == nil {
+	defer func() {
+		if r := recover(); r != nil {
+			o.Rollback()
+			logs.Error(r)
+		} else {
+			o.Commit()
+		}
+	}()
+
+	if idSubgrupo, err := o.Insert(m.Subgrupo); err == nil {
 		logs.Info(idSubgrupo)
 
 		var subgrupoCatalogo SubgrupoCatalogo
@@ -27,21 +38,12 @@ func AddTransaccionProduccionAcademica(m *TrGrupo) (err error) {
 		subgrupoCatalogo.CatalogoId = m.Catalogo
 		subgrupoCatalogo.SubgrupoId = m.Subgrupo
 
-		logs.Debug(subgrupoCatalogo)
-
-		if _, errTr = o.Insert(&subgrupoCatalogo); errTr != nil {
-			err = errTr
-			logs.Info(err)
-			_ = o.Rollback()
-			return
+		if _, err = o.Insert(&subgrupoCatalogo); err != nil {
+			panic(err.Error())
 		}
 
-		_ = o.Commit()
-
 	} else {
-		err = errTr
-		logs.Info(err)
-		_ = o.Rollback()
+		panic(err.Error())
 	}
 
 	return
