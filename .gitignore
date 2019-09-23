@@ -1,6 +1,6 @@
 lastupdate.tmp
 .vscode/
-catalogo_elementos_Crud
+catalogo_elementos_crud
 main
 .scannerwork/
 swagger/*.png
@@ -14,3 +14,4 @@ swagger/fonts/
 swagger/images/
 swagger/lang/
 swagger/lib/
+swagger.zip
