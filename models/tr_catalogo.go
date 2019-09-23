@@ -51,7 +51,7 @@ func getSubgrupo(subgrupo_padre_id int) (arbolSubgrupo []map[string]interface{})
 			data["Subgrupo"] = subgrupoHijo.SubgrupoHijoId
 
 			if(getHijo(subgrupoHijo.SubgrupoHijoId.Id)) {
-				data["Subgrupo"] = getSubgrupo(subgrupoHijo.SubgrupoHijoId.Id)
+				data["SubgrupoSubgrupo"] = getSubgrupo(subgrupoHijo.SubgrupoHijoId.Id)
 			}
 
 			arbolSubgrupo = append(arbolSubgrupo, data)
