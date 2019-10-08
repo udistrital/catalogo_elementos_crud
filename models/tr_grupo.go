@@ -29,6 +29,7 @@ func AddTransaccionGrupo(m *TrGrupo) (err error) {
 		}
 	}()
 
+	m.Subgrupo.Activo = true
 	if idSubgrupo, err := o.Insert(m.Subgrupo); err == nil {
 		logs.Info(idSubgrupo)
 

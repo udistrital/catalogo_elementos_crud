@@ -17,6 +17,7 @@ type Subgrupo struct {
 	FechaCreacion     time.Time `orm:"auto_now;column(fecha_creacion);type(timestamp without time zone)"`
 	FechaModificacion time.Time `orm:"auto_now;column(fecha_modificacion);type(timestamp without time zone)"`
 	Activo            bool      `orm:"column(activo)"`
+	Codigo            int       `orm:"column(codigo)"`
 }
 
 func (t *Subgrupo) TableName() string {
