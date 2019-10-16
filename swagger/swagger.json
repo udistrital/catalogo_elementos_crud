@@ -1226,37 +1226,6 @@
                 }
             }
         },
-        "/tr_catalogo/": {
-            "post": {
-                "tags": [
-                    "tr_catalogo"
-                ],
-                "description": "create TrCatalogo",
-                "operationId": "TrCatalogoController.Create",
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "description": "body for TrCatalogo content",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.TrCatalogo"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/models.TrCatalogo"
-                        }
-                    },
-                    "403": {
-                        "description": "body is empty"
-                    }
-                }
-            }
-        },
         "/tr_catalogo/{id}": {
             "get": {
                 "tags": [

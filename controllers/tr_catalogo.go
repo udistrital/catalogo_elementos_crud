@@ -16,22 +16,7 @@ type TrCatalogoController struct {
 
 // URLMapping ...
 func (c *TrCatalogoController) URLMapping() {
-	c.Mapping("Post", c.Post)
 	c.Mapping("GetOne", c.GetOne)
-	c.Mapping("GetAll", c.GetAll)
-	c.Mapping("Put", c.Put)
-	c.Mapping("Delete", c.Delete)
-}
-
-// Post ...
-// @Title Create
-// @Description create TrCatalogo
-// @Param	body		body 	models.TrCatalogo	true		"body for TrCatalogo content"
-// @Success 201 {object} models.TrCatalogo
-// @Failure 403 body is empty
-// @router / [post]
-func (c *TrCatalogoController) Post() {
-
 }
 
 // GetOne ...
