@@ -15,8 +15,8 @@ type CuentasGrupo struct {
 	CuentaCreditoId     float64   `orm:"column(cuenta_credito_id)"`
 	CuentaDebitoId      float64   `orm:"column(cuenta_debito_id)"`
 	SubtipoMovimientoId int       `orm:"column(subtipo_movimiento_id)"`
-	FechaCreacion       time.Time `orm:"auto_now;column(fecha_creacion);type(date)"`
-	FechaModificacion   time.Time `orm:"auto_now;column(fecha_modificacion);type(date)"`
+	FechaCreacion       time.Time `orm:"auto_now_add;column(fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion   time.Time `orm:"auto_now;column(fecha_modificacion);type(timestamp without time zone)"`
 	Activo              bool      `orm:"column(activo)"`
 	SubgrupoId          *Subgrupo `orm:"column(subgrupo_id);rel(fk)"`
 }

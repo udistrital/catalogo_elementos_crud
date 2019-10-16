@@ -83,7 +83,7 @@ func (c *TrSubgrupoController) GetAll() {
 // @Param	id		path 	string	true		"The id you want to update"
 // @Param	body		body 	models.TrSubgrupo	true		"body for TrSubgrupo content"
 // @Success 200 {object} models.TrSubgrupo
-// @Failure 403 :id is not int
+// @Failure 400 the request contains incorrect syntax
 // @router /:id [put]
 func (c *TrSubgrupoController) Put() {
 
@@ -94,7 +94,7 @@ func (c *TrSubgrupoController) Put() {
 // @Description delete the Tr_subgrupo
 // @Param	id		path 	string	true		"The id you want to delete"
 // @Success 200 {string} delete success!
-// @Failure 403 id is empty
+// @Failure 404 not found resource
 // @router /:id [delete]
 func (c *TrSubgrupoController) Delete() {
 

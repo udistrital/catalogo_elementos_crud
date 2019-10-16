@@ -188,13 +188,13 @@
                 }
             }
         },
-        "/cuentas_grupo/": {
+        "/cuentas_subgrupo/": {
             "get": {
                 "tags": [
-                    "cuentas_grupo"
+                    "cuentas_subgrupo"
                 ],
-                "description": "get CuentasGrupo",
-                "operationId": "CuentasGrupoController.Get All",
+                "description": "get CuentasSubgrupo",
+                "operationId": "CuentasSubgrupoController.Get All",
                 "parameters": [
                     {
                         "in": "query",
@@ -237,7 +237,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/models.CuentasGrupo"
+                            "$ref": "#/definitions/models.CuentasSubgrupo"
                         }
                     },
                     "404": {
@@ -247,24 +247,24 @@
             },
             "post": {
                 "tags": [
-                    "cuentas_grupo"
+                    "cuentas_subgrupo"
                 ],
-                "description": "create CuentasGrupo",
-                "operationId": "CuentasGrupoController.Post",
+                "description": "create CuentasSubgrupo",
+                "operationId": "CuentasSubgrupoController.Post",
                 "parameters": [
                     {
                         "in": "body",
                         "name": "body",
-                        "description": "body for CuentasGrupo content",
+                        "description": "body for CuentasSubgrupo content",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.CuentasGrupo"
+                            "$ref": "#/definitions/models.CuentasSubgrupo"
                         }
                     }
                 ],
                 "responses": {
                     "201": {
-                        "description": "{int} models.CuentasGrupo"
+                        "description": "{int} models.CuentasSubgrupo"
                     },
                     "400": {
                         "description": "the request contains incorrect syntax"
@@ -272,13 +272,13 @@
                 }
             }
         },
-        "/cuentas_grupo/{id}": {
+        "/cuentas_subgrupo/{id}": {
             "get": {
                 "tags": [
-                    "cuentas_grupo"
+                    "cuentas_subgrupo"
                 ],
-                "description": "get CuentasGrupo by id",
-                "operationId": "CuentasGrupoController.Get One",
+                "description": "get CuentasSubgrupo by id",
+                "operationId": "CuentasSubgrupoController.Get One",
                 "parameters": [
                     {
                         "in": "path",
@@ -292,7 +292,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/models.CuentasGrupo"
+                            "$ref": "#/definitions/models.CuentasSubgrupo"
                         }
                     },
                     "404": {
@@ -302,10 +302,10 @@
             },
             "put": {
                 "tags": [
-                    "cuentas_grupo"
+                    "cuentas_subgrupo"
                 ],
-                "description": "update the CuentasGrupo",
-                "operationId": "CuentasGrupoController.Put",
+                "description": "update the CuentasSubgrupo",
+                "operationId": "CuentasSubgrupoController.Put",
                 "parameters": [
                     {
                         "in": "path",
@@ -317,10 +317,10 @@
                     {
                         "in": "body",
                         "name": "body",
-                        "description": "body for CuentasGrupo content",
+                        "description": "body for CuentasSubgrupo content",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.CuentasGrupo"
+                            "$ref": "#/definitions/models.CuentasSubgrupo"
                         }
                     }
                 ],
@@ -328,7 +328,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/models.CuentasGrupo"
+                            "$ref": "#/definitions/models.CuentasSubgrupo"
                         }
                     },
                     "400": {
@@ -338,10 +338,10 @@
             },
             "delete": {
                 "tags": [
-                    "cuentas_grupo"
+                    "cuentas_subgrupo"
                 ],
-                "description": "delete the CuentasGrupo",
-                "operationId": "CuentasGrupoController.Delete",
+                "description": "delete the CuentasSubgrupo",
+                "operationId": "CuentasSubgrupoController.Delete",
                 "parameters": [
                     {
                         "in": "path",
@@ -1227,62 +1227,6 @@
             }
         },
         "/tr_catalogo/": {
-            "get": {
-                "tags": [
-                    "tr_catalogo"
-                ],
-                "description": "get TrCatalogo",
-                "operationId": "TrCatalogoController.GetAll",
-                "parameters": [
-                    {
-                        "in": "query",
-                        "name": "query",
-                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "fields",
-                        "description": "Fields returned. e.g. col1,col2 ...",
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "sortby",
-                        "description": "Sorted-by fields. e.g. col1,col2 ...",
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "order",
-                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "limit",
-                        "description": "Limit the size of result set. Must be an integer",
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "offset",
-                        "description": "Start position of result set. Must be an integer",
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/models.TrCatalogo"
-                        }
-                    },
-                    "403": {
-                        "description": ""
-                    }
-                }
-            },
             "post": {
                 "tags": [
                     "tr_catalogo"
@@ -1338,66 +1282,6 @@
                     },
                     "403": {
                         "description": ":id is empty"
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "tr_catalogo"
-                ],
-                "description": "update the TrCatalogo",
-                "operationId": "TrCatalogoController.Put",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "id",
-                        "description": "The id you want to update",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "description": "body for TrCatalogo content",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.TrCatalogo"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/models.TrCatalogo"
-                        }
-                    },
-                    "403": {
-                        "description": ":id is not int"
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "tr_catalogo"
-                ],
-                "description": "delete the TrCatalogo",
-                "operationId": "TrCatalogoController.Delete",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "id",
-                        "description": "The id you want to delete",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{string} delete success!"
-                    },
-                    "403": {
-                        "description": "id is empty"
                     }
                 }
             }
@@ -1548,8 +1432,8 @@
                             "$ref": "#/definitions/models.TrGrupoController"
                         }
                     },
-                    "403": {
-                        "description": ":id is not int"
+                    "400": {
+                        "description": "the request contains incorrect syntax"
                     }
                 }
             },
@@ -1572,8 +1456,8 @@
                     "200": {
                         "description": "{string} delete success!"
                     },
-                    "403": {
-                        "description": "id is empty"
+                    "404": {
+                        "description": "not found resource"
                     }
                 }
             }
@@ -1724,8 +1608,8 @@
                             "$ref": "#/definitions/models.TrSubgrupo"
                         }
                     },
-                    "403": {
-                        "description": ":id is not int"
+                    "400": {
+                        "description": "the request contains incorrect syntax"
                     }
                 }
             },
@@ -1748,15 +1632,15 @@
                     "200": {
                         "description": "{string} delete success!"
                     },
-                    "403": {
-                        "description": "id is empty"
+                    "404": {
+                        "description": "not found resource"
                     }
                 }
             }
         }
     },
     "definitions": {
-        "17675.\u003cnil\u003e.Subgrupo": {
+        "17757.\u003cnil\u003e.Subgrupo": {
             "title": "Subgrupo",
             "type": "object"
         },
@@ -1831,6 +1715,42 @@
                 }
             }
         },
+        "models.CuentasSubgrupo": {
+            "title": "CuentasSubgrupo",
+            "type": "object",
+            "properties": {
+                "Activo": {
+                    "type": "boolean"
+                },
+                "CuentaCreditoId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "CuentaDebitoId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "FechaCreacion": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "FechaModificacion": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "SubgrupoId": {
+                    "$ref": "#/definitions/models.Subgrupo"
+                },
+                "SubtipoMovimientoId": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
         "models.Elemento": {
             "title": "Elemento",
             "type": "object",
@@ -1864,11 +1784,8 @@
                 "Nombre": {
                     "type": "string"
                 },
-                "SubgrupoCatalogoId": {
-                    "$ref": "#/definitions/models.SubgrupoCatalogo"
-                },
-                "TipoBienId": {
-                    "$ref": "#/definitions/models.TipoBien"
+                "SubgrupoId": {
+                    "$ref": "#/definitions/models.Subgrupo"
                 }
             }
         },
@@ -1900,6 +1817,9 @@
                 },
                 "Nombre": {
                     "type": "string"
+                },
+                "TipoBienId": {
+                    "$ref": "#/definitions/models.TipoBien"
                 }
             }
         },
@@ -2016,7 +1936,7 @@
             "type": "object",
             "properties": {
                 "SubgrupoHijo": {
-                    "$ref": "#/definitions/17675.\u003cnil\u003e.Subgrupo"
+                    "$ref": "#/definitions/17757.\u003cnil\u003e.Subgrupo"
                 },
                 "SubgrupoPadre": {
                     "$ref": "#/definitions/models.Subgrupo"
@@ -2030,28 +1950,28 @@
     },
     "tags": [
         {
+            "name": "cuentas_subgrupo",
+            "description": "CuentasSubgrupoController operations for CuentasSubgrupo\n"
+        },
+        {
             "name": "subgrupo",
             "description": "SubgrupoController operations for Subgrupo\n"
         },
         {
-            "name": "subgrupo_catalogo",
-            "description": "SubgrupoCatalogoController operations for SubgrupoCatalogo\n"
+            "name": "tipo_bien",
+            "description": "TipoBienController operations for TipoBien\n"
         },
         {
             "name": "subgrupo_subgrupo",
             "description": "SubgrupoSubgrupoController operations for SubgrupoSubgrupo\n"
         },
         {
-            "name": "cuentas_grupo",
-            "description": "CuentasGrupoController operations for CuentasGrupo\n"
-        },
-        {
             "name": "catalogo",
             "description": "CatalogoController operations for Catalogo\n"
         },
         {
-            "name": "tipo_bien",
-            "description": "TipoBienController operations for TipoBien\n"
+            "name": "subgrupo_catalogo",
+            "description": "SubgrupoCatalogoController operations for SubgrupoCatalogo\n"
         },
         {
             "name": "elemento",
