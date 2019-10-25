@@ -1609,7 +1609,7 @@
         }
     },
     "definitions": {
-        "17757.\u003cnil\u003e.Subgrupo": {
+        "12364.\u003cnil\u003e.Subgrupo": {
             "title": "Subgrupo",
             "type": "object"
         },
@@ -1905,7 +1905,7 @@
             "type": "object",
             "properties": {
                 "SubgrupoHijo": {
-                    "$ref": "#/definitions/17757.\u003cnil\u003e.Subgrupo"
+                    "$ref": "#/definitions/12364.\u003cnil\u003e.Subgrupo"
                 },
                 "SubgrupoPadre": {
                     "$ref": "#/definitions/models.Subgrupo"
