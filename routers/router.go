@@ -16,30 +16,6 @@ import (
 func init() {
 	ns := beego.NewNamespace("/v1",
 
-		beego.NSNamespace("/cuentas_subgrupo",
-			beego.NSInclude(
-				&controllers.CuentasSubgrupoController{},
-			),
-		),
-
-		beego.NSNamespace("/subgrupo",
-			beego.NSInclude(
-				&controllers.SubgrupoController{},
-			),
-		),
-
-		beego.NSNamespace("/tipo_bien",
-			beego.NSInclude(
-				&controllers.TipoBienController{},
-			),
-		),
-
-		beego.NSNamespace("/subgrupo_subgrupo",
-			beego.NSInclude(
-				&controllers.SubgrupoSubgrupoController{},
-			),
-		),
-
 		beego.NSNamespace("/catalogo",
 			beego.NSInclude(
 				&controllers.CatalogoController{},
@@ -55,6 +31,24 @@ func init() {
 		beego.NSNamespace("/elemento",
 			beego.NSInclude(
 				&controllers.ElementoController{},
+			),
+		),
+
+		beego.NSNamespace("/cuentas_subgrupo",
+			beego.NSInclude(
+				&controllers.CuentasSubgrupoController{},
+			),
+		),
+
+		beego.NSNamespace("/subgrupo",
+			beego.NSInclude(
+				&controllers.SubgrupoController{},
+			),
+		),
+
+		beego.NSNamespace("/subgrupo_subgrupo",
+			beego.NSInclude(
+				&controllers.SubgrupoSubgrupoController{},
 			),
 		),
 

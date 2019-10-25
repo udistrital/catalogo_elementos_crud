@@ -21,8 +21,7 @@ func init() {
 func (m *AjustesTablaSubgrupo_20191016_121218) Up() {
 	// use m.SQL("CREATE TABLE ...") to make schema update
 	m.SQL("ALTER TABLE catalogo.subgrupo ADD COLUMN tipo_bien_id integer NOT NULL;")
-
-	m.SQL("ALTER TABLE catalogo.subgrupo ADD CONSTRAINT fk_subgrupo_tipo_bien FOREIGN KEY (tipo_bien_id)REFERENCES catalogo.tipo_bien (id) MATCH FULLON DELETE RESTRICT ON UPDATE CASCADE;")
+	m.SQL("ALTER TABLE catalogo.subgrupo ADD CONSTRAINT fk_subgrupo_tipo_bien FOREIGN KEY (tipo_bien_id)REFERENCES catalogo.tipo_bien (id) MATCH FULL ON DELETE RESTRICT ON UPDATE CASCADE;")
 }
 
 // Reverse the migrations

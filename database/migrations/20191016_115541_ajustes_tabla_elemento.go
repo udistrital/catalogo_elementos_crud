@@ -31,7 +31,7 @@ func (m *AjustesTablaElemento_20191016_115541) Up() {
 	m.SQL("COMMENT ON COLUMN catalogo.elemento.fecha_modificacion IS 'Campo para almacenar la fecha de modificación del registro. Se usa para trazabilidad.';")
 	m.SQL("COMMENT ON COLUMN catalogo.elemento.activo IS 'Campo para validar si se encuentra activo o no el registro. Se usa para trazabilidad.';")
 
-	m.SQL("ALTER TABLE catalogo.elemento ADD CONSTRAINT fk_elemento_subgrupo FOREIGN KEY (subgrupo_id)REFERENCES catalogo.subgrupo (id) MATCH FULLON DELETE RESTRICT ON UPDATE CASCADE;")
+	m.SQL("ALTER TABLE catalogo.elemento ADD CONSTRAINT fk_elemento_subgrupo FOREIGN KEY (subgrupo_id)REFERENCES catalogo.subgrupo (id) MATCH FULL ON DELETE RESTRICT ON UPDATE CASCADE;")
 }
 
 // Reverse the migrations

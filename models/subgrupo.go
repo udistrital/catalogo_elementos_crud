@@ -18,7 +18,6 @@ type Subgrupo struct {
 	FechaModificacion time.Time `orm:"auto_now;column(fecha_modificacion);type(timestamp without time zone)"`
 	Activo            bool      `orm:"column(activo)"`
 	Codigo            int       `orm:"column(codigo)"`
-	TipoBienId        *TipoBien `orm:"column(tipo_bien_id);rel(fk)"`
 }
 
 func (t *Subgrupo) TableName() string {
