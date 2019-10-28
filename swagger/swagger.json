@@ -1255,6 +1255,182 @@
                 }
             }
         },
+        "/tr_cuentas_subgrupo/": {
+            "get": {
+                "tags": [
+                    "tr_cuentas_subgrupo"
+                ],
+                "description": "get models.TransaccionCuentasGrupo",
+                "operationId": "TrCuentasSubgrupoController.GetAll",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "query",
+                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sortby",
+                        "description": "Sorted-by fields. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "order",
+                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "offset",
+                        "description": "Start position of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.TrSubgrupo"
+                        }
+                    },
+                    "403": {
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "tr_cuentas_subgrupo"
+                ],
+                "description": "create TrSubgrupo",
+                "operationId": "TrCuentasSubgrupoController.Create",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for TrSubgrupo content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.TransaccionCuentasGrupo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.TrSubgrupo"
+                        }
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/tr_cuentas_subgrupo/{id}": {
+            "get": {
+                "tags": [
+                    "tr_cuentas_subgrupo"
+                ],
+                "description": "get TrSubgrupo by id",
+                "operationId": "TrCuentasSubgrupoController.GetOne",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.TransaccionCuentasGrupo"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is empty"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "tr_cuentas_subgrupo"
+                ],
+                "description": "update the TrSubgrupo",
+                "operationId": "TrCuentasSubgrupoController.Put",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for TrSubgrupo content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.TransaccionCuentasGrupo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.TrSubgrupo"
+                        }
+                    },
+                    "400": {
+                        "description": "the request contains incorrect syntax"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "tr_cuentas_subgrupo"
+                ],
+                "description": "delete the Tr_subgrupo",
+                "operationId": "TrCuentasSubgrupoController.Delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} delete success!"
+                    },
+                    "404": {
+                        "description": "not found resource"
+                    }
+                }
+            }
+        },
         "/tr_grupo/": {
             "get": {
                 "tags": [
@@ -1915,6 +2091,18 @@
         "models.Tr_subgrupo": {
             "title": "Tr_subgrupo",
             "type": "object"
+        },
+        "models.TransaccionCuentasGrupo": {
+            "title": "TransaccionCuentasGrupo",
+            "type": "object",
+            "properties": {
+                "Cuentas": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.CuentasSubgrupo"
+                    }
+                }
+            }
         }
     },
     "tags": [
@@ -1957,6 +2145,10 @@
         {
             "name": "tr_catalogo",
             "description": "TrCatalogoController operations for TrCatalogo\n"
+        },
+        {
+            "name": "tr_cuentas_subgrupo",
+            "description": "TrCuentasSubgrupoController operations for Tr_subgrupo\n"
         }
     ]
 }
