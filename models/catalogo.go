@@ -16,8 +16,8 @@ type Catalogo struct {
 	Descripcion       string    `orm:"column(descripcion)"`
 	FechaInicio       time.Time `orm:"column(fecha_inicio);type(timestamp without time zone)"`
 	FechaFin          time.Time `orm:"column(fecha_fin);type(timestamp without time zone);null"`
-	FechaCreacion     time.Time `orm:"column(fecha_creacion);type(timestamp without time zone)"`
-	FechaModificacion time.Time `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
+	FechaCreacion     time.Time `orm:"auto_now_add;column(fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion time.Time `orm:"auto_now;column(fecha_modificacion);type(timestamp without time zone)"`
 	Activo            bool      `orm:"column(activo)"`
 }
 

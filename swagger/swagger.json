@@ -188,13 +188,13 @@
                 }
             }
         },
-        "/cuentas_grupo/": {
+        "/cuentas_subgrupo/": {
             "get": {
                 "tags": [
-                    "cuentas_grupo"
+                    "cuentas_subgrupo"
                 ],
-                "description": "get CuentasGrupo",
-                "operationId": "CuentasGrupoController.Get All",
+                "description": "get CuentasSubgrupo",
+                "operationId": "CuentasSubgrupoController.Get All",
                 "parameters": [
                     {
                         "in": "query",
@@ -237,7 +237,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/models.CuentasGrupo"
+                            "$ref": "#/definitions/models.CuentasSubgrupo"
                         }
                     },
                     "404": {
@@ -247,24 +247,24 @@
             },
             "post": {
                 "tags": [
-                    "cuentas_grupo"
+                    "cuentas_subgrupo"
                 ],
-                "description": "create CuentasGrupo",
-                "operationId": "CuentasGrupoController.Post",
+                "description": "create CuentasSubgrupo",
+                "operationId": "CuentasSubgrupoController.Post",
                 "parameters": [
                     {
                         "in": "body",
                         "name": "body",
-                        "description": "body for CuentasGrupo content",
+                        "description": "body for CuentasSubgrupo content",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.CuentasGrupo"
+                            "$ref": "#/definitions/models.CuentasSubgrupo"
                         }
                     }
                 ],
                 "responses": {
                     "201": {
-                        "description": "{int} models.CuentasGrupo"
+                        "description": "{int} models.CuentasSubgrupo"
                     },
                     "400": {
                         "description": "the request contains incorrect syntax"
@@ -272,13 +272,13 @@
                 }
             }
         },
-        "/cuentas_grupo/{id}": {
+        "/cuentas_subgrupo/{id}": {
             "get": {
                 "tags": [
-                    "cuentas_grupo"
+                    "cuentas_subgrupo"
                 ],
-                "description": "get CuentasGrupo by id",
-                "operationId": "CuentasGrupoController.Get One",
+                "description": "get CuentasSubgrupo by id",
+                "operationId": "CuentasSubgrupoController.Get One",
                 "parameters": [
                     {
                         "in": "path",
@@ -292,7 +292,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/models.CuentasGrupo"
+                            "$ref": "#/definitions/models.CuentasSubgrupo"
                         }
                     },
                     "404": {
@@ -302,10 +302,10 @@
             },
             "put": {
                 "tags": [
-                    "cuentas_grupo"
+                    "cuentas_subgrupo"
                 ],
-                "description": "update the CuentasGrupo",
-                "operationId": "CuentasGrupoController.Put",
+                "description": "update the CuentasSubgrupo",
+                "operationId": "CuentasSubgrupoController.Put",
                 "parameters": [
                     {
                         "in": "path",
@@ -317,10 +317,10 @@
                     {
                         "in": "body",
                         "name": "body",
-                        "description": "body for CuentasGrupo content",
+                        "description": "body for CuentasSubgrupo content",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.CuentasGrupo"
+                            "$ref": "#/definitions/models.CuentasSubgrupo"
                         }
                     }
                 ],
@@ -328,7 +328,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/models.CuentasGrupo"
+                            "$ref": "#/definitions/models.CuentasSubgrupo"
                         }
                     },
                     "400": {
@@ -338,10 +338,10 @@
             },
             "delete": {
                 "tags": [
-                    "cuentas_grupo"
+                    "cuentas_subgrupo"
                 ],
-                "description": "delete the CuentasGrupo",
-                "operationId": "CuentasGrupoController.Delete",
+                "description": "delete the CuentasSubgrupo",
+                "operationId": "CuentasSubgrupoController.Delete",
                 "parameters": [
                     {
                         "in": "path",
@@ -1053,13 +1053,42 @@
                 }
             }
         },
-        "/tipo_bien/": {
+        "/tr_catalogo/{id}": {
             "get": {
                 "tags": [
-                    "tipo_bien"
+                    "tr_catalogo"
                 ],
-                "description": "get TipoBien",
-                "operationId": "TipoBienController.Get All",
+                "description": "get TrCatalogo by id",
+                "operationId": "TrCatalogoController.GetOne",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.TrCatalogo"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is empty"
+                    }
+                }
+            }
+        },
+        "/tr_grupo/": {
+            "get": {
+                "tags": [
+                    "tr_grupo"
+                ],
+                "description": "get TrGrupoController",
+                "operationId": "TrGrupoController.GetAll",
                 "parameters": [
                     {
                         "in": "query",
@@ -1102,48 +1131,51 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/models.TipoBien"
+                            "$ref": "#/definitions/models.TrGrupoController"
                         }
                     },
-                    "404": {
-                        "description": "not found resource"
+                    "403": {
+                        "description": ""
                     }
                 }
             },
             "post": {
                 "tags": [
-                    "tipo_bien"
+                    "tr_grupo"
                 ],
-                "description": "create TipoBien",
-                "operationId": "TipoBienController.Post",
+                "description": "create TrGrupoController",
+                "operationId": "TrGrupoController.Create",
                 "parameters": [
                     {
                         "in": "body",
                         "name": "body",
-                        "description": "body for TipoBien content",
+                        "description": "body for TrGrupoController content",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.TipoBien"
+                            "$ref": "#/definitions/models.TrGrupoController"
                         }
                     }
                 ],
                 "responses": {
                     "201": {
-                        "description": "{int} models.TipoBien"
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.TrGrupo"
+                        }
                     },
-                    "400": {
-                        "description": "the request contains incorrect syntax"
+                    "403": {
+                        "description": "body is empty"
                     }
                 }
             }
         },
-        "/tipo_bien/{id}": {
+        "/tr_grupo/{id}": {
             "get": {
                 "tags": [
-                    "tipo_bien"
+                    "tr_grupo"
                 ],
-                "description": "get TipoBien by id",
-                "operationId": "TipoBienController.Get One",
+                "description": "get TrGrupoController by id",
+                "operationId": "TrGrupoController.GetOne",
                 "parameters": [
                     {
                         "in": "path",
@@ -1157,20 +1189,20 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/models.TipoBien"
+                            "$ref": "#/definitions/models.TrGrupoController"
                         }
                     },
-                    "404": {
-                        "description": "not found resource"
+                    "403": {
+                        "description": ":id is empty"
                     }
                 }
             },
             "put": {
                 "tags": [
-                    "tipo_bien"
+                    "tr_grupo"
                 ],
-                "description": "update the TipoBien",
-                "operationId": "TipoBienController.Put",
+                "description": "update the TrGrupoController",
+                "operationId": "TrGrupoController.Put",
                 "parameters": [
                     {
                         "in": "path",
@@ -1182,10 +1214,10 @@
                     {
                         "in": "body",
                         "name": "body",
-                        "description": "body for TipoBien content",
+                        "description": "body for TrGrupoController content",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.TipoBien"
+                            "$ref": "#/definitions/models.TrGrupoController"
                         }
                     }
                 ],
@@ -1193,7 +1225,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/models.TipoBien"
+                            "$ref": "#/definitions/models.TrGrupoController"
                         }
                     },
                     "400": {
@@ -1203,10 +1235,186 @@
             },
             "delete": {
                 "tags": [
-                    "tipo_bien"
+                    "tr_grupo"
                 ],
-                "description": "delete the TipoBien",
-                "operationId": "TipoBienController.Delete",
+                "description": "delete the TrGrupoController",
+                "operationId": "TrGrupoController.Delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} delete success!"
+                    },
+                    "404": {
+                        "description": "not found resource"
+                    }
+                }
+            }
+        },
+        "/tr_subgrupo/": {
+            "get": {
+                "tags": [
+                    "tr_subgrupo"
+                ],
+                "description": "get TrSubgrupo",
+                "operationId": "TrSubgrupoController.GetAll",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "query",
+                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sortby",
+                        "description": "Sorted-by fields. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "order",
+                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "offset",
+                        "description": "Start position of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.TrSubgrupo"
+                        }
+                    },
+                    "403": {
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "tr_subgrupo"
+                ],
+                "description": "create TrSubgrupo",
+                "operationId": "TrSubgrupoController.Create",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for TrSubgrupo content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Tr_subgrupo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.TrSubgrupo"
+                        }
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/tr_subgrupo/{id}": {
+            "get": {
+                "tags": [
+                    "tr_subgrupo"
+                ],
+                "description": "get TrSubgrupo by id",
+                "operationId": "TrSubgrupoController.GetOne",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.TrSubgrupo"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is empty"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "tr_subgrupo"
+                ],
+                "description": "update the TrSubgrupo",
+                "operationId": "TrSubgrupoController.Put",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for TrSubgrupo content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.TrSubgrupo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.TrSubgrupo"
+                        }
+                    },
+                    "400": {
+                        "description": "the request contains incorrect syntax"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "tr_subgrupo"
+                ],
+                "description": "delete the Tr_subgrupo",
+                "operationId": "TrSubgrupoController.Delete",
                 "parameters": [
                     {
                         "in": "path",
@@ -1228,6 +1436,10 @@
         }
     },
     "definitions": {
+        "13334.\u003cnil\u003e.Subgrupo": {
+            "title": "Subgrupo",
+            "type": "object"
+        },
         "models.Catalogo": {
             "title": "Catalogo",
             "type": "object",
@@ -1263,20 +1475,20 @@
                 }
             }
         },
-        "models.CuentasGrupo": {
-            "title": "CuentasGrupo",
+        "models.CuentasSubgrupo": {
+            "title": "CuentasSubgrupo",
             "type": "object",
             "properties": {
                 "Activo": {
                     "type": "boolean"
                 },
                 "CuentaCreditoId": {
-                    "type": "number",
-                    "format": "double"
+                    "type": "integer",
+                    "format": "int64"
                 },
                 "CuentaDebitoId": {
-                    "type": "number",
-                    "format": "double"
+                    "type": "integer",
+                    "format": "int64"
                 },
                 "FechaCreacion": {
                     "type": "string",
@@ -1332,11 +1544,8 @@
                 "Nombre": {
                     "type": "string"
                 },
-                "SubgrupoCatalogoId": {
-                    "$ref": "#/definitions/models.SubgrupoCatalogo"
-                },
-                "TipoBienId": {
-                    "$ref": "#/definitions/models.TipoBien"
+                "SubgrupoId": {
+                    "$ref": "#/definitions/models.Subgrupo"
                 }
             }
         },
@@ -1346,6 +1555,10 @@
             "properties": {
                 "Activo": {
                     "type": "boolean"
+                },
+                "Codigo": {
+                    "type": "integer",
+                    "format": "int64"
                 },
                 "Descripcion": {
                     "type": "string"
@@ -1421,69 +1634,79 @@
                 }
             }
         },
-        "models.TipoBien": {
-            "title": "TipoBien",
+        "models.TrCatalogo": {
+            "title": "TrCatalogo",
+            "type": "object"
+        },
+        "models.TrGrupo": {
+            "title": "TrGrupo",
             "type": "object",
             "properties": {
-                "Activo": {
-                    "type": "boolean"
+                "Catalogo": {
+                    "$ref": "#/definitions/models.Catalogo"
                 },
-                "CodigoAbreviacion": {
-                    "type": "string"
-                },
-                "Descripcion": {
-                    "type": "string"
-                },
-                "FechaCreacion": {
-                    "type": "string",
-                    "format": "datetime"
-                },
-                "FechaModificacion": {
-                    "type": "string",
-                    "format": "datetime"
-                },
-                "Id": {
-                    "type": "integer",
-                    "format": "int64"
-                },
-                "Nombre": {
-                    "type": "string"
-                },
-                "Orden": {
-                    "type": "number",
-                    "format": "double"
+                "Subgrupo": {
+                    "$ref": "#/definitions/models.Subgrupo"
                 }
             }
+        },
+        "models.TrGrupoController": {
+            "title": "TrGrupoController",
+            "type": "object"
+        },
+        "models.TrSubgrupo": {
+            "title": "TrSubgrupo",
+            "type": "object",
+            "properties": {
+                "SubgrupoHijo": {
+                    "$ref": "#/definitions/13334.\u003cnil\u003e.Subgrupo"
+                },
+                "SubgrupoPadre": {
+                    "$ref": "#/definitions/models.Subgrupo"
+                }
+            }
+        },
+        "models.Tr_subgrupo": {
+            "title": "Tr_subgrupo",
+            "type": "object"
         }
     },
     "tags": [
         {
-            "name": "subgrupo",
-            "description": "SubgrupoController operations for Subgrupo\n"
+            "name": "catalogo",
+            "description": "CatalogoController operations for Catalogo\n"
         },
         {
             "name": "subgrupo_catalogo",
             "description": "SubgrupoCatalogoController operations for SubgrupoCatalogo\n"
         },
         {
+            "name": "elemento",
+            "description": "ElementoController operations for Elemento\n"
+        },
+        {
+            "name": "cuentas_subgrupo",
+            "description": "CuentasSubgrupoController operations for CuentasSubgrupo\n"
+        },
+        {
+            "name": "subgrupo",
+            "description": "SubgrupoController operations for Subgrupo\n"
+        },
+        {
             "name": "subgrupo_subgrupo",
             "description": "SubgrupoSubgrupoController operations for SubgrupoSubgrupo\n"
         },
         {
-            "name": "cuentas_grupo",
-            "description": "CuentasGrupoController operations for CuentasGrupo\n"
+            "name": "tr_grupo",
+            "description": "TrGrupoController operations for TrGrupoController\n"
         },
         {
-            "name": "catalogo",
-            "description": "CatalogoController operations for Catalogo\n"
+            "name": "tr_subgrupo",
+            "description": "TrSubgrupoController operations for Tr_subgrupo\n"
         },
         {
-            "name": "tipo_bien",
-            "description": "TipoBienController operations for TipoBien\n"
-        },
-        {
-            "name": "elemento",
-            "description": "ElementoController operations for Elemento\n"
+            "name": "tr_catalogo",
+            "description": "TrCatalogoController operations for TrCatalogo\n"
         }
     ]
 }
