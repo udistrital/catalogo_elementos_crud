@@ -16,9 +16,9 @@ import (
 func init() {
 	ns := beego.NewNamespace("/v1",
 
-		beego.NSNamespace("/subgrupo",
+		beego.NSNamespace("/catalogo",
 			beego.NSInclude(
-				&controllers.SubgrupoController{},
+				&controllers.CatalogoController{},
 			),
 		),
 
@@ -28,33 +28,50 @@ func init() {
 			),
 		),
 
+		beego.NSNamespace("/elemento",
+			beego.NSInclude(
+				&controllers.ElementoController{},
+			),
+		),
+
+		beego.NSNamespace("/cuentas_subgrupo",
+			beego.NSInclude(
+				&controllers.CuentasSubgrupoController{},
+			),
+		),
+
+		beego.NSNamespace("/subgrupo",
+			beego.NSInclude(
+				&controllers.SubgrupoController{},
+			),
+		),
+
 		beego.NSNamespace("/subgrupo_subgrupo",
 			beego.NSInclude(
 				&controllers.SubgrupoSubgrupoController{},
 			),
 		),
 
-		beego.NSNamespace("/cuentas_grupo",
+		beego.NSNamespace("/tr_grupo",
 			beego.NSInclude(
-				&controllers.CuentasGrupoController{},
+				&controllers.TrGrupoController{},
 			),
 		),
 
-		beego.NSNamespace("/catalogo",
+		beego.NSNamespace("/tr_subgrupo",
 			beego.NSInclude(
-				&controllers.CatalogoController{},
+				&controllers.TrSubgrupoController{},
 			),
 		),
 
-		beego.NSNamespace("/tipo_bien",
+		beego.NSNamespace("/tr_catalogo",
 			beego.NSInclude(
-				&controllers.TipoBienController{},
+				&controllers.TrCatalogoController{},
 			),
 		),
-
-		beego.NSNamespace("/elemento",
+		beego.NSNamespace("/tr_cuentas_subgrupo",
 			beego.NSInclude(
-				&controllers.ElementoController{},
+				&controllers.TrCuentasSubgrupoController{},
 			),
 		),
 	)

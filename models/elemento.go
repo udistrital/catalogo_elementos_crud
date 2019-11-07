@@ -11,16 +11,15 @@ import (
 )
 
 type Elemento struct {
-	Id                 int               `orm:"column(id);pk;auto"`
-	Nombre             string            `orm:"column(nombre)"`
-	Descripcion        string            `orm:"column(descripcion)"`
-	FechaInicio        time.Time         `orm:"column(fecha_inicio);type(timestamp without time zone)"`
-	FechaFin           time.Time         `orm:"column(fecha_fin);type(timestamp without time zone);null"`
-	FechaCreacion      time.Time         `orm:"column(fecha_creacion);type(timestamp without time zone)"`
-	FechaModificacion  time.Time         `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
-	Activo             bool              `orm:"column(activo)"`
-	TipoBienId         *TipoBien         `orm:"column(tipo_bien_id);rel(fk)"`
-	SubgrupoCatalogoId *SubgrupoCatalogo `orm:"column(subgrupo_catalogo_id);rel(fk)"`
+	Id                int       `orm:"column(id);pk;auto"`
+	Nombre            string    `orm:"column(nombre)"`
+	Descripcion       string    `orm:"column(descripcion)"`
+	FechaInicio       time.Time `orm:"column(fecha_inicio);type(timestamp without time zone)"`
+	FechaFin          time.Time `orm:"column(fecha_fin);type(timestamp without time zone);null"`
+	FechaCreacion     time.Time `orm:"auto_now_add;column(fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion time.Time `orm:"auto_now;column(fecha_modificacion);type(timestamp without time zone)"`
+	Activo            bool      `orm:"column(activo)"`
+	SubgrupoId        *Subgrupo `orm:"column(subgrupo_id);rel(fk)"`
 }
 
 func (t *Elemento) TableName() string {
