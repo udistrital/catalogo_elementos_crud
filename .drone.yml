@@ -134,6 +134,7 @@ steps:
         {{/success}}
     when:
       branch:
+      - test
       - master
       status:
       - failure
