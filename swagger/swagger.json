@@ -361,6 +361,179 @@
                 }
             }
         },
+        "/detalle_subgrupo/": {
+            "get": {
+                "tags": [
+                    "detalle_subgrupo"
+                ],
+                "description": "get DetalleSubgrupo",
+                "operationId": "DetalleSubgrupoController.Get All",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "query",
+                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sortby",
+                        "description": "Sorted-by fields. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "order",
+                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "offset",
+                        "description": "Start position of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.DetalleSubgrupo"
+                        }
+                    },
+                    "404": {
+                        "description": "not found resource"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "detalle_subgrupo"
+                ],
+                "description": "create DetalleSubgrupo",
+                "operationId": "DetalleSubgrupoController.Post",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for DetalleSubgrupo content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.DetalleSubgrupo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.DetalleSubgrupo"
+                    },
+                    "400": {
+                        "description": "the request contains incorrect syntax"
+                    }
+                }
+            }
+        },
+        "/detalle_subgrupo/{id}": {
+            "get": {
+                "tags": [
+                    "detalle_subgrupo"
+                ],
+                "description": "get DetalleSubgrupo by id",
+                "operationId": "DetalleSubgrupoController.Get One",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.DetalleSubgrupo"
+                        }
+                    },
+                    "404": {
+                        "description": "not found resource"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "detalle_subgrupo"
+                ],
+                "description": "update the DetalleSubgrupo",
+                "operationId": "DetalleSubgrupoController.Put",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for DetalleSubgrupo content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.DetalleSubgrupo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.DetalleSubgrupo"
+                        }
+                    },
+                    "400": {
+                        "description": "the request contains incorrect syntax"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "detalle_subgrupo"
+                ],
+                "description": "delete the DetalleSubgrupo",
+                "operationId": "DetalleSubgrupoController.Delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} delete success!"
+                    },
+                    "404": {
+                        "description": "not found resource"
+                    }
+                }
+            }
+        },
         "/elemento/": {
             "get": {
                 "tags": [
@@ -1053,6 +1226,179 @@
                 }
             }
         },
+        "/tipo_bien/": {
+            "get": {
+                "tags": [
+                    "tipo_bien"
+                ],
+                "description": "get TipoBien",
+                "operationId": "TipoBienController.Get All",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "query",
+                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sortby",
+                        "description": "Sorted-by fields. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "order",
+                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "offset",
+                        "description": "Start position of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.TipoBien"
+                        }
+                    },
+                    "404": {
+                        "description": "not found resource"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "tipo_bien"
+                ],
+                "description": "create TipoBien",
+                "operationId": "TipoBienController.Post",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for TipoBien content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.TipoBien"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.TipoBien"
+                    },
+                    "400": {
+                        "description": "the request contains incorrect syntax"
+                    }
+                }
+            }
+        },
+        "/tipo_bien/{id}": {
+            "get": {
+                "tags": [
+                    "tipo_bien"
+                ],
+                "description": "get TipoBien by id",
+                "operationId": "TipoBienController.Get One",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.TipoBien"
+                        }
+                    },
+                    "404": {
+                        "description": "not found resource"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "tipo_bien"
+                ],
+                "description": "update the TipoBien",
+                "operationId": "TipoBienController.Put",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for TipoBien content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.TipoBien"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.TipoBien"
+                        }
+                    },
+                    "400": {
+                        "description": "the request contains incorrect syntax"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "tipo_bien"
+                ],
+                "description": "delete the TipoBien",
+                "operationId": "TipoBienController.Delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} delete success!"
+                    },
+                    "404": {
+                        "description": "not found resource"
+                    }
+                }
+            }
+        },
         "/tr_catalogo/{id}": {
             "get": {
                 "tags": [
@@ -1612,7 +1958,7 @@
         }
     },
     "definitions": {
-        "13334.\u003cnil\u003e.Subgrupo": {
+        "22176.\u003cnil\u003e.Subgrupo": {
             "title": "Subgrupo",
             "type": "object"
         },
@@ -1684,6 +2030,36 @@
                 "SubtipoMovimientoId": {
                     "type": "integer",
                     "format": "int64"
+                }
+            }
+        },
+        "models.DetalleSubgrupo": {
+            "title": "DetalleSubgrupo",
+            "type": "object",
+            "properties": {
+                "Activo": {
+                    "type": "boolean"
+                },
+                "Depreciacion": {
+                    "type": "boolean"
+                },
+                "Deterioro": {
+                    "type": "boolean"
+                },
+                "FechaCreacion": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "FechaModificacion": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Valorizacion": {
+                    "type": "boolean"
                 }
             }
         },
@@ -1810,6 +2186,40 @@
                 }
             }
         },
+        "models.TipoBien": {
+            "title": "TipoBien",
+            "type": "object",
+            "properties": {
+                "Activo": {
+                    "type": "boolean"
+                },
+                "CodigoAbreviacion": {
+                    "type": "string"
+                },
+                "Descripcion": {
+                    "type": "string"
+                },
+                "FechaCreacion": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "FechaModificacion": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Nombre": {
+                    "type": "string"
+                },
+                "Orden": {
+                    "type": "number",
+                    "format": "double"
+                }
+            }
+        },
         "models.TrCatalogo": {
             "title": "TrCatalogo",
             "type": "object"
@@ -1835,7 +2245,7 @@
             "type": "object",
             "properties": {
                 "SubgrupoHijo": {
-                    "$ref": "#/definitions/13334.\u003cnil\u003e.Subgrupo"
+                    "$ref": "#/definitions/22176.\u003cnil\u003e.Subgrupo"
                 },
                 "SubgrupoPadre": {
                     "$ref": "#/definitions/models.Subgrupo"
@@ -1883,6 +2293,14 @@
         {
             "name": "subgrupo_subgrupo",
             "description": "SubgrupoSubgrupoController operations for SubgrupoSubgrupo\n"
+        },
+        {
+            "name": "detalle_subgrupo",
+            "description": "DetalleSubgrupoController operations for DetalleSubgrupo\n"
+        },
+        {
+            "name": "tipo_bien",
+            "description": "TipoBienController operations for TipoBien\n"
         },
         {
             "name": "tr_grupo",
