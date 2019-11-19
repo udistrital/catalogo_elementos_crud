@@ -52,6 +52,18 @@ func init() {
 			),
 		),
 
+		beego.NSNamespace("/detalle_subgrupo",
+			beego.NSInclude(
+				&controllers.DetalleSubgrupoController{},
+			),
+		),
+
+		beego.NSNamespace("/tipo_bien",
+			beego.NSInclude(
+				&controllers.TipoBienController{},
+			),
+		),
+
 		beego.NSNamespace("/tr_grupo",
 			beego.NSInclude(
 				&controllers.TrGrupoController{},

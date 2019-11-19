@@ -7,8 +7,9 @@ import (
 )
 
 type TrGrupo struct {
-	Catalogo *Catalogo
-	Subgrupo *Subgrupo
+	Catalogo        *Catalogo
+	Subgrupo        *Subgrupo
+	DetalleSubgrupo *DetalleSubgrupo
 }
 
 // AddTransaccionProduccionAcademica Transacción para registrar toda la información de un grupo asociándolo a un catálogo
@@ -40,6 +41,12 @@ func AddTransaccionGrupo(m *TrGrupo) (err error) {
 		subgrupoCatalogo.SubgrupoId = m.Subgrupo
 
 		if _, err = o.Insert(&subgrupoCatalogo); err != nil {
+			panic(err.Error())
+		}
+
+		m.DetalleSubgrupo.SubgrupoId = m.Subgrupo
+		m.DetalleSubgrupo.Activo = true
+		if _, err = o.Insert(m.DetalleSubgrupo); err != nil {
 			panic(err.Error())
 		}
 

@@ -29,12 +29,14 @@ func GetArbolCatalogo(catalogoId int) (arbolCatalogo []map[string]interface{}, e
 	if _, err := o.QueryTable(new(SubgrupoCatalogo)).RelatedSel().Filter("catalogo_id", catalogoId).Filter("Activo", true).All(&grupos); err == nil {
 
 		for _, grupo := range grupos {
-			data := make(map[string]interface{})
-			data["data"] = grupo.SubgrupoId
-			if getHijo(grupo.SubgrupoId.Id) {
-				data["children"] = getSubgrupo(grupo.SubgrupoId.Id)
+			if grupo.SubgrupoId.Activo == true {
+				data := make(map[string]interface{})
+				data["data"] = grupo.SubgrupoId
+				if getHijo(grupo.SubgrupoId.Id) {
+					data["children"] = getSubgrupo(grupo.SubgrupoId.Id)
+				}
+				arbolCatalogo = append(arbolCatalogo, data)
 			}
-			arbolCatalogo = append(arbolCatalogo, data)
 		}
 
 		return arbolCatalogo, nil
@@ -65,16 +67,18 @@ func getSubgrupo(subgrupo_padre_id int) (arbolSubgrupo []map[string]interface{})
 	if _, err := o.QueryTable(new(SubgrupoSubgrupo)).RelatedSel().Filter("subgrupo_padre_id", subgrupo_padre_id).Filter("Activo", true).All(&subgrupos); err == nil {
 
 		for _, subgrupoHijo := range subgrupos {
-			logs.Debug(subgrupoHijo.SubgrupoHijoId)
+			if subgrupoHijo.SubgrupoHijoId.Activo == true {
+				logs.Debug(subgrupoHijo.SubgrupoHijoId)
 
-			data := make(map[string]interface{})
-			data["data"] = subgrupoHijo.SubgrupoHijoId
+				data := make(map[string]interface{})
+				data["data"] = subgrupoHijo.SubgrupoHijoId
 
-			if getHijo(subgrupoHijo.SubgrupoHijoId.Id) {
-				data["children"] = getSubgrupo(subgrupoHijo.SubgrupoHijoId.Id)
+				if getHijo(subgrupoHijo.SubgrupoHijoId.Id) {
+					data["children"] = getSubgrupo(subgrupoHijo.SubgrupoHijoId.Id)
+				}
+
+				arbolSubgrupo = append(arbolSubgrupo, data)
 			}
-
-			arbolSubgrupo = append(arbolSubgrupo, data)
 		}
 
 	}
