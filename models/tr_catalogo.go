@@ -9,20 +9,6 @@ import (
 // GetCatalogo Transacción para consultar el árbol de catálogo
 func GetArbolCatalogo(catalogoId int) (arbolCatalogo []map[string]interface{}, err error) {
 	o := orm.NewOrm()
-	err = o.Begin()
-
-	if err != nil {
-		return
-	}
-
-	defer func() {
-		if r := recover(); r != nil {
-			o.Rollback()
-			logs.Error(r)
-		} else {
-			o.Commit()
-		}
-	}()
 
 	var grupos []SubgrupoCatalogo
 
@@ -47,20 +33,6 @@ func GetArbolCatalogo(catalogoId int) (arbolCatalogo []map[string]interface{}, e
 // getSubgrupo Transacción para consultar los subgrupos del árbol del catálogo
 func getSubgrupo(subgrupo_padre_id int) (arbolSubgrupo []map[string]interface{}) {
 	o := orm.NewOrm()
-	var err = o.Begin()
-
-	if err != nil {
-		return
-	}
-
-	defer func() {
-		if r := recover(); r != nil {
-			o.Rollback()
-			logs.Error(r)
-		} else {
-			o.Commit()
-		}
-	}()
 
 	var subgrupos []SubgrupoSubgrupo
 
@@ -88,20 +60,6 @@ func getSubgrupo(subgrupo_padre_id int) (arbolSubgrupo []map[string]interface{})
 // getHijo Función para consultar si un subgrupo tiene hijos
 func getHijo(subgrupo_padre_id int) (hijo bool) {
 	o := orm.NewOrm()
-	var err = o.Begin()
-
-	if err != nil {
-		return
-	}
-
-	defer func() {
-		if r := recover(); r != nil {
-			o.Rollback()
-			logs.Error(r)
-		} else {
-			o.Commit()
-		}
-	}()
 
 	var subgrupos []SubgrupoSubgrupo
 	hijo = false
