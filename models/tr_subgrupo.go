@@ -53,3 +53,23 @@ func AddTransaccionSubgrupo(m *TrSubgrupo) (err error) {
 
 	return
 }
+
+func GetTransaccionSubgrupo(id int) (v []interface{}, err error) {
+	o := orm.NewOrm()
+	var Grupo Subgrupo
+	var Detalle DetalleSubgrupo
+
+	if _, err := o.QueryTable(new(Subgrupo)).RelatedSel().Filter("Id",id).Filter("Activo",true).All(&Grupo); err == nil{
+	
+		if _, err := o.QueryTable(new(DetalleSubgrupo)).RelatedSel().Filter("SubgrupoId",id).Filter("Activo",true).All(&Detalle); err == nil{
+	
+				v = append(v,map[string]interface{}{
+					"Subgrupo": Grupo,
+					"Detalle": Detalle,
+				})
+				return v, nil
+			
+		} 
+	} 
+	return nil, err
+}
