@@ -96,9 +96,11 @@ func (c *TrCuentasSubgrupoController) GetAll() {
 // @Failure 400 the request contains incorrect syntax
 // @router /:id [put]
 func (c *TrCuentasSubgrupoController) Put() {
+	idPersonaStr := c.Ctx.Input.Param(":id")
+	id, _ := strconv.Atoi(idPersonaStr)
 	var v models.TransaccionCuentasGrupo
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if err := models.UpdateCuentas_GrupoById(&v); err == nil {
+		if err := models.UpdateCuentas_GrupoById(&v, id); err == nil {
 			c.Data["json"] = v
 		} else {
 			logs.Error(err)

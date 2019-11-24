@@ -3,6 +3,7 @@ package models
 import (
 	"fmt"
 	"github.com/astaxie/beego/orm"
+	"github.com/astaxie/beego/logs"
 )
 
 type TransaccionCuentasGrupo struct {
@@ -13,25 +14,28 @@ type TransaccionCuentasGrupo struct {
 // last inserted Id on success.
 func AddTransaccionCuentasGrupo(m *TransaccionCuentasGrupo) (id int64, err error) {
 	
-	var flag = false
 	o := orm.NewOrm()
 	err = o.Begin()
-	for _, v := range m.Cuentas {
 
-		if _, err = o.Insert(&v); err == nil {
-		} else {
-			err = err
-			flag = true
-			fmt.Println(err)
-			_ = o.Rollback()
-			return
-		}
+	if err != nil {
+		return
 	}
 
-	if flag {
-		err = o.Rollback()
-	} else {
-		err = o.Commit()
+	defer func() {
+		if r := recover(); r != nil {
+			o.Rollback()
+			logs.Error(r)
+		} else {
+			o.Commit()
+		}
+	}()
+	fmt.Println("ok")
+	for _, v := range m.Cuentas {
+
+		if _, err = o.Insert(&v); err != nil {
+			panic(err.Error())
+		}
+		fmt.Println("ok")
 	}
 
 	return
@@ -73,31 +77,66 @@ func GetTransaccionCuentasGrupo(id int) (v []interface{}, err error) {
 
 // UpdateCuentasGrupo updates CuentasGrupo by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateCuentas_GrupoById(m *TransaccionCuentasGrupo) (err error) {
-	var flag = false;
+func UpdateCuentas_GrupoById(m *TransaccionCuentasGrupo, id int) (err error) {
+
 	o := orm.NewOrm()
 	err = o.Begin()
 
-	for _, v := range m.Cuentas {
-		
-		w := CuentasSubgrupo{Id: v.Id}
-		if errTr := o.Read(&w); errTr == nil {
-			if _, errTr = o.Update(&v,"CuentaDebitoId","CuentaCreditoId","SubtipoMovimientoId","Activo","SubgrupoId"); errTr != nil {
-				err = errTr
-				flag = true;
-				fmt.Println(err)
-				_ = o.Rollback()
-				return
-			}
-
-		}
-		
+	if err != nil {
+		return
 	}
 
-	if flag {
-		err = o.Rollback()
-	} else {
-		err = o.Commit()
+	defer func() {
+		if r := recover(); r != nil {
+			o.Rollback()
+			logs.Error(r)
+		} else {
+			o.Commit()
+		}
+	}()
+
+	for _, v := range m.Cuentas {
+		fmt.Println(v)
+		
+		w := CuentasSubgrupo{Id: v.Id}
+		
+		if w.Id != 0 {
+
+			var q CuentasSubgrupo
+			if err := o.QueryTable(new(CuentasSubgrupo)).RelatedSel().Filter("Activo", true).Filter("Id", v.Id).One(&q); err == nil {
+				q.Activo = false
+				if _, err = o.Update(&q,"Activo"); err == nil {
+
+					if _, err = o.Insert(&v); err != nil {
+						panic(err.Error())
+					}
+
+				} else {
+					panic(err.Error())
+				}
+			} else {
+				panic(err.Error())
+			}
+	
+		} else {
+			var q CuentasSubgrupo
+			if err := o.QueryTable(new(CuentasSubgrupo)).RelatedSel().Filter("Activo", true).Filter("SubgrupoId__Id", id).Filter("SubtipoMovimientoId", v.SubtipoMovimientoId).One(&q); err == nil {
+				q.Activo = false
+				if _, err = o.Update(&q,"Activo"); err == nil {
+
+					if _, err = o.Insert(&v); err != nil {
+						panic(err.Error())
+					}
+
+				} else {
+					panic(err.Error())
+				}
+			} else {
+				panic(err.Error())
+			}
+			
+		}
+		
 	}
 
 	return
