@@ -19,7 +19,7 @@ type DetalleSubgrupo struct {
 	FechaCreacion     time.Time `orm:"auto_now_add;column(fecha_creacion);type(timestamp without time zone)"`
 	FechaModificacion time.Time `orm:"auto_now;column(fecha_modificacion);type(timestamp without time zone)"`
 	SubgrupoId        *Subgrupo `orm:"column(subgrupo_id);rel(fk)"`
-	TipoBienId        *Catalogo `orm:"column(tipo_bien_id);rel(fk)"`
+	TipoBienId        *TipoBien `orm:"column(tipo_bien_id);rel(fk)"`
 }
 
 func (t *DetalleSubgrupo) TableName() string {
