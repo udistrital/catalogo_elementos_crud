@@ -75,6 +75,7 @@ func UpdateTransaccionGrupo(m *TrGrupo) (err error) {
 	}()
 
 	var Detalle DetalleSubgrupo
+	w := m.DetalleSubgrupo
 
 	v := Subgrupo{Id: m.Subgrupo.Id}
 
@@ -86,8 +87,8 @@ func UpdateTransaccionGrupo(m *TrGrupo) (err error) {
 
 				Detalle.Activo = false;
 				if _, err = o.Update(&Detalle,"Activo"); err == nil {
-				
-					if _, err = o.Insert(m.DetalleSubgrupo); err != nil {
+					w.Id = 0
+					if _, err = o.Insert(w); err != nil {
 						panic(err.Error())
 					}
 				} else {
@@ -117,7 +118,6 @@ func GetTransaccionGrupo(id int) (v []interface{}, err error) {
 		if _, err := o.QueryTable(new(DetalleSubgrupo)).RelatedSel().Filter("SubgrupoId",id).Filter("Activo",true).All(&Detalle); err == nil {
 	
 			if _, err := o.QueryTable(new(SubgrupoCatalogo)).RelatedSel().Filter("SubgrupoId",id).Filter("Activo",true).All(&Catalogo); err == nil {
-
 
 				fmt.Println("Acta :",Grupo)
 				fmt.Println("Acta :",Detalle)
