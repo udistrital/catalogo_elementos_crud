@@ -2,8 +2,9 @@ package models
 
 import (
 	"github.com/astaxie/beego/logs"
-
+	"fmt"
 	"github.com/astaxie/beego/orm"
+	"encoding/json"
 )
 
 // GetCatalogo Transacción para consultar el árbol de catálogo
@@ -73,4 +74,84 @@ func getHijo(subgrupo_padre_id int) (hijo bool) {
 
 	}
 	return hijo
+}
+
+func GetSubgruposRelacionados(Tipo_Bien int) (Subgrupos []map[string]interface{}, err error){
+	o := orm.NewOrm()
+	var subgrupos []DetalleSubgrupo
+	var Subgrupos2 []map[string]interface{}
+	if _, err := o.QueryTable(new(DetalleSubgrupo)).RelatedSel().Filter("TipoBienId", Tipo_Bien).Filter("Activo", true).All(&subgrupos); err == nil {
+		fmt.Println(subgrupos)
+		for _, subgrupoHijo := range subgrupos {
+			
+			logs.Debug(subgrupoHijo.SubgrupoId)
+			data := make(map[string]interface{})
+			// data["data"] = subgrupoHijo.SubgrupoId
+			if (subgrupoHijo.SubgrupoId.Activo == true) {
+				if getHijo(subgrupoHijo.SubgrupoId.Id) {
+					data["children"] = getSubgrupo(subgrupoHijo.SubgrupoId.Id)
+					
+				}
+				Subgrupos2 = append(Subgrupos2, data)
+			}
+		}
+		Subgrupos = getSubgrupo2(Subgrupos2)
+	}
+	return
+}
+
+
+// getSubgrupo Transacción para consultar los subgrupos del árbol del catálogo
+func getSubgrupo2(subgrupo_padre []map[string]interface{}) (Subgrupos []map[string]interface{}) {
+	
+
+	var data2 []map[string]interface{}
+	var data4 map[string]interface{}
+	var data3 []map[string]interface{}
+
+		for _, subgrupos_hijos := range subgrupo_padre {
+			if (subgrupos_hijos["data"] != nil) {
+
+				if jsonString, err := json.Marshal(subgrupos_hijos["data"]); err == nil {
+					if err2 := json.Unmarshal(jsonString, &data4); err2 == nil {
+						Subgrupos = append(Subgrupos, map[string]interface{}{
+							"Id":						data4["Id"],
+							"Nombre":					data4["Nombre"],
+							"Descripcion":				data4["Descripcion"],
+							"FechaCreacion":			data4["FechaCreacion"],
+							"FechaModificacion":		data4["FechaModificacion"],
+							"Activo":					data4["Activo"],
+							"Codigo":					data4["Codigo"],
+						})
+
+					}
+				}
+				
+			}
+			
+
+			if (subgrupos_hijos["children"] != nil) {
+
+				if jsonString, err := json.Marshal(subgrupos_hijos["children"]); err == nil {
+					if err2 := json.Unmarshal(jsonString, &data2); err2 == nil {
+
+						data3 = getSubgrupo2(data2)
+						for _, q := range data3 {
+							Subgrupos = append(Subgrupos, map[string]interface{}{
+								"Id":						q["Id"],
+								"Nombre":					q["Nombre"],
+								"Descripcion":				q["Descripcion"],
+								"FechaCreacion":			q["FechaCreacion"],
+								"FechaModificacion":		q["FechaModificacion"],
+								"Activo":					q["Activo"],
+								"Codigo":					q["Codigo"],
+							})
+
+						}
+					}
+				}
+			}
+		}
+	
+	return
 }

@@ -1399,6 +1399,35 @@
                 }
             }
         },
+        "/tr_catalogo/tipo_de_bien/{id}": {
+            "get": {
+                "tags": [
+                    "tr_catalogo"
+                ],
+                "description": "get TrCatalogo by id",
+                "operationId": "TrCatalogoController.GetSubgruposTipo_Bien",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.TrCatalogo"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is empty"
+                    }
+                }
+            }
+        },
         "/tr_catalogo/{id}": {
             "get": {
                 "tags": [
@@ -1958,7 +1987,7 @@
         }
     },
     "definitions": {
-        "18564.\u003cnil\u003e.Subgrupo": {
+        "20969.\u003cnil\u003e.Subgrupo": {
             "title": "Subgrupo",
             "type": "object"
         },
@@ -2254,7 +2283,7 @@
             "type": "object",
             "properties": {
                 "SubgrupoHijo": {
-                    "$ref": "#/definitions/18564.\u003cnil\u003e.Subgrupo"
+                    "$ref": "#/definitions/20969.\u003cnil\u003e.Subgrupo"
                 },
                 "SubgrupoPadre": {
                     "$ref": "#/definitions/models.Subgrupo"
