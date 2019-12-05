@@ -96,18 +96,23 @@ func UpdateCuentas_GrupoById(m *TransaccionCuentasGrupo, id int) (err error) {
 	}()
 
 	for _, v := range m.Cuentas {
-		fmt.Println(v)
+		fmt.Println("movimientos:", v)
 		
 		w := CuentasSubgrupo{Id: v.Id}
 		
 		if w.Id != 0 {
 
 			var q CuentasSubgrupo
-			if err := o.QueryTable(new(CuentasSubgrupo)).RelatedSel().Filter("Activo", true).Filter("Id", v.Id).One(&q); err == nil {
+			if err := o.QueryTable(new(CuentasSubgrupo)).RelatedSel().Filter("Id", v.Id).One(&q); err == nil {
 				q.Activo = false
 				if _, err = o.Update(&q,"Activo"); err == nil {
-
-					if _, err = o.Insert(&v); err != nil {
+					var r CuentasSubgrupo
+					r.CuentaCreditoId = v.CuentaCreditoId
+					r.CuentaDebitoId = v.CuentaDebitoId
+					r.SubtipoMovimientoId = v.SubtipoMovimientoId
+					r.Activo = v.Activo
+					r.SubgrupoId = v.SubgrupoId
+					if _, err = o.Insert(&r); err != nil {
 						panic(err.Error())
 					}
 
