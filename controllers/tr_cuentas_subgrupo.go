@@ -23,9 +23,9 @@ func (c *TrCuentasSubgrupoController) URLMapping() {
 
 // Post ...
 // @Title Create
-// @Description create Tr_cuentas_subgrupo
-// @Param	body		body 	models.Tr_cuentas_asociadas	true		"body for Tr_cuentas_asociadas content"
-// @Success 201 {object} models.Tr_cuentas_asociadas
+// @Description Tr_cuentas_subgrupo su función es permitir una consulta de n cuentas asociadas a subgrupos
+// @Param	body		body 	models.Tr_cuentas_subgrupo	true		"body for Tr_cuentas_subgrupo content (Recibe un arreglo de subgrupos, cada subgrupo debe llevar un Id definido)"
+// @Success 201 {object} models.Tr_cuentas_subgrupo
 // @Failure 403 body is empty
 // @router / [post]
 func (c *TrCuentasSubgrupoController) Post() {
