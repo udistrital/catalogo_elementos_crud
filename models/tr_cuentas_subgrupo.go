@@ -21,12 +21,12 @@ type SubgrupoCuentas struct {
 }
 
 // ConsultaCuentas Transacción para registrar toda la información de un grupo asociándolo a un catálogo
-func ConsultaCuentas(arreglosubgrupos []Subgrupo) (v []SubgrupoCuentas) {
-	for _, subgrupo := range arreglosubgrupos {
-		if padre := GrupoPadre(&subgrupo); padre != nil {
-			cuentas := CuentasAsociadas(*padre)
+
+func ConsultaCuentas(subgrupo Subgrupo) (v SubgrupoCuentas, err error) {
+	if padre, err := GrupoPadre(&subgrupo); err == nil {
+		if cuentas, err2 := CuentasAsociadas(*padre); err2 == nil {
 			fmt.Println(cuentas)
-			v = append(v, SubgrupoCuentas{
+			v = SubgrupoCuentas{
 				Id:                subgrupo.Id,
 				Nombre:            subgrupo.Nombre,
 				Descripcion:       subgrupo.Nombre,
@@ -35,28 +35,35 @@ func ConsultaCuentas(arreglosubgrupos []Subgrupo) (v []SubgrupoCuentas) {
 				Activo:            subgrupo.Activo,
 				Codigo:            subgrupo.Codigo,
 				CuentasAsociadas:  cuentas,
-			})
+			}
+		} else {
+			return v, err2
 		}
+
+	} else {
+		return v, err
 	}
-	return v
+	return v, nil
 }
 
 // CuentasAsociadas busca las cuentas asociadas a un subgrupo especifico
-func CuentasAsociadas(subgrupo Subgrupo) (cuentas []CuentasSubgrupo) {
+func CuentasAsociadas(subgrupo Subgrupo) (cuentas []CuentasSubgrupo, err error) {
 	o := orm.NewOrm()
 	var grupo []CuentasSubgrupo
-	if _, err := o.QueryTable(new(CuentasSubgrupo)).RelatedSel().Filter("SubgrupoId", &subgrupo).All(&grupo); err == nil {
-		fmt.Println("entra a la consulta cuentas asociadas", grupo)
+	//if _, err := o.QueryTable(new(CuentasSubgrupo)).RelatedSel().Filter("SubgrupoId", &subgrupo).All(&grupo); err == nil {
+	if _, err := o.QueryTable(new(CuentasSubgrupo)).RelatedSel().Filter("SubgrupoId", &subgrupo).Filter("Activo", true).All(&grupo); err == nil {
 		for _, cuenta := range grupo {
-			fmt.Println("cuenta: ", cuenta.Id, "  l ", cuenta)
+			//fmt.Println("cuenta: ", cuenta.Id, "  l ", cuenta)
 			cuentas = append(cuentas, cuenta)
 		}
+	} else {
+		return nil, err
 	}
-	return cuentas
+	return cuentas, nil
 }
 
 // GrupoPadre busqueda del padre de un subgrupo
-func GrupoPadre(subgrupoEntrante *Subgrupo) (v *Subgrupo) {
+func GrupoPadre(subgrupoEntrante *Subgrupo) (v *Subgrupo, err error) {
 	//en una consulta no se para que pero lo pongo porque lo ví en tr_catalogo
 	o := orm.NewOrm()
 	var subsubgrupo []SubgrupoSubgrupo
@@ -68,13 +75,15 @@ func GrupoPadre(subgrupoEntrante *Subgrupo) (v *Subgrupo) {
 			}
 		} else {
 			if _, err := o.QueryTable(new(SubgrupoSubgrupo)).RelatedSel().Filter("SubgrupoPadreId", subgrupoEntrante).All(&subsubgrupo); err == nil {
-				//es un subgrupo hijo
+				//es un subgrupo padre
 				for _, subgrupo := range subsubgrupo {
-					return subgrupo.SubgrupoPadreId
+					return subgrupo.SubgrupoPadreId, nil
 				}
 			}
 		}
+	} else {
+		return nil, err
 	}
 
-	return nil
+	return nil, nil
 }
