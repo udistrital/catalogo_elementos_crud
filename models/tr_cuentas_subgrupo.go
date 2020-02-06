@@ -2,6 +2,7 @@ package models
 
 import (
 	"fmt"
+
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego/logs"
 )
@@ -97,7 +98,7 @@ func UpdateCuentas_GrupoById(m *TransaccionCuentasGrupo, id int) (err error) {
 
 	for _, v := range m.Cuentas {
 		fmt.Println("movimientos:", v)
-		
+		fmt.Println("movimientos:", v.Id)
 		w := CuentasSubgrupo{Id: v.Id}
 		
 		if w.Id != 0 {
@@ -110,7 +111,7 @@ func UpdateCuentas_GrupoById(m *TransaccionCuentasGrupo, id int) (err error) {
 					r.CuentaCreditoId = v.CuentaCreditoId
 					r.CuentaDebitoId = v.CuentaDebitoId
 					r.SubtipoMovimientoId = v.SubtipoMovimientoId
-					r.Activo = v.Activo
+					r.Activo = true
 					r.SubgrupoId = v.SubgrupoId
 					if _, err = o.Insert(&r); err != nil {
 						panic(err.Error())
@@ -124,19 +125,13 @@ func UpdateCuentas_GrupoById(m *TransaccionCuentasGrupo, id int) (err error) {
 			}
 	
 		} else {
-			var q CuentasSubgrupo
-			if err := o.QueryTable(new(CuentasSubgrupo)).RelatedSel().Filter("Activo", true).Filter("SubgrupoId__Id", id).Filter("SubtipoMovimientoId", v.SubtipoMovimientoId).One(&q); err == nil {
-				q.Activo = false
-				if _, err = o.Update(&q,"Activo"); err == nil {
-
-					if _, err = o.Insert(&v); err != nil {
-						panic(err.Error())
-					}
-
-				} else {
-					panic(err.Error())
-				}
-			} else {
+			var r CuentasSubgrupo
+			r.CuentaCreditoId = v.CuentaCreditoId
+			r.CuentaDebitoId = v.CuentaDebitoId
+			r.SubtipoMovimientoId = v.SubtipoMovimientoId
+			r.Activo = true
+			r.SubgrupoId = v.SubgrupoId
+			if _, err = o.Insert(&r); err != nil {
 				panic(err.Error())
 			}
 			
