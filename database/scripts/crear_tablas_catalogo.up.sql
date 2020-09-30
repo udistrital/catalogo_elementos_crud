@@ -1,18 +1,3 @@
--- Database generated with pgModeler (PostgreSQL Database Modeler).
--- pgModeler  version: 0.9.2-beta
--- PostgreSQL version: 9.5
--- Project Site: pgmodeler.io
--- Model Author: ---
-
-
--- Database creation must be done outside a multicommand file.
--- These commands were put in this file only as a convenience.
--- -- object: new_database | type: DATABASE --
--- -- DROP DATABASE IF EXISTS new_database;
--- CREATE DATABASE new_database;
--- -- ddl-end --
--- 
-
 -- object: catalogo | type: SCHEMA --
 -- DROP SCHEMA IF EXISTS catalogo CASCADE;
 CREATE SCHEMA catalogo;
@@ -268,3 +253,8 @@ ALTER TABLE catalogo.elemento ADD CONSTRAINT fk_elemento_subgrupo_catalogo FOREI
 REFERENCES catalogo.subgrupo_catalogo (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
+
+-- Permisos de usuario
+GRANT USAGE ON SCHEMA catalogo TO desarrollooas;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA catalogo TO desarrollooas;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA catalogo TO desarrollooas;

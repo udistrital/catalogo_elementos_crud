@@ -52,7 +52,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:CuentasGrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:CuentasGrupoController"],
+    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:CuentasSubgrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:CuentasSubgrupoController"],
         beego.ControllerComments{
             Method: "Post",
             Router: `/`,
@@ -61,7 +61,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:CuentasGrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:CuentasGrupoController"],
+    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:CuentasSubgrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:CuentasSubgrupoController"],
         beego.ControllerComments{
             Method: "GetAll",
             Router: `/`,
@@ -70,7 +70,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:CuentasGrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:CuentasGrupoController"],
+    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:CuentasSubgrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:CuentasSubgrupoController"],
         beego.ControllerComments{
             Method: "GetOne",
             Router: `/:id`,
@@ -79,7 +79,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:CuentasGrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:CuentasGrupoController"],
+    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:CuentasSubgrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:CuentasSubgrupoController"],
         beego.ControllerComments{
             Method: "Put",
             Router: `/:id`,
@@ -88,7 +88,52 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:CuentasGrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:CuentasGrupoController"],
+    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:CuentasSubgrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:CuentasSubgrupoController"],
+        beego.ControllerComments{
+            Method: "Delete",
+            Router: `/:id`,
+            AllowHTTPMethods: []string{"delete"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:DetalleSubgrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:DetalleSubgrupoController"],
+        beego.ControllerComments{
+            Method: "Post",
+            Router: `/`,
+            AllowHTTPMethods: []string{"post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:DetalleSubgrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:DetalleSubgrupoController"],
+        beego.ControllerComments{
+            Method: "GetAll",
+            Router: `/`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:DetalleSubgrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:DetalleSubgrupoController"],
+        beego.ControllerComments{
+            Method: "GetOne",
+            Router: `/:id`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:DetalleSubgrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:DetalleSubgrupoController"],
+        beego.ControllerComments{
+            Method: "Put",
+            Router: `/:id`,
+            AllowHTTPMethods: []string{"put"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:DetalleSubgrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:DetalleSubgrupoController"],
         beego.ControllerComments{
             Method: "Delete",
             Router: `/:id`,
@@ -314,6 +359,159 @@ func init() {
             Params: nil})
 
     beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TipoBienController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TipoBienController"],
+        beego.ControllerComments{
+            Method: "Delete",
+            Router: `/:id`,
+            AllowHTTPMethods: []string{"delete"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrCatalogoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrCatalogoController"],
+        beego.ControllerComments{
+            Method: "GetOne",
+            Router: `/:id`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrCatalogoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrCatalogoController"],
+        beego.ControllerComments{
+            Method: "GetSubgruposTipo_Bien",
+            Router: `/tipo_de_bien/:id`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrCuentasSubgrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrCuentasSubgrupoController"],
+        beego.ControllerComments{
+            Method: "Post",
+            Router: `/`,
+            AllowHTTPMethods: []string{"post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrCuentasSubgrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrCuentasSubgrupoController"],
+        beego.ControllerComments{
+            Method: "GetAll",
+            Router: `/`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrCuentasSubgrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrCuentasSubgrupoController"],
+        beego.ControllerComments{
+            Method: "GetAllById",
+            Router: `/:id`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrCuentasSubgrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrCuentasSubgrupoController"],
+        beego.ControllerComments{
+            Method: "Put",
+            Router: `/:id`,
+            AllowHTTPMethods: []string{"put"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrCuentasSubgrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrCuentasSubgrupoController"],
+        beego.ControllerComments{
+            Method: "Delete",
+            Router: `/:id`,
+            AllowHTTPMethods: []string{"delete"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrGrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrGrupoController"],
+        beego.ControllerComments{
+            Method: "Post",
+            Router: `/`,
+            AllowHTTPMethods: []string{"post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrGrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrGrupoController"],
+        beego.ControllerComments{
+            Method: "GetAll",
+            Router: `/`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrGrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrGrupoController"],
+        beego.ControllerComments{
+            Method: "GetOne",
+            Router: `/:id`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrGrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrGrupoController"],
+        beego.ControllerComments{
+            Method: "Put",
+            Router: `/:id`,
+            AllowHTTPMethods: []string{"put"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrGrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrGrupoController"],
+        beego.ControllerComments{
+            Method: "Delete",
+            Router: `/:id`,
+            AllowHTTPMethods: []string{"delete"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrSubgrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrSubgrupoController"],
+        beego.ControllerComments{
+            Method: "Post",
+            Router: `/`,
+            AllowHTTPMethods: []string{"post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrSubgrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrSubgrupoController"],
+        beego.ControllerComments{
+            Method: "GetAll",
+            Router: `/`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrSubgrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrSubgrupoController"],
+        beego.ControllerComments{
+            Method: "GetOne",
+            Router: `/:id`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrSubgrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrSubgrupoController"],
+        beego.ControllerComments{
+            Method: "Put",
+            Router: `/:id`,
+            AllowHTTPMethods: []string{"put"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrSubgrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrSubgrupoController"],
         beego.ControllerComments{
             Method: "Delete",
             Router: `/:id`,
