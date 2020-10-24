@@ -15,8 +15,8 @@ type DetalleSubgrupo struct {
 	Valorizacion      bool      `orm:"column(valorizacion)"`
 	Deterioro         bool      `orm:"column(deterioro)"`
 	Activo            bool      `orm:"column(activo)"`
-	FechaCreacion     string    `orm:"auto_now_add;column(fecha_creacion);type(timestamp without time zone)"`
-	FechaModificacion string    `orm:"auto_now;column(fecha_modificacion);type(timestamp without time zone)"`
+	FechaCreacion     string    `orm:"column(fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion string    `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
 	SubgrupoId        *Subgrupo `orm:"column(subgrupo_id);rel(fk)"`
 	TipoBienId        *TipoBien `orm:"column(tipo_bien_id);rel(fk)"`
 }
