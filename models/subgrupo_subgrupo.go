@@ -5,15 +5,14 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-	"time"
 
 	"github.com/astaxie/beego/orm"
 )
 
 type SubgrupoSubgrupo struct {
 	Id                int       `orm:"column(id);pk;auto"`
-	FechaCreacion     time.Time `orm:"auto_now_add;column(fecha_creacion);type(timestamp without time zone)"`
-	FechaModificacion time.Time `orm:"auto_now;column(fecha_modificacion);type(timestamp without time zone)"`
+	FechaCreacion     string    `orm:"auto_now_add;column(fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion string    `orm:"auto_now;column(fecha_modificacion);type(timestamp without time zone)"`
 	Activo            bool      `orm:"column(activo)"`
 	SubgrupoPadreId   *Subgrupo `orm:"column(subgrupo_padre_id);rel(fk)"`
 	SubgrupoHijoId    *Subgrupo `orm:"column(subgrupo_hijo_id);rel(fk)"`
