@@ -43,6 +43,8 @@ func AddTransaccionGrupo(m *TrGrupo) (err error) {
 		subgrupoCatalogo.Activo = true
 		subgrupoCatalogo.CatalogoId = m.Catalogo
 		subgrupoCatalogo.SubgrupoId = m.Subgrupo
+		subgrupoCatalogo.FechaCreacion = time_bogota.TiempoBogotaFormato()
+		subgrupoCatalogo.FechaModificacion = time_bogota.TiempoBogotaFormato()
 
 		if _, err = o.Insert(&subgrupoCatalogo); err != nil {
 			panic(err.Error())
@@ -50,6 +52,8 @@ func AddTransaccionGrupo(m *TrGrupo) (err error) {
 
 		m.DetalleSubgrupo.SubgrupoId = m.Subgrupo
 		m.DetalleSubgrupo.Activo = true
+		m.DetalleSubgrupo.FechaCreacion = time_bogota.TiempoBogotaFormato()
+		m.DetalleSubgrupo.FechaModificacion = time_bogota.TiempoBogotaFormato()
 		if _, err = o.Insert(m.DetalleSubgrupo); err != nil {
 			panic(err.Error())
 		}
