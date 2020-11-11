@@ -31,6 +31,8 @@ func AddTransaccionSubgrupo(m *TrSubgrupo) (err error) {
 	}()
 
 	for _, v := range *m.SubgrupoHijo {
+		v.FechaCreacion = time_bogota.TiempoBogotaFormato()
+		v.FechaModificacion = time_bogota.TiempoBogotaFormato()
 
 		// SE INSERTA SUBGRUPO
 		if idSubgrupoHijo, err := o.Insert(&v); err == nil {
@@ -42,8 +44,6 @@ func AddTransaccionSubgrupo(m *TrSubgrupo) (err error) {
 			subGrupoSubgrupo.FechaCreacion = time_bogota.TiempoBogotaFormato()
 			subGrupoSubgrupo.FechaModificacion = time_bogota.TiempoBogotaFormato()
 			subGrupoSubgrupo.SubgrupoPadreId = m.SubgrupoPadre
-			subGrupoSubgrupo.SubgrupoHijo.FechaCreacion = time_bogota.TiempoBogotaFormato()
-			subGrupoSubgrupo.SubgrupoHijo.FechaModificacion = time_bogota.TiempoBogotaFormato()
 			subGrupoSubgrupo.SubgrupoHijoId = &v
 
 			if _, err = o.Insert(&subGrupoSubgrupo); err != nil {
