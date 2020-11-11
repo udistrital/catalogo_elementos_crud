@@ -1,9 +1,11 @@
 package models
 
 import (
-	"github.com/astaxie/beego/logs"
 	"fmt"
+
+	"github.com/astaxie/beego/logs"
 	"github.com/astaxie/beego/orm"
+	"github.com/udistrital/utils_oas/time_bogota"
 )
 
 type TrGrupo struct {
@@ -31,6 +33,8 @@ func AddTransaccionGrupo(m *TrGrupo) (err error) {
 	}()
 
 	m.Subgrupo.Activo = true
+	m.Subgrupo.FechaCreacion = time_bogota.TiempoBogotaFormato()
+	m.Subgrupo.FechaModificacion = time_bogota.TiempoBogotaFormato()
 	if idSubgrupo, err := o.Insert(m.Subgrupo); err == nil {
 		logs.Info(idSubgrupo)
 
@@ -81,12 +85,12 @@ func UpdateTransaccionGrupo(m *TrGrupo) (err error) {
 
 	if errTr := o.Read(&v); errTr == nil {
 
-		if _, err = o.Update(m.Subgrupo,"Activo","Nombre","Codigo","Descripcion"); err == nil {
-		
-			if _, err := o.QueryTable(new(DetalleSubgrupo)).RelatedSel().Filter("Id",m.DetalleSubgrupo.Id).Filter("Activo",true).All(&Detalle); err == nil {
+		if _, err = o.Update(m.Subgrupo, "Activo", "Nombre", "Codigo", "Descripcion"); err == nil {
 
-				Detalle.Activo = false;
-				if _, err = o.Update(&Detalle,"Activo"); err == nil {
+			if _, err := o.QueryTable(new(DetalleSubgrupo)).RelatedSel().Filter("Id", m.DetalleSubgrupo.Id).Filter("Activo", true).All(&Detalle); err == nil {
+
+				Detalle.Activo = false
+				if _, err = o.Update(&Detalle, "Activo"); err == nil {
 					w.Id = 0
 					if _, err = o.Insert(w); err != nil {
 						panic(err.Error())
@@ -94,13 +98,13 @@ func UpdateTransaccionGrupo(m *TrGrupo) (err error) {
 				} else {
 					panic(err.Error())
 				}
-			}  else {
+			} else {
 				panic(err.Error())
 			}
 		} else {
 			panic(err.Error())
 		}
-	}  else {
+	} else {
 		panic(err.Error())
 	}
 
@@ -113,24 +117,24 @@ func GetTransaccionGrupo(id int) (v []interface{}, err error) {
 	var Detalle DetalleSubgrupo
 	var Catalogo SubgrupoCatalogo
 
-	if _, err := o.QueryTable(new(Subgrupo)).RelatedSel().Filter("Id",id).Filter("Activo",true).All(&Grupo); err == nil {
-	
-		if _, err := o.QueryTable(new(DetalleSubgrupo)).RelatedSel().Filter("SubgrupoId",id).Filter("Activo",true).All(&Detalle); err == nil {
-	
-			if _, err := o.QueryTable(new(SubgrupoCatalogo)).RelatedSel().Filter("SubgrupoId",id).Filter("Activo",true).All(&Catalogo); err == nil {
+	if _, err := o.QueryTable(new(Subgrupo)).RelatedSel().Filter("Id", id).Filter("Activo", true).All(&Grupo); err == nil {
 
-				fmt.Println("Acta :",Grupo)
-				fmt.Println("Acta :",Detalle)
-				fmt.Println("Acta :",Catalogo.CatalogoId)
-				v = append(v,map[string]interface{}{
+		if _, err := o.QueryTable(new(DetalleSubgrupo)).RelatedSel().Filter("SubgrupoId", id).Filter("Activo", true).All(&Detalle); err == nil {
+
+			if _, err := o.QueryTable(new(SubgrupoCatalogo)).RelatedSel().Filter("SubgrupoId", id).Filter("Activo", true).All(&Catalogo); err == nil {
+
+				fmt.Println("Acta :", Grupo)
+				fmt.Println("Acta :", Detalle)
+				fmt.Println("Acta :", Catalogo.CatalogoId)
+				v = append(v, map[string]interface{}{
 					"Catalogo": Catalogo.CatalogoId,
 					"Subgrupo": Grupo,
-					"Detalle": Detalle,
+					"Detalle":  Detalle,
 				})
 				return v, nil
-			} 
-		} 
-	} 
+			}
+		}
+	}
 	return nil, err
 
 }
