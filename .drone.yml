@@ -65,9 +65,9 @@ steps:
   image: golang:1.14
   commands:
   - go get -t
-  - GO111MODULE=off go get github.com/smartystreets/goconvey/convey
+  - go get github.com/smartystreets/goconvey/convey
   - GO111MODULE=off go get -u gopkg.in/alecthomas/gometalinter.v1
-  - gometalinter.v1 --install
+  - GO111MODULE=off gometalinter.v1 --install
   - go get github.com/axw/gocov/...
   - go get github.com/AlekSi/gocov-xml
   - go get -u github.com/jstemmer/go-junit-report
