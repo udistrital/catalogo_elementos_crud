@@ -58,6 +58,12 @@ func init() {
 			),
 		),
 
+		beego.NSNamespace("/tipo_jerarquia",
+			beego.NSInclude(
+				&controllers.TipoJerarquiaController{},
+			),
+		),
+
 		beego.NSNamespace("/tipo_bien",
 			beego.NSInclude(
 				&controllers.TipoBienController{},
