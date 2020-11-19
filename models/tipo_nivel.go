@@ -9,7 +9,7 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-type TipoJerarquia struct {
+type TipoNivel struct {
 	Id                int     `orm:"column(id);pk;auto"`
 	Nombre            string  `orm:"column(nombre)"`
 	Descripcion       string  `orm:"column(descripcion);null"`
@@ -20,17 +20,17 @@ type TipoJerarquia struct {
 	FechaModificacion string  `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
 }
 
-func (t *TipoJerarquia) TableName() string {
-	return "tipo_jerarquia"
+func (t *TipoNivel) TableName() string {
+	return "tipo_nivel"
 }
 
 func init() {
-	orm.RegisterModel(new(TipoJerarquia)) /*  */
+	orm.RegisterModel(new(TipoNivel)) /*  */
 }
 
 // AddTipoBien insert a new TipoBien into database and returns
 // last inserted Id on success.
-func AddTipoJerarquia(m *TipoJerarquia) (id int64, err error) {
+func AddTipoNivel(m *TipoNivel) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
@@ -38,9 +38,9 @@ func AddTipoJerarquia(m *TipoJerarquia) (id int64, err error) {
 
 // GetTipoBienById retrieves TipoBien by Id. Returns error if
 // Id doesn't exist
-func GetTipoJerarquiaById(id int) (v *TipoJerarquia, err error) {
+func GetTipoNivelById(id int) (v *TipoNivel, err error) {
 	o := orm.NewOrm()
-	v = &TipoJerarquia{Id: id}
+	v = &TipoNivel{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
@@ -49,10 +49,10 @@ func GetTipoJerarquiaById(id int) (v *TipoJerarquia, err error) {
 
 // GetAllTipoBien retrieves all TipoBien matches certain condition. Returns empty list if
 // no records exist
-func GetAllTipoJerarquia(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllTipoNivel(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(TipoJerarquia)).RelatedSel()
+	qs := o.QueryTable(new(TipoNivel)).RelatedSel()
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -102,7 +102,7 @@ func GetAllTipoJerarquia(query map[string]string, fields []string, sortby []stri
 		}
 	}
 
-	var l []TipoJerarquia
+	var l []TipoNivel
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -127,9 +127,9 @@ func GetAllTipoJerarquia(query map[string]string, fields []string, sortby []stri
 
 // UpdateTipoBien updates TipoBien by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateTipoJerarquiaById(m *TipoJerarquia) (err error) {
+func UpdateTipoNivelById(m *TipoNivel) (err error) {
 	o := orm.NewOrm()
-	v := TipoJerarquia{Id: m.Id}
+	v := TipoNivel{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -142,13 +142,13 @@ func UpdateTipoJerarquiaById(m *TipoJerarquia) (err error) {
 
 // DeleteTipoBien deletes TipoBien by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteTipoJerarquia(id int) (err error) {
+func DeleteTipoNivel(id int) (err error) {
 	o := orm.NewOrm()
-	v := TipoJerarquia{Id: id}
+	v := TipoNivel{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&TipoJerarquia{Id: id}); err == nil {
+		if num, err = o.Delete(&TipoNivel{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}

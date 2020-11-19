@@ -9,22 +9,22 @@ import (
 )
 
 // DO NOT MODIFY
-type CatalogoElementosCrud_20201118_161813 struct {
+type InsertsTipoNivel_20201119_113639 struct {
 	migration.Migration
 }
 
 // DO NOT MODIFY
 func init() {
-	m := &CatalogoElementosCrud_20201118_161813{}
-	m.Created = "20201118_161813"
+	m := &InsertsTipoNivel_20201119_113639{}
+	m.Created = "20201119_113639"
 
-	migration.Register("CatalogoElementosCrud_20201118_161813", m)
+	migration.Register("InsertsTipoNivel_20201119_113639", m)
 }
 
 // Run the migrations
-func (m *CatalogoElementosCrud_20201118_161813) Up() {
+func (m *InsertsTipoNivel_20201119_113639) Up() {
 	// use m.SQL("CREATE TABLE ...") to make schema update
-	file, err := ioutil.ReadFile("../scripts/crear_tablas_catalogo.up.sql")
+	file, err := ioutil.ReadFile("../scripts/inserts_tipo_nivel.up.sql")
 
 	if err != nil {
 		// handle error
@@ -40,9 +40,9 @@ func (m *CatalogoElementosCrud_20201118_161813) Up() {
 }
 
 // Reverse the migrations
-func (m *CatalogoElementosCrud_20201118_161813) Down() {
+func (m *InsertsTipoNivel_20201119_113639) Down() {
 	// use m.SQL("DROP TABLE ...") to reverse schema update
-	file, err := ioutil.ReadFile("../scripts/crear_tablas_catalogo.down.sql")
+	file, err := ioutil.ReadFile("../scripts/inserts_tipo_nivel.down.sql")
 
 	if err != nil {
 		// handle error
@@ -56,5 +56,4 @@ func (m *CatalogoElementosCrud_20201118_161813) Down() {
 		m.SQL(request)
 		// do whatever you need with result and error
 	}
-
 }

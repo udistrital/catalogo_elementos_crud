@@ -1399,13 +1399,13 @@
                 }
             }
         },
-        "/tipo_jerarquia/": {
+        "/tipo_nivel/": {
             "get": {
                 "tags": [
-                    "tipo_jerarquia"
+                    "tipo_nivel"
                 ],
                 "description": "get TipoBien",
-                "operationId": "TipoJerarquiaController.Get All",
+                "operationId": "TipoNivelController.Get All",
                 "parameters": [
                     {
                         "in": "query",
@@ -1458,10 +1458,10 @@
             },
             "post": {
                 "tags": [
-                    "tipo_jerarquia"
+                    "tipo_nivel"
                 ],
                 "description": "create TipoBien",
-                "operationId": "TipoJerarquiaController.Post",
+                "operationId": "TipoNivelController.Post",
                 "parameters": [
                     {
                         "in": "body",
@@ -1483,13 +1483,13 @@
                 }
             }
         },
-        "/tipo_jerarquia/{id}": {
+        "/tipo_nivel/{id}": {
             "get": {
                 "tags": [
-                    "tipo_jerarquia"
+                    "tipo_nivel"
                 ],
                 "description": "get TipoBien by id",
-                "operationId": "TipoJerarquiaController.Get One",
+                "operationId": "TipoNivelController.Get One",
                 "parameters": [
                     {
                         "in": "path",
@@ -1513,10 +1513,10 @@
             },
             "put": {
                 "tags": [
-                    "tipo_jerarquia"
+                    "tipo_nivel"
                 ],
                 "description": "update the TipoBien",
-                "operationId": "TipoJerarquiaController.Put",
+                "operationId": "TipoNivelController.Put",
                 "parameters": [
                     {
                         "in": "path",
@@ -1549,10 +1549,10 @@
             },
             "delete": {
                 "tags": [
-                    "tipo_jerarquia"
+                    "tipo_nivel"
                 ],
                 "description": "delete the TipoBien",
-                "operationId": "TipoJerarquiaController.Delete",
+                "operationId": "TipoNivelController.Delete",
                 "parameters": [
                     {
                         "in": "path",
@@ -2160,7 +2160,7 @@
         }
     },
     "definitions": {
-        "51005.\u003cnil\u003e.Subgrupo": {
+        "51029.\u003cnil\u003e.Subgrupo": {
             "title": "Subgrupo",
             "type": "object"
         },
@@ -2327,6 +2327,9 @@
                 },
                 "Nombre": {
                     "type": "string"
+                },
+                "TipoNivelId": {
+                    "$ref": "#/definitions/models.TipoNivel"
                 }
             }
         },
@@ -2412,6 +2415,38 @@
                 }
             }
         },
+        "models.TipoNivel": {
+            "title": "TipoNivel",
+            "type": "object",
+            "properties": {
+                "Activo": {
+                    "type": "boolean"
+                },
+                "CodigoAbreviacion": {
+                    "type": "string"
+                },
+                "Descripcion": {
+                    "type": "string"
+                },
+                "FechaCreacion": {
+                    "type": "string"
+                },
+                "FechaModificacion": {
+                    "type": "string"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Nombre": {
+                    "type": "string"
+                },
+                "Orden": {
+                    "type": "number",
+                    "format": "double"
+                }
+            }
+        },
         "models.TrCatalogo": {
             "title": "TrCatalogo",
             "type": "object"
@@ -2440,7 +2475,7 @@
             "type": "object",
             "properties": {
                 "SubgrupoHijo": {
-                    "$ref": "#/definitions/51005.\u003cnil\u003e.Subgrupo"
+                    "$ref": "#/definitions/51029.\u003cnil\u003e.Subgrupo"
                 },
                 "SubgrupoPadre": {
                     "$ref": "#/definitions/models.Subgrupo"
@@ -2494,7 +2529,7 @@
             "description": "DetalleSubgrupoController operations for DetalleSubgrupo\n"
         },
         {
-            "name": "tipo_jerarquia",
+            "name": "tipo_nivel",
             "description": "TipoBienController operations for TipoBien\n"
         },
         {

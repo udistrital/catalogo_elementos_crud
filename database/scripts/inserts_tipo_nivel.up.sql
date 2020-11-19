@@ -1,0 +1,4 @@
+INSERT INTO catalogo.tipo_nivel (nombre, descripcion, codigo_abreviacion, orden, fecha_creacion, fecha_modificacion, activo)VALUES ('Grupo', 'Clasificación designada como grupo', 'Grupo', 1, now(), now(), true);
+INSERT INTO catalogo.tipo_nivel (nombre, descripcion, codigo_abreviacion, orden, fecha_creacion, fecha_modificacion, activo)VALUES ('Segmento', 'Clasificación designada como segmento', 'Segmento', 2, now(), now(), true);
+INSERT INTO catalogo.tipo_nivel (nombre, descripcion, codigo_abreviacion, orden, fecha_creacion, fecha_modificacion, activo)VALUES ('Familia', 'Clasificación designada como familia', 'Familia', 3, now(), now(), true);
+INSERT INTO catalogo.tipo_nivel (nombre, descripcion, codigo_abreviacion, orden, fecha_creacion, fecha_modificacion, activo)VALUES ('Clase', 'Clasificación designada como clase', 'Clase', 4, now(), now(), true);

@@ -14,12 +14,12 @@ import (
 )
 
 // TipoBienController operations for TipoBien
-type TipoJerarquiaController struct {
+type TipoNivelController struct {
 	beego.Controller
 }
 
 // URLMapping ...
-func (c *TipoJerarquiaController) URLMapping() {
+func (c *TipoNivelController) URLMapping() {
 	c.Mapping("Post", c.Post)
 	c.Mapping("GetOne", c.GetOne)
 	c.Mapping("GetAll", c.GetAll)
@@ -34,12 +34,12 @@ func (c *TipoJerarquiaController) URLMapping() {
 // @Success 201 {int} models.TipoBien
 // @Failure 400 the request contains incorrect syntax
 // @router / [post]
-func (c *TipoJerarquiaController) Post() {
-	var v models.TipoJerarquia
+func (c *TipoNivelController) Post() {
+	var v models.TipoNivel
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 		v.FechaCreacion = time_bogota.TiempoBogotaFormato()
 		v.FechaModificacion = time_bogota.TiempoBogotaFormato()
-		if _, err := models.AddTipoJerarquia(&v); err == nil {
+		if _, err := models.AddTipoNivel(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = v
 		} else {
@@ -64,10 +64,10 @@ func (c *TipoJerarquiaController) Post() {
 // @Success 200 {object} models.TipoBien
 // @Failure 404 not found resource
 // @router /:id [get]
-func (c *TipoJerarquiaController) GetOne() {
+func (c *TipoNivelController) GetOne() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v, err := models.GetTipoJerarquiaById(id)
+	v, err := models.GetTipoNivelById(id)
 	if err != nil {
 		logs.Error(err)
 		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
@@ -91,7 +91,7 @@ func (c *TipoJerarquiaController) GetOne() {
 // @Success 200 {object} models.TipoBien
 // @Failure 404 not found resource
 // @router / [get]
-func (c *TipoJerarquiaController) GetAll() {
+func (c *TipoNivelController) GetAll() {
 	var fields []string
 	var sortby []string
 	var order []string
@@ -133,7 +133,7 @@ func (c *TipoJerarquiaController) GetAll() {
 		}
 	}
 
-	l, err := models.GetAllTipoJerarquia(query, fields, sortby, order, offset, limit)
+	l, err := models.GetAllTipoNivel(query, fields, sortby, order, offset, limit)
 	if err != nil {
 		logs.Error(err)
 		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
@@ -156,14 +156,14 @@ func (c *TipoJerarquiaController) GetAll() {
 // @Success 200 {object} models.TipoBien
 // @Failure 400 the request contains incorrect syntax
 // @router /:id [put]
-func (c *TipoJerarquiaController) Put() {
+func (c *TipoNivelController) Put() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v := models.TipoJerarquia{Id: id}
+	v := models.TipoNivel{Id: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 		v.FechaCreacion = time_bogota.TiempoCorreccionFormato(v.FechaCreacion)
 		v.FechaModificacion = time_bogota.TiempoBogotaFormato()
-		if err := models.UpdateTipoJerarquiaById(&v); err == nil {
+		if err := models.UpdateTipoNivelById(&v); err == nil {
 			c.Data["json"] = v
 		} else {
 			logs.Error(err)
@@ -187,10 +187,10 @@ func (c *TipoJerarquiaController) Put() {
 // @Success 200 {string} delete success!
 // @Failure 404 not found resource
 // @router /:id [delete]
-func (c *TipoJerarquiaController) Delete() {
+func (c *TipoNivelController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	if err := models.DeleteTipoJerarquia(id); err == nil {
+	if err := models.DeleteTipoNivel(id); err == nil {
 		c.Data["json"] = map[string]interface{}{"Id": id}
 	} else {
 		logs.Error(err)

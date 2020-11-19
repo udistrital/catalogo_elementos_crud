@@ -367,7 +367,7 @@ func init() {
 			Filters:          nil,
 			Params:           nil})
 
-	beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TipoJerarquiaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TipoJerarquiaController"],
+	beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TipoNivelController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TipoNivelController"],
 		beego.ControllerComments{
 			Method:           "GetAll",
 			Router:           `/`,
@@ -376,7 +376,7 @@ func init() {
 			Filters:          nil,
 			Params:           nil})
 
-	beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TipoJerarquiaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TipoJerarquiaController"],
+	beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TipoNivelController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TipoNivelController"],
 		beego.ControllerComments{
 			Method:           "GetOne",
 			Router:           `/:id`,
@@ -385,7 +385,7 @@ func init() {
 			Filters:          nil,
 			Params:           nil})
 
-	beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TipoJerarquiaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TipoJerarquiaController"],
+	beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TipoNivelController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TipoNivelController"],
 		beego.ControllerComments{
 			Method:           "Put",
 			Router:           `/:id`,
@@ -394,7 +394,7 @@ func init() {
 			Filters:          nil,
 			Params:           nil})
 
-	beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TipoJerarquiaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TipoJerarquiaController"],
+	beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TipoNivelController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TipoNivelController"],
 		beego.ControllerComments{
 			Method:           "Delete",
 			Router:           `/:id`,
