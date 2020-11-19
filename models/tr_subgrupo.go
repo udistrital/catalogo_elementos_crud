@@ -2,6 +2,7 @@ package models
 
 import (
 	"github.com/astaxie/beego/logs"
+	"github.com/udistrital/utils_oas/time_bogota"
 
 	"github.com/astaxie/beego/orm"
 )
@@ -30,6 +31,8 @@ func AddTransaccionSubgrupo(m *TrSubgrupo) (err error) {
 	}()
 
 	for _, v := range *m.SubgrupoHijo {
+		v.FechaCreacion = time_bogota.TiempoBogotaFormato()
+		v.FechaModificacion = time_bogota.TiempoBogotaFormato()
 
 		// SE INSERTA SUBGRUPO
 		if idSubgrupoHijo, err := o.Insert(&v); err == nil {
@@ -38,6 +41,8 @@ func AddTransaccionSubgrupo(m *TrSubgrupo) (err error) {
 			// SE INSERTA SUBGRUPO_SUBGRUO
 			var subGrupoSubgrupo SubgrupoSubgrupo
 			subGrupoSubgrupo.Activo = true
+			subGrupoSubgrupo.FechaCreacion = time_bogota.TiempoBogotaFormato()
+			subGrupoSubgrupo.FechaModificacion = time_bogota.TiempoBogotaFormato()
 			subGrupoSubgrupo.SubgrupoPadreId = m.SubgrupoPadre
 			subGrupoSubgrupo.SubgrupoHijoId = &v
 
@@ -59,17 +64,17 @@ func GetTransaccionSubgrupo(id int) (v []interface{}, err error) {
 	var Grupo Subgrupo
 	var Detalle DetalleSubgrupo
 
-	if _, err := o.QueryTable(new(Subgrupo)).RelatedSel().Filter("Id",id).Filter("Activo",true).All(&Grupo); err == nil{
-	
-		if _, err := o.QueryTable(new(DetalleSubgrupo)).RelatedSel().Filter("SubgrupoId",id).Filter("Activo",true).All(&Detalle); err == nil{
-	
-				v = append(v,map[string]interface{}{
-					"Subgrupo": Grupo,
-					"Detalle": Detalle,
-				})
-				return v, nil
-			
-		} 
-	} 
+	if _, err := o.QueryTable(new(Subgrupo)).RelatedSel().Filter("Id", id).Filter("Activo", true).All(&Grupo); err == nil {
+
+		if _, err := o.QueryTable(new(DetalleSubgrupo)).RelatedSel().Filter("SubgrupoId", id).Filter("Activo", true).All(&Detalle); err == nil {
+
+			v = append(v, map[string]interface{}{
+				"Subgrupo": Grupo,
+				"Detalle":  Detalle,
+			})
+			return v, nil
+
+		}
+	}
 	return nil, err
 }
