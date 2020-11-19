@@ -9,50 +9,50 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-type Subgrupo struct {
-	Id                int        `orm:"column(id);pk;auto"`
-	Nombre            string     `orm:"column(nombre)"`
-	Descripcion       string     `orm:"column(descripcion)"`
-	FechaCreacion     string     `orm:"column(fecha_creacion);type(timestamp without time zone)"`
-	FechaModificacion string     `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
-	Activo            bool       `orm:"column(activo)"`
-	Codigo            int        `orm:"column(codigo)"`
-	TipoNivelId       *TipoNivel `orm:"column(tipo_nivel_id);rel(fk)"`
+type TipoNivel struct {
+	Id                int     `orm:"column(id);pk;auto"`
+	Nombre            string  `orm:"column(nombre)"`
+	Descripcion       string  `orm:"column(descripcion);null"`
+	CodigoAbreviacion string  `orm:"column(codigo_abreviacion);null"`
+	Orden             float64 `orm:"column(orden);null"`
+	Activo            bool    `orm:"column(activo)"`
+	FechaCreacion     string  `orm:"column(fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion string  `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
 }
 
-func (t *Subgrupo) TableName() string {
-	return "subgrupo"
+func (t *TipoNivel) TableName() string {
+	return "tipo_nivel"
 }
 
 func init() {
-	orm.RegisterModel(new(Subgrupo))
+	orm.RegisterModel(new(TipoNivel)) /*  */
 }
 
-// AddSubgrupo insert a new Subgrupo into database and returns
+// AddTipoBien insert a new TipoBien into database and returns
 // last inserted Id on success.
-func AddSubgrupo(m *Subgrupo) (id int64, err error) {
+func AddTipoNivel(m *TipoNivel) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetSubgrupoById retrieves Subgrupo by Id. Returns error if
+// GetTipoBienById retrieves TipoBien by Id. Returns error if
 // Id doesn't exist
-func GetSubgrupoById(id int) (v *Subgrupo, err error) {
+func GetTipoNivelById(id int) (v *TipoNivel, err error) {
 	o := orm.NewOrm()
-	v = &Subgrupo{Id: id}
+	v = &TipoNivel{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllSubgrupo retrieves all Subgrupo matches certain condition. Returns empty list if
+// GetAllTipoBien retrieves all TipoBien matches certain condition. Returns empty list if
 // no records exist
-func GetAllSubgrupo(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllTipoNivel(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Subgrupo)).RelatedSel()
+	qs := o.QueryTable(new(TipoNivel)).RelatedSel()
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -102,7 +102,7 @@ func GetAllSubgrupo(query map[string]string, fields []string, sortby []string, o
 		}
 	}
 
-	var l []Subgrupo
+	var l []TipoNivel
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -125,11 +125,11 @@ func GetAllSubgrupo(query map[string]string, fields []string, sortby []string, o
 	return nil, err
 }
 
-// UpdateSubgrupo updates Subgrupo by Id and returns error if
+// UpdateTipoBien updates TipoBien by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateSubgrupoById(m *Subgrupo) (err error) {
+func UpdateTipoNivelById(m *TipoNivel) (err error) {
 	o := orm.NewOrm()
-	v := Subgrupo{Id: m.Id}
+	v := TipoNivel{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -140,15 +140,15 @@ func UpdateSubgrupoById(m *Subgrupo) (err error) {
 	return
 }
 
-// DeleteSubgrupo deletes Subgrupo by Id and returns error if
+// DeleteTipoBien deletes TipoBien by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteSubgrupo(id int) (err error) {
+func DeleteTipoNivel(id int) (err error) {
 	o := orm.NewOrm()
-	v := Subgrupo{Id: id}
+	v := TipoNivel{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&Subgrupo{Id: id}); err == nil {
+		if num, err = o.Delete(&TipoNivel{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}

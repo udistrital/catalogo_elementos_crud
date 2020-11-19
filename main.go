@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/udistrital/auditoria"
+	//"github.com/udistrital/auditoria"
 	_ "github.com/udistrital/catalogo_elementos_crud/routers"
 	apistatus "github.com/udistrital/utils_oas/apiStatusLib"
 	"github.com/udistrital/utils_oas/customerror"
@@ -40,7 +40,7 @@ func main() {
 
 	//logs.SetLogger(logs.AdapterFile, `{"filename":"/var/log/beego/catalogo_elementos_crud/catalogo_elementos_crud.log"}`)
 	apistatus.Init()
-	auditoria.InitMiddleware()
+	//auditoria.InitMiddleware()
 	beego.ErrorController(&customerror.CustomErrorController{})
 	beego.Run()
 }
