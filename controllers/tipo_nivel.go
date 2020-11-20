@@ -13,7 +13,7 @@ import (
 	"github.com/astaxie/beego/logs"
 )
 
-// TipoBienController operations for TipoBien
+// TipoNivelController operations for TipoNivel
 type TipoNivelController struct {
 	beego.Controller
 }
@@ -29,9 +29,9 @@ func (c *TipoNivelController) URLMapping() {
 
 // Post ...
 // @Title Post
-// @Description create TipoBien
-// @Param	body		body 	models.TipoBien	true		"body for TipoBien content"
-// @Success 201 {int} models.TipoBien
+// @Description create TipoNivel
+// @Param	body		body 	models.TipoNivel	true		"body for TipoNivel content"
+// @Success 201 {int} models.TipoNivel
 // @Failure 400 the request contains incorrect syntax
 // @router / [post]
 func (c *TipoNivelController) Post() {
@@ -59,9 +59,9 @@ func (c *TipoNivelController) Post() {
 
 // GetOne ...
 // @Title Get One
-// @Description get TipoBien by id
+// @Description get TipoNivel by id
 // @Param	id		path 	string	true		"The key for staticblock"
-// @Success 200 {object} models.TipoBien
+// @Success 200 {object} models.TipoNivel
 // @Failure 404 not found resource
 // @router /:id [get]
 func (c *TipoNivelController) GetOne() {
@@ -81,14 +81,14 @@ func (c *TipoNivelController) GetOne() {
 
 // GetAll ...
 // @Title Get All
-// @Description get TipoBien
+// @Description get TipoNivel
 // @Param	query	query	string	false	"Filter. e.g. col1:v1,col2:v2 ..."
 // @Param	fields	query	string	false	"Fields returned. e.g. col1,col2 ..."
 // @Param	sortby	query	string	false	"Sorted-by fields. e.g. col1,col2 ..."
 // @Param	order	query	string	false	"Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ..."
 // @Param	limit	query	string	false	"Limit the size of result set. Must be an integer"
 // @Param	offset	query	string	false	"Start position of result set. Must be an integer"
-// @Success 200 {object} models.TipoBien
+// @Success 200 {object} models.TipoNivel
 // @Failure 404 not found resource
 // @router / [get]
 func (c *TipoNivelController) GetAll() {
@@ -150,10 +150,10 @@ func (c *TipoNivelController) GetAll() {
 
 // Put ...
 // @Title Put
-// @Description update the TipoBien
+// @Description update the TipoNivel
 // @Param	id		path 	string	true		"The id you want to update"
-// @Param	body		body 	models.TipoBien	true		"body for TipoBien content"
-// @Success 200 {object} models.TipoBien
+// @Param	body		body 	models.TipoNivel	true		"body for TipoNivel content"
+// @Success 200 {object} models.TipoNivel
 // @Failure 400 the request contains incorrect syntax
 // @router /:id [put]
 func (c *TipoNivelController) Put() {
@@ -182,7 +182,7 @@ func (c *TipoNivelController) Put() {
 
 // Delete ...
 // @Title Delete
-// @Description delete the TipoBien
+// @Description delete the TipoNivel
 // @Param	id		path 	string	true		"The id you want to delete"
 // @Success 200 {string} delete success!
 // @Failure 404 not found resource

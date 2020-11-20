@@ -712,7 +712,7 @@
                 "tags": [
                     "relacion_nivel"
                 ],
-                "description": "get SRelacionNivel",
+                "description": "get RelacionNivel",
                 "operationId": "RelacionNivelController.Get All",
                 "parameters": [
                     {
@@ -1553,7 +1553,7 @@
                 "tags": [
                     "tipo_nivel"
                 ],
-                "description": "get TipoBien",
+                "description": "get TipoNivel",
                 "operationId": "TipoNivelController.Get All",
                 "parameters": [
                     {
@@ -1597,7 +1597,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/models.TipoBien"
+                            "$ref": "#/definitions/models.TipoNivel"
                         }
                     },
                     "404": {
@@ -1609,22 +1609,22 @@
                 "tags": [
                     "tipo_nivel"
                 ],
-                "description": "create TipoBien",
+                "description": "create TipoNivel",
                 "operationId": "TipoNivelController.Post",
                 "parameters": [
                     {
                         "in": "body",
                         "name": "body",
-                        "description": "body for TipoBien content",
+                        "description": "body for TipoNivel content",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.TipoBien"
+                            "$ref": "#/definitions/models.TipoNivel"
                         }
                     }
                 ],
                 "responses": {
                     "201": {
-                        "description": "{int} models.TipoBien"
+                        "description": "{int} models.TipoNivel"
                     },
                     "400": {
                         "description": "the request contains incorrect syntax"
@@ -1637,7 +1637,7 @@
                 "tags": [
                     "tipo_nivel"
                 ],
-                "description": "get TipoBien by id",
+                "description": "get TipoNivel by id",
                 "operationId": "TipoNivelController.Get One",
                 "parameters": [
                     {
@@ -1652,7 +1652,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/models.TipoBien"
+                            "$ref": "#/definitions/models.TipoNivel"
                         }
                     },
                     "404": {
@@ -1664,7 +1664,7 @@
                 "tags": [
                     "tipo_nivel"
                 ],
-                "description": "update the TipoBien",
+                "description": "update the TipoNivel",
                 "operationId": "TipoNivelController.Put",
                 "parameters": [
                     {
@@ -1677,10 +1677,10 @@
                     {
                         "in": "body",
                         "name": "body",
-                        "description": "body for TipoBien content",
+                        "description": "body for TipoNivel content",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.TipoBien"
+                            "$ref": "#/definitions/models.TipoNivel"
                         }
                     }
                 ],
@@ -1688,7 +1688,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/models.TipoBien"
+                            "$ref": "#/definitions/models.TipoNivel"
                         }
                     },
                     "400": {
@@ -1700,7 +1700,7 @@
                 "tags": [
                     "tipo_nivel"
                 ],
-                "description": "delete the TipoBien",
+                "description": "delete the TipoNivel",
                 "operationId": "TipoNivelController.Delete",
                 "parameters": [
                     {
@@ -2704,7 +2704,7 @@
         },
         {
             "name": "tipo_nivel",
-            "description": "TipoBienController operations for TipoBien\n"
+            "description": "TipoNivelController operations for TipoNivel\n"
         },
         {
             "name": "relacion_nivel",

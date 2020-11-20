@@ -81,7 +81,7 @@ func (c *RelacionNivelController) GetOne() {
 
 // GetAll ...
 // @Title Get All
-// @Description get SRelacionNivel
+// @Description get RelacionNivel
 // @Param	query	query	string	false	"Filter. e.g. col1:v1,col2:v2 ..."
 // @Param	fields	query	string	false	"Fields returned. e.g. col1,col2 ..."
 // @Param	sortby	query	string	false	"Sorted-by fields. e.g. col1,col2 ..."
