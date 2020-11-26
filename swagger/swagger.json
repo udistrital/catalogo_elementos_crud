@@ -2309,8 +2309,7 @@
                     "type": "boolean"
                 },
                 "Codigo": {
-                    "type": "integer",
-                    "format": "int64"
+                    "type": "string"
                 },
                 "Descripcion": {
                     "type": "string"
