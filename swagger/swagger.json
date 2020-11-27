@@ -2483,7 +2483,7 @@
                     "type": "boolean"
                 },
                 "Codigo": {
-                    "type": "integer",
+                    "type": "string",
                     "format": "int64"
                 },
                 "Descripcion": {
