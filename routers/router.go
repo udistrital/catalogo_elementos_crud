@@ -64,6 +64,12 @@ func init() {
 			),
 		),
 
+		beego.NSNamespace("/relacion_nivel",
+			beego.NSInclude(
+				&controllers.RelacionNivelController{},
+			),
+		),
+
 		beego.NSNamespace("/tipo_bien",
 			beego.NSInclude(
 				&controllers.TipoBienController{},

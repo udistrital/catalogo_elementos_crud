@@ -13,13 +13,13 @@ import (
 	"github.com/astaxie/beego/logs"
 )
 
-// TipoNivelController operations for TipoNivel
-type TipoNivelController struct {
+// RelacionNivelController operations for RelacionNivel
+type RelacionNivelController struct {
 	beego.Controller
 }
 
 // URLMapping ...
-func (c *TipoNivelController) URLMapping() {
+func (c *RelacionNivelController) URLMapping() {
 	c.Mapping("Post", c.Post)
 	c.Mapping("GetOne", c.GetOne)
 	c.Mapping("GetAll", c.GetAll)
@@ -29,17 +29,17 @@ func (c *TipoNivelController) URLMapping() {
 
 // Post ...
 // @Title Post
-// @Description create TipoNivel
-// @Param	body		body 	models.TipoNivel	true		"body for TipoNivel content"
-// @Success 201 {int} models.TipoNivel
+// @Description create RelacionNivel
+// @Param	body		body 	models.RelacionNivel	true		"body for RelacionNivel content"
+// @Success 201 {int} models.RelacionNivel
 // @Failure 400 the request contains incorrect syntax
 // @router / [post]
-func (c *TipoNivelController) Post() {
-	var v models.TipoNivel
+func (c *RelacionNivelController) Post() {
+	var v models.RelacionNivel
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 		v.FechaCreacion = time_bogota.TiempoBogotaFormato()
 		v.FechaModificacion = time_bogota.TiempoBogotaFormato()
-		if _, err := models.AddTipoNivel(&v); err == nil {
+		if _, err := models.AddRelacionNivel(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = v
 		} else {
@@ -59,15 +59,15 @@ func (c *TipoNivelController) Post() {
 
 // GetOne ...
 // @Title Get One
-// @Description get TipoNivel by id
+// @Description get RelacionNivel by id
 // @Param	id		path 	string	true		"The key for staticblock"
-// @Success 200 {object} models.TipoNivel
+// @Success 200 {object} models.RelacionNivel
 // @Failure 404 not found resource
 // @router /:id [get]
-func (c *TipoNivelController) GetOne() {
+func (c *RelacionNivelController) GetOne() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v, err := models.GetTipoNivelById(id)
+	v, err := models.GetRelacionNivelById(id)
 	if err != nil {
 		logs.Error(err)
 		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
@@ -81,17 +81,17 @@ func (c *TipoNivelController) GetOne() {
 
 // GetAll ...
 // @Title Get All
-// @Description get TipoNivel
+// @Description get RelacionNivel
 // @Param	query	query	string	false	"Filter. e.g. col1:v1,col2:v2 ..."
 // @Param	fields	query	string	false	"Fields returned. e.g. col1,col2 ..."
 // @Param	sortby	query	string	false	"Sorted-by fields. e.g. col1,col2 ..."
 // @Param	order	query	string	false	"Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ..."
 // @Param	limit	query	string	false	"Limit the size of result set. Must be an integer"
 // @Param	offset	query	string	false	"Start position of result set. Must be an integer"
-// @Success 200 {object} models.TipoNivel
+// @Success 200 {object} models.RelacionNivel
 // @Failure 404 not found resource
 // @router / [get]
-func (c *TipoNivelController) GetAll() {
+func (c *RelacionNivelController) GetAll() {
 	var fields []string
 	var sortby []string
 	var order []string
@@ -133,7 +133,7 @@ func (c *TipoNivelController) GetAll() {
 		}
 	}
 
-	l, err := models.GetAllTipoNivel(query, fields, sortby, order, offset, limit)
+	l, err := models.GetAllRelacionNivel(query, fields, sortby, order, offset, limit)
 	if err != nil {
 		logs.Error(err)
 		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
@@ -150,20 +150,20 @@ func (c *TipoNivelController) GetAll() {
 
 // Put ...
 // @Title Put
-// @Description update the TipoNivel
+// @Description update the RelacionNivel
 // @Param	id		path 	string	true		"The id you want to update"
-// @Param	body		body 	models.TipoNivel	true		"body for TipoNivel content"
-// @Success 200 {object} models.TipoNivel
+// @Param	body		body 	models.RelacionNivel	true		"body for RelacionNivel content"
+// @Success 200 {object} models.RelacionNivel
 // @Failure 400 the request contains incorrect syntax
 // @router /:id [put]
-func (c *TipoNivelController) Put() {
+func (c *RelacionNivelController) Put() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v := models.TipoNivel{Id: id}
+	v := models.RelacionNivel{Id: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 		v.FechaCreacion = time_bogota.TiempoCorreccionFormato(v.FechaCreacion)
 		v.FechaModificacion = time_bogota.TiempoBogotaFormato()
-		if err := models.UpdateTipoNivelById(&v); err == nil {
+		if err := models.UpdateRelacionNivelById(&v); err == nil {
 			c.Data["json"] = v
 		} else {
 			logs.Error(err)
@@ -182,15 +182,15 @@ func (c *TipoNivelController) Put() {
 
 // Delete ...
 // @Title Delete
-// @Description delete the TipoNivel
+// @Description delete the RelacionNivel
 // @Param	id		path 	string	true		"The id you want to delete"
 // @Success 200 {string} delete success!
 // @Failure 404 not found resource
 // @router /:id [delete]
-func (c *TipoNivelController) Delete() {
+func (c RelacionNivelController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	if err := models.DeleteTipoNivel(id); err == nil {
+	if err := models.DeleteRelacionNivel(id); err == nil {
 		c.Data["json"] = map[string]interface{}{"Id": id}
 	} else {
 		logs.Error(err)
