@@ -54,9 +54,6 @@ func AddTransaccionGrupo(m *TrGrupo) (err error) {
 		if _, err = o.Insert(&subgrupoCatalogo); err != nil {
 			panic(err.Error())
 		}
-			if _, err = o.Insert(m.DetalleSubgrupo); err != nil {
-				panic(err.Error())
-			}
 
       /*          if (m.DetalleSubgrupo != nil) {
 			m.DetalleSubgrupo.SubgrupoId = m.Subgrupo
