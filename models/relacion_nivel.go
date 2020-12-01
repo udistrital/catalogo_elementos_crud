@@ -9,50 +9,48 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-type Subgrupo struct {
-	Id                int        `orm:"column(id);pk;auto"`
-	Nombre            string     `orm:"column(nombre)"`
-	Descripcion       string     `orm:"column(descripcion)"`
-	FechaCreacion     string     `orm:"column(fecha_creacion);type(timestamp without time zone)"`
-	FechaModificacion string     `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
-	Activo            bool       `orm:"column(activo)"`
-	Codigo            string     `orm:"column(codigo)"`
-	TipoNivelId       *TipoNivel `orm:"column(tipo_nivel_id);rel(fk)"`
+type RelacionNivel struct {
+	Id                int            `orm:"column(id);pk;auto"`
+	FechaCreacion     string         `orm:"column(fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion string         `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
+	Activo            bool           `orm:"column(activo)"`
+	NivelPadreId      *RelacionNivel `orm:"column(nivel_padre_id);rel(fk)"`
+	NivelHijoId       *RelacionNivel `orm:"column(nivel_hijo_id);rel(fk)"`
 }
 
-func (t *Subgrupo) TableName() string {
-	return "subgrupo"
+func (t *RelacionNivel) TableName() string {
+	return "relacion_nivel"
 }
 
 func init() {
-	orm.RegisterModel(new(Subgrupo))
+	orm.RegisterModel(new(RelacionNivel))
 }
 
-// AddSubgrupo insert a new Subgrupo into database and returns
+// Add RelacionNivel insert a new RelacionNivel into database and returns
 // last inserted Id on success.
-func AddSubgrupo(m *Subgrupo) (id int64, err error) {
+func AddRelacionNivel(m *RelacionNivel) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetSubgrupoById retrieves Subgrupo by Id. Returns error if
+// GetRelacionNivelById retrieves RelacionNivel by Id. Returns error if
 // Id doesn't exist
-func GetSubgrupoById(id int) (v *Subgrupo, err error) {
+func GetRelacionNivelById(id int) (v *RelacionNivel, err error) {
 	o := orm.NewOrm()
-	v = &Subgrupo{Id: id}
+	v = &RelacionNivel{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllSubgrupo retrieves all Subgrupo matches certain condition. Returns empty list if
+// GetAllRelacionNivel retrieves all RelacionNivel matches certain condition. Returns empty list if
 // no records exist
-func GetAllSubgrupo(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllRelacionNivel(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Subgrupo)).RelatedSel()
+	qs := o.QueryTable(new(RelacionNivel)).RelatedSel()
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -102,7 +100,7 @@ func GetAllSubgrupo(query map[string]string, fields []string, sortby []string, o
 		}
 	}
 
-	var l []Subgrupo
+	var l []RelacionNivel
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -125,11 +123,11 @@ func GetAllSubgrupo(query map[string]string, fields []string, sortby []string, o
 	return nil, err
 }
 
-// UpdateSubgrupo updates Subgrupo by Id and returns error if
+// UpdateRelacionNivel updates RelacionNivel by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateSubgrupoById(m *Subgrupo) (err error) {
+func UpdateRelacionNivelById(m *RelacionNivel) (err error) {
 	o := orm.NewOrm()
-	v := Subgrupo{Id: m.Id}
+	v := RelacionNivel{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -140,15 +138,15 @@ func UpdateSubgrupoById(m *Subgrupo) (err error) {
 	return
 }
 
-// DeleteSubgrupo deletes Subgrupo by Id and returns error if
+// DeleteRelacionNivel deletesRelacionNivel by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteSubgrupo(id int) (err error) {
+func DeleteRelacionNivel(id int) (err error) {
 	o := orm.NewOrm()
-	v := Subgrupo{Id: id}
+	v := RelacionNivel{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&Subgrupo{Id: id}); err == nil {
+		if num, err = o.Delete(&RelacionNivel{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}
