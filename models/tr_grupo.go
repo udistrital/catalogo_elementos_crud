@@ -17,6 +17,8 @@ type TrGrupo struct {
 // AddTransaccionProduccionAcademica Transacción para registrar toda la información de un grupo asociándolo a un catálogo
 func AddTransaccionGrupo(m *TrGrupo) (err error) {
 	o := orm.NewOrm()
+	logs.Info("lo que llega")
+	logs.Info(m)
 	err = o.Begin()
 
 	if err != nil {
@@ -37,6 +39,9 @@ func AddTransaccionGrupo(m *TrGrupo) (err error) {
 	m.Subgrupo.FechaModificacion = time_bogota.TiempoBogotaFormato()
 	if idSubgrupo, err := o.Insert(m.Subgrupo); err == nil {
 		logs.Info(idSubgrupo)
+		logs.Info(m.Catalogo)
+		logs.Info(m.Subgrupo)
+		logs.Info(m.DetalleSubgrupo)
 
 		var subgrupoCatalogo SubgrupoCatalogo
 
@@ -50,14 +55,15 @@ func AddTransaccionGrupo(m *TrGrupo) (err error) {
 			panic(err.Error())
 		}
 
-		m.DetalleSubgrupo.SubgrupoId = m.Subgrupo
-		m.DetalleSubgrupo.Activo = true
-		m.DetalleSubgrupo.FechaCreacion = time_bogota.TiempoBogotaFormato()
-		m.DetalleSubgrupo.FechaModificacion = time_bogota.TiempoBogotaFormato()
-		if _, err = o.Insert(m.DetalleSubgrupo); err != nil {
-			panic(err.Error())
-		}
-
+      /*          if (m.DetalleSubgrupo != nil) {
+			m.DetalleSubgrupo.SubgrupoId = m.Subgrupo
+			m.DetalleSubgrupo.Activo = true
+			m.DetalleSubgrupo.FechaCreacion = time_bogota.TiempoBogotaFormato()
+			m.DetalleSubgrupo.FechaModificacion = time_bogota.TiempoBogotaFormato()
+			if _, err = o.Insert(m.DetalleSubgrupo); err != nil {
+				panic(err.Error())
+			}
+                }*/
 	} else {
 		panic(err.Error())
 	}
@@ -82,8 +88,8 @@ func UpdateTransaccionGrupo(m *TrGrupo) (err error) {
 		}
 	}()
 
-	var Detalle DetalleSubgrupo
-	w := m.DetalleSubgrupo
+//	var Detalle DetalleSubgrupo
+//	w := m.DetalleSubgrupo
 
 	v := Subgrupo{Id: m.Subgrupo.Id}
 
@@ -91,20 +97,6 @@ func UpdateTransaccionGrupo(m *TrGrupo) (err error) {
 
 		if _, err = o.Update(m.Subgrupo, "Activo", "Nombre", "Codigo", "Descripcion"); err == nil {
 
-			if _, err := o.QueryTable(new(DetalleSubgrupo)).RelatedSel().Filter("Id", m.DetalleSubgrupo.Id).Filter("Activo", true).All(&Detalle); err == nil {
-
-				Detalle.Activo = false
-				if _, err = o.Update(&Detalle, "Activo"); err == nil {
-					w.Id = 0
-					if _, err = o.Insert(w); err != nil {
-						panic(err.Error())
-					}
-				} else {
-					panic(err.Error())
-				}
-			} else {
-				panic(err.Error())
-			}
 		} else {
 			panic(err.Error())
 		}
