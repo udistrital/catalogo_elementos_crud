@@ -88,7 +88,6 @@ func (c *TrSubgrupoController) GetOne() {
 // @Failure 403
 // @router / [get]
 func (c *TrSubgrupoController) GetAll() {
-
 }
 
 // Put ...
@@ -100,8 +99,32 @@ func (c *TrSubgrupoController) GetAll() {
 // @Failure 400 the request contains incorrect syntax
 // @router /:id [put]
 func (c *TrSubgrupoController) Put() {
-
+	var v models.TrSubgrupo
+	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
+		if err := models.UpdateTransaccionSubgrupo(&v); err == nil {
+			c.Ctx.Output.SetStatus(201)
+			c.Data["json"] = v
+		} else {
+			logs.Error(err)
+			//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
+			c.Data["system"] = err
+			c.Abort("400")
+		}
+	} else {
+		logs.Error(err)
+		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
+		c.Data["system"] = err
+		c.Abort("400")
+	}
+	c.ServeJSON()
 }
+
+/*
+func (c *TrSubgrupoController) Put() {
+}
+
+*/
+
 
 // Delete ...
 // @Title Delete
