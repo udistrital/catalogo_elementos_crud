@@ -5,56 +5,52 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-	"github.com/udistrital/utils_oas/time_bogota"
+
 	"github.com/astaxie/beego/orm"
 )
 
-type Catalogo struct {
-	Id                int       `orm:"column(id);pk;auto"`
-	Nombre            string    `orm:"column(nombre)"`
-	Descripcion       string    `orm:"column(descripcion)"`
-	FechaInicio       string `orm:"column(fecha_inicio);type(timestamp without time zone)"`
-	FechaFin          string `orm:"column(fecha_fin);type(timestamp without time zone);null"`
-	FechaCreacion     string    `orm:"column(fecha_creacion);type(timestamp without time zone)"`
-	FechaModificacion string    `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
-	Activo            bool      `orm:"column(activo)"`
+type RelacionNivel struct {
+	Id                int            `orm:"column(id);pk;auto"`
+	FechaCreacion     string         `orm:"column(fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion string         `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
+	Activo            bool           `orm:"column(activo)"`
+	NivelPadreId      *RelacionNivel `orm:"column(nivel_padre_id);rel(fk)"`
+	NivelHijoId       *RelacionNivel `orm:"column(nivel_hijo_id);rel(fk)"`
 }
 
-func (t *Catalogo) TableName() string {
-	return "catalogo"
+func (t *RelacionNivel) TableName() string {
+	return "relacion_nivel"
 }
 
 func init() {
-	orm.RegisterModel(new(Catalogo))
+	orm.RegisterModel(new(RelacionNivel))
 }
 
-// AddCatalogo insert a new Catalogo into database and returns
+// Add RelacionNivel insert a new RelacionNivel into database and returns
 // last inserted Id on success.
-func AddCatalogo(m *Catalogo) (id int64, err error) {
+func AddRelacionNivel(m *RelacionNivel) (id int64, err error) {
 	o := orm.NewOrm()
-				    m.FechaInicio = time_bogota.TiempoBogotaFormato()
-				    m.FechaFin = time_bogota.TiempoBogotaFormato()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetCatalogoById retrieves Catalogo by Id. Returns error if
+// GetRelacionNivelById retrieves RelacionNivel by Id. Returns error if
 // Id doesn't exist
-func GetCatalogoById(id int) (v *Catalogo, err error) {
+func GetRelacionNivelById(id int) (v *RelacionNivel, err error) {
 	o := orm.NewOrm()
-	v = &Catalogo{Id: id}
+	v = &RelacionNivel{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllCatalogo retrieves all Catalogo matches certain condition. Returns empty list if
+// GetAllRelacionNivel retrieves all RelacionNivel matches certain condition. Returns empty list if
 // no records exist
-func GetAllCatalogo(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllRelacionNivel(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Catalogo)).RelatedSel()
+	qs := o.QueryTable(new(RelacionNivel)).RelatedSel()
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -104,7 +100,7 @@ func GetAllCatalogo(query map[string]string, fields []string, sortby []string, o
 		}
 	}
 
-	var l []Catalogo
+	var l []RelacionNivel
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -127,32 +123,30 @@ func GetAllCatalogo(query map[string]string, fields []string, sortby []string, o
 	return nil, err
 }
 
-// UpdateCatalogo updates Catalogo by Id and returns error if
+// UpdateRelacionNivel updates RelacionNivel by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateCatalogoById(m *Catalogo) (err error) {
+func UpdateRelacionNivelById(m *RelacionNivel) (err error) {
 	o := orm.NewOrm()
-	v := Catalogo{Id: m.Id}
+	v := RelacionNivel{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
-                m.FechaInicio = v.FechaInicio
-                m.FechaFin = v.FechaFin
 		var num int64
-		if num, err = o.Update(m, "Nombre", "Descripcion", "Activo"); err == nil {
+		if num, err = o.Update(m); err == nil {
 			fmt.Println("Number of records updated in database:", num)
 		}
 	}
 	return
 }
 
-// DeleteCatalogo deletes Catalogo by Id and returns error if
+// DeleteRelacionNivel deletesRelacionNivel by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteCatalogo(id int) (err error) {
+func DeleteRelacionNivel(id int) (err error) {
 	o := orm.NewOrm()
-	v := Catalogo{Id: id}
+	v := RelacionNivel{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&Catalogo{Id: id}); err == nil {
+		if num, err = o.Delete(&RelacionNivel{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}

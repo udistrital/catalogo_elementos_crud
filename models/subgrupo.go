@@ -16,7 +16,7 @@ type Subgrupo struct {
 	FechaCreacion     string     `orm:"column(fecha_creacion);type(timestamp without time zone)"`
 	FechaModificacion string     `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
 	Activo            bool       `orm:"column(activo)"`
-	Codigo            int        `orm:"column(codigo)"`
+	Codigo            string     `orm:"column(codigo)"`
 	TipoNivelId       *TipoNivel `orm:"column(tipo_nivel_id);rel(fk)"`
 }
 
