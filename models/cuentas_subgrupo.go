@@ -11,8 +11,8 @@ import (
 
 type CuentasSubgrupo struct {
 	Id                  int       `orm:"column(id);pk;auto"`
-	CuentaCreditoId     int       `orm:"column(cuenta_credito_id)"`
-	CuentaDebitoId      int       `orm:"column(cuenta_debito_id)"`
+	CuentaCreditoId     string    `orm:"column(cuenta_credito_id)"`
+	CuentaDebitoId      string    `orm:"column(cuenta_debito_id)"`
 	SubtipoMovimientoId int       `orm:"column(subtipo_movimiento_id)"`
 	FechaCreacion       string    `orm:"column(fecha_creacion);type(timestamp without time zone)"`
 	FechaModificacion   string    `orm:"column(fecha_modificacion);type(timestamp without time zone)"`

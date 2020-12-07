@@ -2205,12 +2205,10 @@
                     "type": "boolean"
                 },
                 "CuentaCreditoId": {
-                    "type": "integer",
-                    "format": "int64"
+                    "type": "string"
                 },
                 "CuentaDebitoId": {
-                    "type": "integer",
-                    "format": "int64"
+                    "type": "string"
                 },
                 "FechaCreacion": {
                     "type": "string"
