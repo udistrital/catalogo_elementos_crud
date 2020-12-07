@@ -127,12 +127,7 @@ func UpdateTransaccionSubgrupo(m *TrSubgrupo) (err error) {
 				if _, err := o.QueryTable(new(DetalleSubgrupo)).RelatedSel().Filter("Id", m.DetalleSubgrupo.Id).Filter("Activo", true).All(&Detalle); err == nil {
 	        		Detalle.Activo = false
 	                        logs.Info("Detalle consultado")
-	                        logs.Info(m.DetalleSubgrupo)
-                                m.DetalleSubgrupo.Activo = Detalle.Activo
-                                m.DetalleSubgrupo.Valorizacion = Detalle.Valorizacion
-                                m.DetalleSubgrupo.Deterioro = Detalle.Deterioro
-                                m.DetalleSubgrupo.Depreciacion = Detalle.Depreciacion
-				if _, err = o.Update(m.DetalleSubgrupo, "Activo", "Valorizacion", "Deterioro", "Depreciacion"); err == nil {
+				if _, err = o.Update(m.DetalleSubgrupo,"Depreciacion","Valorizacion","Deterioro","Activo"); err == nil {
 					w.Id = 0
 				    /*    w.FechaCreacion = time_bogota.TiempoBogotaFormato()
 				        w.FechaModificacion = time_bogota.TiempoBogotaFormato()
