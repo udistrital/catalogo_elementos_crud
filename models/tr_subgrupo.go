@@ -123,33 +123,40 @@ func UpdateTransaccionSubgrupo(m *TrSubgrupo) (err error) {
 	if errTr := o.Read(&v); errTr == nil {
 
 		if _, err = o.Update(m.SubgrupoHijo, "Activo", "Nombre", "Codigo", "Descripcion"); err == nil {
-                        if (m.DetalleSubgrupo != nil) {
-				if _, err := o.QueryTable(new(DetalleSubgrupo)).RelatedSel().Filter("Id", m.DetalleSubgrupo.Id).Filter("Activo", true).All(&Detalle); err == nil {
-	        		Detalle.Activo = false
-	                        logs.Info("Detalle consultado")
-				if _, err = o.Update(m.DetalleSubgrupo,"Depreciacion","Valorizacion","Deterioro","Activo"); err == nil {
-					w.Id = 0
-				    /*    w.FechaCreacion = time_bogota.TiempoBogotaFormato()
-				        w.FechaModificacion = time_bogota.TiempoBogotaFormato()
-					if _, err = o.Insert(w); err != nil {
-						panic(err.Error())
-					}*/
-				} else {
-					panic(err.Error())
-				}
-			} else {
-				panic(err.Error())
-			}
-                          }
-
-		} else {
-			panic(err.Error())
-		}
-	} else {
+           if (m.DetalleSubgrupo != nil) {
+			    if _, err := o.QueryTable(new(DetalleSubgrupo)).RelatedSel().Filter("Id", m.DetalleSubgrupo.Id).Filter("Activo", true).All(&Detalle); err == nil {
+		            Detalle.Activo = false
+	                logs.Info("Detalle consultado")
+                    if (m.DetalleSubgrupo.Id == 0) {
+	                    logs.Info("El id es cero")
+                        w.FechaCreacion = time_bogota.TiempoBogotaFormato()
+                        w.FechaModificacion = time_bogota.TiempoBogotaFormato()
+                        if _, err = o.Insert(w); err != nil {
+                            panic(err.Error())
+                        }
+                    } else {
+                        if _, err = o.Update(m.DetalleSubgrupo,"Depreciacion","Valorizacion","Deterioro","Activo", "TipoBienId"); err == nil {
+                            w.Id = 0
+                        /*    w.FechaCreacion = time_bogota.TiempoBogotaFormato()
+                            w.FechaModificacion = time_bogota.TiempoBogotaFormato()
+                        if _, err = o.Insert(w); err != nil {
+                            panic(err.Error())
+                        }*/
+                        } else {
+                            panic(err.Error())
+                        }
+                   }
+			    } else {
+				    panic(err.Error())
+			    }
+          }
+	  } else {
 		panic(err.Error())
-	}
-
-	return
+	  }
+  } else {
+	panic(err.Error())
+  }
+  return
 }
 
 
