@@ -3,6 +3,7 @@ package controllers
 import (
 	"encoding/json"
 	"strconv"
+
 	"github.com/udistrital/catalogo_elementos_crud/models"
 
 	"github.com/astaxie/beego"
@@ -32,7 +33,9 @@ func (c *TrGrupoController) URLMapping() {
 // @router / [post]
 func (c *TrGrupoController) Post() {
 	var v models.TrGrupo
+        logs.Info("al llegar");	
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
+                logs.Info(v);	
 		if err := models.AddTransaccionGrupo(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = v

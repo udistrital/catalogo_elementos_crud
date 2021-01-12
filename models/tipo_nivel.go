@@ -5,56 +5,54 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-	"github.com/udistrital/utils_oas/time_bogota"
+
 	"github.com/astaxie/beego/orm"
 )
 
-type Catalogo struct {
-	Id                int       `orm:"column(id);pk;auto"`
-	Nombre            string    `orm:"column(nombre)"`
-	Descripcion       string    `orm:"column(descripcion)"`
-	FechaInicio       string `orm:"column(fecha_inicio);type(timestamp without time zone)"`
-	FechaFin          string `orm:"column(fecha_fin);type(timestamp without time zone);null"`
-	FechaCreacion     string    `orm:"column(fecha_creacion);type(timestamp without time zone)"`
-	FechaModificacion string    `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
-	Activo            bool      `orm:"column(activo)"`
+type TipoNivel struct {
+	Id                int     `orm:"column(id);pk;auto"`
+	Nombre            string  `orm:"column(nombre)"`
+	Descripcion       string  `orm:"column(descripcion);null"`
+	CodigoAbreviacion string  `orm:"column(codigo_abreviacion);null"`
+	Orden             float64 `orm:"column(orden);null"`
+	Activo            bool    `orm:"column(activo)"`
+	FechaCreacion     string  `orm:"column(fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion string  `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
 }
 
-func (t *Catalogo) TableName() string {
-	return "catalogo"
+func (t *TipoNivel) TableName() string {
+	return "tipo_nivel"
 }
 
 func init() {
-	orm.RegisterModel(new(Catalogo))
+	orm.RegisterModel(new(TipoNivel)) /*  */
 }
 
-// AddCatalogo insert a new Catalogo into database and returns
+// AddTipoBien insert a new TipoBien into database and returns
 // last inserted Id on success.
-func AddCatalogo(m *Catalogo) (id int64, err error) {
+func AddTipoNivel(m *TipoNivel) (id int64, err error) {
 	o := orm.NewOrm()
-				    m.FechaInicio = time_bogota.TiempoBogotaFormato()
-				    m.FechaFin = time_bogota.TiempoBogotaFormato()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetCatalogoById retrieves Catalogo by Id. Returns error if
+// GetTipoBienById retrieves TipoBien by Id. Returns error if
 // Id doesn't exist
-func GetCatalogoById(id int) (v *Catalogo, err error) {
+func GetTipoNivelById(id int) (v *TipoNivel, err error) {
 	o := orm.NewOrm()
-	v = &Catalogo{Id: id}
+	v = &TipoNivel{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllCatalogo retrieves all Catalogo matches certain condition. Returns empty list if
+// GetAllTipoBien retrieves all TipoBien matches certain condition. Returns empty list if
 // no records exist
-func GetAllCatalogo(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllTipoNivel(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Catalogo)).RelatedSel()
+	qs := o.QueryTable(new(TipoNivel)).RelatedSel()
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -104,7 +102,7 @@ func GetAllCatalogo(query map[string]string, fields []string, sortby []string, o
 		}
 	}
 
-	var l []Catalogo
+	var l []TipoNivel
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -127,32 +125,30 @@ func GetAllCatalogo(query map[string]string, fields []string, sortby []string, o
 	return nil, err
 }
 
-// UpdateCatalogo updates Catalogo by Id and returns error if
+// UpdateTipoBien updates TipoBien by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateCatalogoById(m *Catalogo) (err error) {
+func UpdateTipoNivelById(m *TipoNivel) (err error) {
 	o := orm.NewOrm()
-	v := Catalogo{Id: m.Id}
+	v := TipoNivel{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
-                m.FechaInicio = v.FechaInicio
-                m.FechaFin = v.FechaFin
 		var num int64
-		if num, err = o.Update(m, "Nombre", "Descripcion", "Activo"); err == nil {
+		if num, err = o.Update(m); err == nil {
 			fmt.Println("Number of records updated in database:", num)
 		}
 	}
 	return
 }
 
-// DeleteCatalogo deletes Catalogo by Id and returns error if
+// DeleteTipoBien deletes TipoBien by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteCatalogo(id int) (err error) {
+func DeleteTipoNivel(id int) (err error) {
 	o := orm.NewOrm()
-	v := Catalogo{Id: id}
+	v := TipoNivel{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&Catalogo{Id: id}); err == nil {
+		if num, err = o.Delete(&TipoNivel{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}

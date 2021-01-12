@@ -707,6 +707,155 @@
                 }
             }
         },
+        "/relacion_nivel/": {
+            "get": {
+                "tags": [
+                    "relacion_nivel"
+                ],
+                "description": "get RelacionNivel",
+                "operationId": "RelacionNivelController.Get All",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "query",
+                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sortby",
+                        "description": "Sorted-by fields. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "order",
+                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "offset",
+                        "description": "Start position of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.RelacionNivel"
+                        }
+                    },
+                    "404": {
+                        "description": "not found resource"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "relacion_nivel"
+                ],
+                "description": "create RelacionNivel",
+                "operationId": "RelacionNivelController.Post",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for RelacionNivel content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.RelacionNivel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.RelacionNivel"
+                    },
+                    "400": {
+                        "description": "the request contains incorrect syntax"
+                    }
+                }
+            }
+        },
+        "/relacion_nivel/{id}": {
+            "get": {
+                "tags": [
+                    "relacion_nivel"
+                ],
+                "description": "get RelacionNivel by id",
+                "operationId": "RelacionNivelController.Get One",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.RelacionNivel"
+                        }
+                    },
+                    "404": {
+                        "description": "not found resource"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "relacion_nivel"
+                ],
+                "description": "update the RelacionNivel",
+                "operationId": "RelacionNivelController.Put",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for RelacionNivel content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.RelacionNivel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.RelacionNivel"
+                        }
+                    },
+                    "400": {
+                        "description": "the request contains incorrect syntax"
+                    }
+                }
+            }
+        },
         "/subgrupo/": {
             "get": {
                 "tags": [
@@ -1399,6 +1548,179 @@
                 }
             }
         },
+        "/tipo_nivel/": {
+            "get": {
+                "tags": [
+                    "tipo_nivel"
+                ],
+                "description": "get TipoNivel",
+                "operationId": "TipoNivelController.Get All",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "query",
+                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sortby",
+                        "description": "Sorted-by fields. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "order",
+                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "offset",
+                        "description": "Start position of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.TipoNivel"
+                        }
+                    },
+                    "404": {
+                        "description": "not found resource"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "tipo_nivel"
+                ],
+                "description": "create TipoNivel",
+                "operationId": "TipoNivelController.Post",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for TipoNivel content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.TipoNivel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.TipoNivel"
+                    },
+                    "400": {
+                        "description": "the request contains incorrect syntax"
+                    }
+                }
+            }
+        },
+        "/tipo_nivel/{id}": {
+            "get": {
+                "tags": [
+                    "tipo_nivel"
+                ],
+                "description": "get TipoNivel by id",
+                "operationId": "TipoNivelController.Get One",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.TipoNivel"
+                        }
+                    },
+                    "404": {
+                        "description": "not found resource"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "tipo_nivel"
+                ],
+                "description": "update the TipoNivel",
+                "operationId": "TipoNivelController.Put",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for TipoNivel content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.TipoNivel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.TipoNivel"
+                        }
+                    },
+                    "400": {
+                        "description": "the request contains incorrect syntax"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "tipo_nivel"
+                ],
+                "description": "delete the TipoNivel",
+                "operationId": "TipoNivelController.Delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} delete success!"
+                    },
+                    "404": {
+                        "description": "not found resource"
+                    }
+                }
+            }
+        },
         "/tr_catalogo/tipo_de_bien/{id}": {
             "get": {
                 "tags": [
@@ -1987,7 +2309,7 @@
         }
     },
     "definitions": {
-        "20969.\u003cnil\u003e.Subgrupo": {
+        "55422.\u003cnil\u003e.Subgrupo": {
             "title": "Subgrupo",
             "type": "object"
         },
@@ -2002,8 +2324,7 @@
                     "type": "string"
                 },
                 "FechaCreacion": {
-                    "type": "string",
-                    "format": "datetime"
+                    "type": "string"
                 },
                 "FechaFin": {
                     "type": "string",
@@ -2014,8 +2335,7 @@
                     "format": "datetime"
                 },
                 "FechaModificacion": {
-                    "type": "string",
-                    "format": "datetime"
+                    "type": "string"
                 },
                 "Id": {
                     "type": "integer",
@@ -2034,20 +2354,16 @@
                     "type": "boolean"
                 },
                 "CuentaCreditoId": {
-                    "type": "integer",
-                    "format": "int64"
+                    "type": "string"
                 },
                 "CuentaDebitoId": {
-                    "type": "integer",
-                    "format": "int64"
+                    "type": "string"
                 },
                 "FechaCreacion": {
-                    "type": "string",
-                    "format": "datetime"
+                    "type": "string"
                 },
                 "FechaModificacion": {
-                    "type": "string",
-                    "format": "datetime"
+                    "type": "string"
                 },
                 "Id": {
                     "type": "integer",
@@ -2076,12 +2392,10 @@
                     "type": "boolean"
                 },
                 "FechaCreacion": {
-                    "type": "string",
-                    "format": "datetime"
+                    "type": "string"
                 },
                 "FechaModificacion": {
-                    "type": "string",
-                    "format": "datetime"
+                    "type": "string"
                 },
                 "Id": {
                     "type": "integer",
@@ -2109,8 +2423,7 @@
                     "type": "string"
                 },
                 "FechaCreacion": {
-                    "type": "string",
-                    "format": "datetime"
+                    "type": "string"
                 },
                 "FechaFin": {
                     "type": "string",
@@ -2121,8 +2434,7 @@
                     "format": "datetime"
                 },
                 "FechaModificacion": {
-                    "type": "string",
-                    "format": "datetime"
+                    "type": "string"
                 },
                 "Id": {
                     "type": "integer",
@@ -2136,6 +2448,31 @@
                 }
             }
         },
+        "models.RelacionNivel": {
+            "title": "RelacionNivel",
+            "type": "object",
+            "properties": {
+                "Activo": {
+                    "type": "boolean"
+                },
+                "FechaCreacion": {
+                    "type": "string"
+                },
+                "FechaModificacion": {
+                    "type": "string"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "NivelHijoId": {
+                    "$ref": "#/definitions/models.RelacionNivel"
+                },
+                "NivelPadreId": {
+                    "$ref": "#/definitions/models.RelacionNivel"
+                }
+            }
+        },
         "models.Subgrupo": {
             "title": "Subgrupo",
             "type": "object",
@@ -2144,19 +2481,17 @@
                     "type": "boolean"
                 },
                 "Codigo": {
-                    "type": "integer",
+                    "type": "string",
                     "format": "int64"
                 },
                 "Descripcion": {
                     "type": "string"
                 },
                 "FechaCreacion": {
-                    "type": "string",
-                    "format": "datetime"
+                    "type": "string"
                 },
                 "FechaModificacion": {
-                    "type": "string",
-                    "format": "datetime"
+                    "type": "string"
                 },
                 "Id": {
                     "type": "integer",
@@ -2164,6 +2499,9 @@
                 },
                 "Nombre": {
                     "type": "string"
+                },
+                "TipoNivelId": {
+                    "$ref": "#/definitions/models.TipoNivel"
                 }
             }
         },
@@ -2178,12 +2516,10 @@
                     "$ref": "#/definitions/models.Catalogo"
                 },
                 "FechaCreacion": {
-                    "type": "string",
-                    "format": "datetime"
+                    "type": "string"
                 },
                 "FechaModificacion": {
-                    "type": "string",
-                    "format": "datetime"
+                    "type": "string"
                 },
                 "Id": {
                     "type": "integer",
@@ -2202,12 +2538,10 @@
                     "type": "boolean"
                 },
                 "FechaCreacion": {
-                    "type": "string",
-                    "format": "datetime"
+                    "type": "string"
                 },
                 "FechaModificacion": {
-                    "type": "string",
-                    "format": "datetime"
+                    "type": "string"
                 },
                 "Id": {
                     "type": "integer",
@@ -2235,12 +2569,42 @@
                     "type": "string"
                 },
                 "FechaCreacion": {
-                    "type": "string",
-                    "format": "datetime"
+                    "type": "string"
                 },
                 "FechaModificacion": {
-                    "type": "string",
-                    "format": "datetime"
+                    "type": "string"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Nombre": {
+                    "type": "string"
+                },
+                "Orden": {
+                    "type": "number",
+                    "format": "double"
+                }
+            }
+        },
+        "models.TipoNivel": {
+            "title": "TipoNivel",
+            "type": "object",
+            "properties": {
+                "Activo": {
+                    "type": "boolean"
+                },
+                "CodigoAbreviacion": {
+                    "type": "string"
+                },
+                "Descripcion": {
+                    "type": "string"
+                },
+                "FechaCreacion": {
+                    "type": "string"
+                },
+                "FechaModificacion": {
+                    "type": "string"
                 },
                 "Id": {
                     "type": "integer",
@@ -2283,7 +2647,7 @@
             "type": "object",
             "properties": {
                 "SubgrupoHijo": {
-                    "$ref": "#/definitions/20969.\u003cnil\u003e.Subgrupo"
+                    "$ref": "#/definitions/55422.\u003cnil\u003e.Subgrupo"
                 },
                 "SubgrupoPadre": {
                     "$ref": "#/definitions/models.Subgrupo"
@@ -2335,6 +2699,14 @@
         {
             "name": "detalle_subgrupo",
             "description": "DetalleSubgrupoController operations for DetalleSubgrupo\n"
+        },
+        {
+            "name": "tipo_nivel",
+            "description": "TipoNivelController operations for TipoNivel\n"
+        },
+        {
+            "name": "relacion_nivel",
+            "description": "RelacionNivelController operations for RelacionNivel\n"
         },
         {
             "name": "tipo_bien",
