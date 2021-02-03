@@ -1780,62 +1780,6 @@
             }
         },
         "/tr_cuentas_subgrupo/": {
-            "get": {
-                "tags": [
-                    "tr_cuentas_subgrupo"
-                ],
-                "description": "get models.TransaccionCuentasGrupo",
-                "operationId": "TrCuentasSubgrupoController.GetAll",
-                "parameters": [
-                    {
-                        "in": "query",
-                        "name": "query",
-                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "fields",
-                        "description": "Fields returned. e.g. col1,col2 ...",
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "sortby",
-                        "description": "Sorted-by fields. e.g. col1,col2 ...",
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "order",
-                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "limit",
-                        "description": "Limit the size of result set. Must be an integer",
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "offset",
-                        "description": "Start position of result set. Must be an integer",
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/models.TrSubgrupo"
-                        }
-                    },
-                    "403": {
-                        "description": ""
-                    }
-                }
-            },
             "post": {
                 "tags": [
                     "tr_cuentas_subgrupo"
@@ -1867,33 +1811,6 @@
             }
         },
         "/tr_cuentas_subgrupo/{id}": {
-            "get": {
-                "tags": [
-                    "tr_cuentas_subgrupo"
-                ],
-                "description": "get TrSubgrupo by id",
-                "operationId": "TrCuentasSubgrupoController.GetOne",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "id",
-                        "description": "The key for staticblock",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/models.TransaccionCuentasGrupo"
-                        }
-                    },
-                    "403": {
-                        "description": ":id is empty"
-                    }
-                }
-            },
             "put": {
                 "tags": [
                     "tr_cuentas_subgrupo"
@@ -1929,89 +1846,9 @@
                         "description": "the request contains incorrect syntax"
                     }
                 }
-            },
-            "delete": {
-                "tags": [
-                    "tr_cuentas_subgrupo"
-                ],
-                "description": "delete the Tr_subgrupo",
-                "operationId": "TrCuentasSubgrupoController.Delete",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "id",
-                        "description": "The id you want to delete",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{string} delete success!"
-                    },
-                    "404": {
-                        "description": "not found resource"
-                    }
-                }
             }
         },
         "/tr_grupo/": {
-            "get": {
-                "tags": [
-                    "tr_grupo"
-                ],
-                "description": "get TrGrupoController",
-                "operationId": "TrGrupoController.GetAll",
-                "parameters": [
-                    {
-                        "in": "query",
-                        "name": "query",
-                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "fields",
-                        "description": "Fields returned. e.g. col1,col2 ...",
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "sortby",
-                        "description": "Sorted-by fields. e.g. col1,col2 ...",
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "order",
-                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "limit",
-                        "description": "Limit the size of result set. Must be an integer",
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "offset",
-                        "description": "Start position of result set. Must be an integer",
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/models.TrGrupoController"
-                        }
-                    },
-                    "403": {
-                        "description": ""
-                    }
-                }
-            },
             "post": {
                 "tags": [
                     "tr_grupo"
@@ -2105,89 +1942,9 @@
                         "description": "the request contains incorrect syntax"
                     }
                 }
-            },
-            "delete": {
-                "tags": [
-                    "tr_grupo"
-                ],
-                "description": "delete the TrGrupoController",
-                "operationId": "TrGrupoController.Delete",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "id",
-                        "description": "The id you want to delete",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{string} delete success!"
-                    },
-                    "404": {
-                        "description": "not found resource"
-                    }
-                }
             }
         },
         "/tr_subgrupo/": {
-            "get": {
-                "tags": [
-                    "tr_subgrupo"
-                ],
-                "description": "get TrSubgrupo",
-                "operationId": "TrSubgrupoController.GetAll",
-                "parameters": [
-                    {
-                        "in": "query",
-                        "name": "query",
-                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "fields",
-                        "description": "Fields returned. e.g. col1,col2 ...",
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "sortby",
-                        "description": "Sorted-by fields. e.g. col1,col2 ...",
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "order",
-                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "limit",
-                        "description": "Limit the size of result set. Must be an integer",
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "offset",
-                        "description": "Start position of result set. Must be an integer",
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/models.TrSubgrupo"
-                        }
-                    },
-                    "403": {
-                        "description": ""
-                    }
-                }
-            },
             "post": {
                 "tags": [
                     "tr_subgrupo"
@@ -2279,30 +2036,6 @@
                     },
                     "400": {
                         "description": "the request contains incorrect syntax"
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "tr_subgrupo"
-                ],
-                "description": "delete the Tr_subgrupo",
-                "operationId": "TrSubgrupoController.Delete",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "id",
-                        "description": "The id you want to delete",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{string} delete success!"
-                    },
-                    "404": {
-                        "description": "not found resource"
                     }
                 }
             }

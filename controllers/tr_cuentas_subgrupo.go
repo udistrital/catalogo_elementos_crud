@@ -17,9 +17,9 @@ type TrCuentasSubgrupoController struct {
 // URLMapping ...
 func (c *TrCuentasSubgrupoController) URLMapping() {
 	c.Mapping("Post", c.Post)
-	c.Mapping("GetAll", c.GetAll)
+	// c.Mapping("GetAll", c.GetAll)
 	c.Mapping("Put", c.Put)
-	c.Mapping("Delete", c.Delete)
+	// c.Mapping("Delete", c.Delete)
 }
 
 // Post ...
@@ -57,6 +57,7 @@ func (c *TrCuentasSubgrupoController) Post() {
 // @Success 200 {object} models.TransaccionCuentasGrupo
 // @Failure 403 :id is empty
 // @router /:id [get]
+/*
 func (c *TrCuentasSubgrupoController) GetAllById() {
 	idPersonaStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idPersonaStr)
@@ -71,6 +72,7 @@ func (c *TrCuentasSubgrupoController) GetAllById() {
 	}
 	c.ServeJSON()
 }
+*/
 
 // GetAll ...
 // @Title GetAll
@@ -84,9 +86,11 @@ func (c *TrCuentasSubgrupoController) GetAllById() {
 // @Success 200 {object} models.TrSubgrupo
 // @Failure 403
 // @router / [get]
+/*
 func (c *TrCuentasSubgrupoController) GetAll() {
 
 }
+*/
 
 // Put ...
 // @Title Put
@@ -125,6 +129,8 @@ func (c *TrCuentasSubgrupoController) Put() {
 // @Success 200 {string} delete success!
 // @Failure 404 not found resource
 // @router /:id [delete]
+/*
 func (c *TrCuentasSubgrupoController) Delete() {
 
 }
+*/
