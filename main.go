@@ -4,7 +4,7 @@ import (
 	//"github.com/udistrital/auditoria"
 	_ "github.com/udistrital/catalogo_elementos_crud/routers"
 	apistatus "github.com/udistrital/utils_oas/apiStatusLib"
-	"github.com/udistrital/utils_oas/customerror"
+	"github.com/udistrital/utils_oas/customerrorv2"
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
@@ -41,6 +41,6 @@ func main() {
 	//logs.SetLogger(logs.AdapterFile, `{"filename":"/var/log/beego/catalogo_elementos_crud/catalogo_elementos_crud.log"}`)
 	apistatus.Init()
 	//auditoria.InitMiddleware()
-	beego.ErrorController(&customerror.CustomErrorController{})
+	beego.ErrorController(&customerrorv2.CustomErrorController{})
 	beego.Run()
 }

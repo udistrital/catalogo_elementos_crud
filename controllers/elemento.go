@@ -41,7 +41,7 @@ func (c *ElementoController) Post() {
 		v.FechaModificacion = time_bogota.TiempoBogotaFormato()
 		if _, err := models.AddElemento(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
-			c.Data["json"] = v
+			c.Data["json"] = map[string]interface{}{"Success": true, "Status": "201", "Message": "Registration successful", "Data": v}
 		} else {
 			logs.Error(err)
 			//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
@@ -74,7 +74,7 @@ func (c *ElementoController) GetOne() {
 		c.Data["system"] = err
 		c.Abort("404")
 	} else {
-		c.Data["json"] = v
+		c.Data["json"] = map[string]interface{}{"Success": true, "Status": "200", "Message": "Request successful", "Data": v}
 	}
 	c.ServeJSON()
 }
