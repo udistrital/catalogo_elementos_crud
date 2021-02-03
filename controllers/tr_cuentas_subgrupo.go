@@ -2,10 +2,11 @@ package controllers
 
 import (
 	"encoding/json"
+	"strconv"
+
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
 	"github.com/udistrital/catalogo_elementos_crud/models"
-	"strconv"
 )
 
 // TrCuentasSubgrupoController operations for Tr_subgrupo
@@ -23,7 +24,7 @@ func (c *TrCuentasSubgrupoController) URLMapping() {
 
 // Post ...
 // @Title Create
-// @Description create TrSubgrupo
+// @Description Create multiple cuentas_grupo records. Please note that the functionality of this controller are included/implemented also within the PUT transaction, so this controller might be DEPRECATED
 // @Param	body		body 	models.TransaccionCuentasGrupo	true		"body for TrSubgrupo content"
 // @Success 201 {object} models.TrSubgrupo
 // @Failure 403 body is empty

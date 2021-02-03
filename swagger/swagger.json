@@ -1840,7 +1840,7 @@
                 "tags": [
                     "tr_cuentas_subgrupo"
                 ],
-                "description": "create TrSubgrupo",
+                "description": "Create multiple cuentas_grupo records. Please note that the functionality of this controller are included/implemented also within the PUT transaction, so this controller might be DEPRECATED",
                 "operationId": "TrCuentasSubgrupoController.Create",
                 "parameters": [
                     {
