@@ -2309,10 +2309,6 @@
         }
     },
     "definitions": {
-        "55422.\u003cnil\u003e.Subgrupo": {
-            "title": "Subgrupo",
-            "type": "object"
-        },
         "models.Catalogo": {
             "title": "Catalogo",
             "type": "object",
@@ -2327,12 +2323,10 @@
                     "type": "string"
                 },
                 "FechaFin": {
-                    "type": "string",
-                    "format": "datetime"
+                    "type": "string"
                 },
                 "FechaInicio": {
-                    "type": "string",
-                    "format": "datetime"
+                    "type": "string"
                 },
                 "FechaModificacion": {
                     "type": "string"
@@ -2481,8 +2475,7 @@
                     "type": "boolean"
                 },
                 "Codigo": {
-                    "type": "string",
-                    "format": "int64"
+                    "type": "string"
                 },
                 "Descripcion": {
                     "type": "string"
@@ -2646,8 +2639,11 @@
             "title": "TrSubgrupo",
             "type": "object",
             "properties": {
+                "DetalleSubgrupo": {
+                    "$ref": "#/definitions/models.DetalleSubgrupo"
+                },
                 "SubgrupoHijo": {
-                    "$ref": "#/definitions/55422.\u003cnil\u003e.Subgrupo"
+                    "$ref": "#/definitions/models.Subgrupo"
                 },
                 "SubgrupoPadre": {
                     "$ref": "#/definitions/models.Subgrupo"
