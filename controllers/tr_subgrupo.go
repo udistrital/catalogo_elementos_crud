@@ -3,6 +3,7 @@ package controllers
 import (
 	"encoding/json"
 	"strconv"
+
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
 	"github.com/udistrital/catalogo_elementos_crud/models"
@@ -17,9 +18,9 @@ type TrSubgrupoController struct {
 func (c *TrSubgrupoController) URLMapping() {
 	c.Mapping("Post", c.Post)
 	c.Mapping("GetOne", c.GetOne)
-	c.Mapping("GetAll", c.GetAll)
+	// c.Mapping("GetAll", c.GetAll)
 	c.Mapping("Put", c.Put)
-	c.Mapping("Delete", c.Delete)
+	// c.Mapping("Delete", c.Delete)
 }
 
 // Post ...
@@ -87,8 +88,10 @@ func (c *TrSubgrupoController) GetOne() {
 // @Success 200 {object} models.TrSubgrupo
 // @Failure 403
 // @router / [get]
+/*
 func (c *TrSubgrupoController) GetAll() {
 }
+*/
 
 // Put ...
 // @Title Put
@@ -125,7 +128,6 @@ func (c *TrSubgrupoController) Put() {
 
 */
 
-
 // Delete ...
 // @Title Delete
 // @Description delete the Tr_subgrupo
@@ -133,6 +135,8 @@ func (c *TrSubgrupoController) Put() {
 // @Success 200 {string} delete success!
 // @Failure 404 not found resource
 // @router /:id [delete]
+/*
 func (c *TrSubgrupoController) Delete() {
 
 }
+*/
