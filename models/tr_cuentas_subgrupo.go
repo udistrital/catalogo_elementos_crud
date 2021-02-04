@@ -117,6 +117,7 @@ func UpdateCuentas_GrupoById(m *TransaccionCuentasGrupo, id int) (err error) {
 					r.Activo = true
 					r.SubgrupoId = v.SubgrupoId
 					r.FechaModificacion = time_bogota.TiempoBogotaFormato()
+					r.FechaCreacion = r.FechaModificacion
 					if _, err = o.Insert(&r); err != nil {
 						panic(err.Error())
 					}
@@ -136,6 +137,7 @@ func UpdateCuentas_GrupoById(m *TransaccionCuentasGrupo, id int) (err error) {
 			r.Activo = true
 			r.SubgrupoId = v.SubgrupoId
 			r.FechaModificacion = time_bogota.TiempoBogotaFormato()
+			r.FechaCreacion = r.FechaModificacion
 			if _, err = o.Insert(&r); err != nil {
 				panic(err.Error())
 			}
