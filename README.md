@@ -79,7 +79,9 @@ Pruebas unitarias
 
 
 ## Modelo de Datos
-[Modelo de Datos API CRUD Catalogo Elementos](https://user-images.githubusercontent.com/23342808/68551355-22cf8280-03da-11ea-8c25-4cb053a1513b.png)
+[Modelo de Datos CATALOGO ELEMENTOS CRUD](https://drive.google.com/drive/u/2/folders/1LkLHwuF-FKOyuMEMs0DjMdIUH-YXDJnY)\
+[PGModeler](models/modelo.dbm) - [SVG](models/modelo.svg)
+
 
 
 ## Licencia
