@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.1" last-position="0,200" last-zoom="1"
+	 default-schema="public" default-owner="postgres">
+<role name="desarrollooas"
+      superuser="true"
+      createdb="true"
+      replication="true"
+      createrole="true"
+      inherit="true"
+      login="true"
+      encrypted="true"
+      password="********">
+</role>
+
+<database name="bd_oas" encoding="UTF8" lc-collate="en_US.UTF-8" lc-ctype="en_US.UTF-8" is-template="false" allow-conns="true">
+	<role name="postgres"/>
+	<tablespace name="pg_default"/>
+</database>
+
+<schema name="public" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<schema name="catalogo" rect-visible="true" fill-color="#888a85">
+	<role name="postgres"/>
+</schema>
+
+<sequence name="subgrupo_catalogo_id_seq"
+	 start="1" increment="1"
+	 min-value="1" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="catalogo"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="subgrupo_catalogo">
+	<schema name="catalogo"/>
+	<role name="postgres"/>
+	<comment><![CDATA[Tabla que almacena los subgrupos de catálogos disponibles en ARKA II en caso de existir más de uno.]]></comment>
+	<position x="740" y="800"/>
+	<column name="id" not-null="true" sequence="catalogo.subgrupo_catalogo_id_seq">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Identificador único]]></comment>
+	</column>
+	<column name="fecha_creacion" not-null="true">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[Campo para almacenar la fecha de cración del registro. Se usa para trazabilidad.]]></comment>
+	</column>
+	<column name="fecha_modificacion" not-null="true">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[Campo para almacenar la fecha de modificación del registro. Se usa para trazabilidad.]]></comment>
+	</column>
+	<column name="activo" not-null="true">
+		<type name="boolean" length="0"/>
+		<comment><![CDATA[Campo para validar si se encuentra activo o no el registro. Se usa para trazabilidad.]]></comment>
+	</column>
+	<column name="catalogo_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="subgrupo_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="pk_subgrupo_catalogo" type="pk-constr" table="catalogo.subgrupo_catalogo">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="catalogo_id_seq"
+	 start="1" increment="1"
+	 min-value="1" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="catalogo"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="catalogo">
+	<schema name="catalogo"/>
+	<role name="postgres"/>
+	<comment><![CDATA[Tabla que almacena los catálogos disponibles en ARKA II]]></comment>
+	<position x="160" y="860"/>
+	<column name="id" not-null="true" sequence="catalogo.catalogo_id_seq">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Identificador único]]></comment>
+	</column>
+	<column name="nombre" not-null="true">
+		<type name="character varying" length="300"/>
+		<comment><![CDATA[Nombre del catálogo.]]></comment>
+	</column>
+	<column name="descripcion" not-null="true">
+		<type name="character varying" length="300"/>
+		<comment><![CDATA[Campo que almacena la información extra del catálogo.]]></comment>
+	</column>
+	<column name="fecha_inicio" not-null="true">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[Campo que almacena cuando inicia el funcionamiento del catálogo.]]></comment>
+	</column>
+	<column name="fecha_fin">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[Campo que almacena cuando deja de funcionar el catálogo.]]></comment>
+	</column>
+	<column name="fecha_creacion" not-null="true">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[Campo para almacenar la fecha de cración del registro. Se usa para trazabilidad.]]></comment>
+	</column>
+	<column name="fecha_modificacion" not-null="true">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[Campo para almacenar la fecha de modificación del registro. Se usa para trazabilidad.]]></comment>
+	</column>
+	<column name="activo" not-null="true">
+		<type name="boolean" length="0"/>
+		<comment><![CDATA[Campo para validar si se encuentra activo o no el registro. Se usa para trazabilidad.]]></comment>
+	</column>
+	<constraint name="pk_catalogo" type="pk-constr" table="catalogo.catalogo">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="subgrupo_id_seq"
+	 start="1" increment="1"
+	 min-value="1" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="catalogo"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="subgrupo">
+	<schema name="catalogo"/>
+	<role name="postgres"/>
+	<comment><![CDATA[Tabla que almacena los subgrupos disponibles en ARKA II]]></comment>
+	<position x="720" y="540"/>
+	<column name="id" not-null="true" sequence="catalogo.subgrupo_id_seq">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Identificador único]]></comment>
+	</column>
+	<column name="nombre" not-null="true">
+		<type name="character varying" length="300"/>
+		<comment><![CDATA[nombre del subgrupo del catálogo.]]></comment>
+	</column>
+	<column name="descripcion" not-null="true">
+		<type name="character varying" length="300"/>
+	</column>
+	<column name="fecha_creacion" not-null="true">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[Campo para almacenar la fecha de cración del registro. Se usa para trazabilidad.]]></comment>
+	</column>
+	<column name="fecha_modificacion" not-null="true">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[Campo para almacenar la fecha de modificación del registro. Se usa para trazabilidad.]]></comment>
+	</column>
+	<column name="activo" not-null="true">
+		<type name="boolean" length="0"/>
+		<comment><![CDATA[Campo para validar si se encuentra activo o no el registro. Se usa para trazabilidad.]]></comment>
+	</column>
+	<column name="codigo" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="tipo_nivel_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="pk_subgrupo" type="pk-constr" table="catalogo.subgrupo">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="subgrupo_subgrupo_id_seq"
+	 start="1" increment="1"
+	 min-value="1" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="catalogo"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="subgrupo_subgrupo">
+	<schema name="catalogo"/>
+	<role name="postgres"/>
+	<comment><![CDATA[Tabla que almacena los subgrupos de los subgrupos disponibles en ARKA II en caso de que se pueda desagregar más un subgrupo.]]></comment>
+	<position x="1300" y="160"/>
+	<column name="id" not-null="true" sequence="catalogo.subgrupo_subgrupo_id_seq">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Identificador único]]></comment>
+	</column>
+	<column name="fecha_creacion" not-null="true">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[Campo para almacenar la fecha de cración del registro. Se usa para trazabilidad.]]></comment>
+	</column>
+	<column name="fecha_modificacion" not-null="true">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[Campo para almacenar la fecha de modificación del registro. Se usa para trazabilidad.]]></comment>
+	</column>
+	<column name="activo" not-null="true">
+		<type name="boolean" length="0"/>
+		<comment><![CDATA[Campo para validar si se encuentra activo o no el registro. Se usa para trazabilidad.]]></comment>
+	</column>
+	<column name="subgrupo_padre_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="subgrupo_hijo_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="pk_subgrupo_subgrupo" type="pk-constr" table="catalogo.subgrupo_subgrupo">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="uq_subgrupo_subgrupo" type="uq-constr" table="catalogo.subgrupo_subgrupo">
+		<columns names="subgrupo_padre_id,subgrupo_hijo_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="cuentas_grupo_id_seq"
+	 start="1" increment="1"
+	 min-value="1" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="catalogo"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="cuentas_subgrupo">
+	<schema name="catalogo"/>
+	<role name="postgres"/>
+	<comment><![CDATA[Tabla de rompimiento para asociar múltiples cuentas a un subgrupo de un catálogo dependiento el tipo de movimiento. Por ejemplo, donación pertenece a un tipo de movimiento entrada, pero no tiene las mismas cuentas que el tipo de movimiento.]]></comment>
+	<position x="720" y="200"/>
+	<column name="id" not-null="true" sequence="catalogo.cuentas_grupo_id_seq">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Identificador único]]></comment>
+	</column>
+	<column name="cuenta_credito_id" not-null="true">
+		<type name="character varying" length="20"/>
+		<comment><![CDATA[Campo para almacenar el número de la cuenta de crédito asociada a un movimiento. Proviene de KRONOS.]]></comment>
+	</column>
+	<column name="cuenta_debito_id" not-null="true">
+		<type name="character varying" length="20"/>
+		<comment><![CDATA[Campo para almacenar el número de la cuenta de débito asociada a un movimiento. Proviene de KRONOS.]]></comment>
+	</column>
+	<column name="subtipo_movimiento_id" not-null="true">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Campo que guarda la foranea del movimiento, para asociar una cuenta a un tipo de movimiento específico.  Proviene de KRONOS.]]></comment>
+	</column>
+	<column name="fecha_creacion" not-null="true">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[Campo para almacenar la fecha de cración del registro. Se usa para trazabilidad.]]></comment>
+	</column>
+	<column name="fecha_modificacion" not-null="true">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[Campo para almacenar la fecha de modificación del registro. Se usa para trazabilidad.]]></comment>
+	</column>
+	<column name="activo" not-null="true">
+		<type name="boolean" length="0"/>
+		<comment><![CDATA[Campo para validar si se encuentra activo o no el registro. Se usa para trazabilidad.]]></comment>
+	</column>
+	<column name="subgrupo_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="pk_movimiento_cuenta" type="pk-constr" table="catalogo.cuentas_subgrupo">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="elemento_id_seq"
+	 start="1" increment="1"
+	 min-value="1" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="catalogo"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="elemento">
+	<schema name="catalogo"/>
+	<role name="postgres"/>
+	<comment><![CDATA[Tabla que almacena los catálogos disponibles en ARKA II]]></comment>
+	<position x="1280" y="420"/>
+	<column name="id" not-null="true" sequence="catalogo.elemento_id_seq">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Identificador único]]></comment>
+	</column>
+	<column name="nombre" not-null="true">
+		<type name="character varying" length="300"/>
+		<comment><![CDATA[Nombre del catálogo.]]></comment>
+	</column>
+	<column name="descripcion" not-null="true">
+		<type name="character varying" length="300"/>
+		<comment><![CDATA[Campo que almacena la información extra del catálogo.]]></comment>
+	</column>
+	<column name="fecha_inicio" not-null="true">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[Campo que almacena cuando inicia el funcionamiento del catálogo.]]></comment>
+	</column>
+	<column name="fecha_fin">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[Campo que almacena cuando deja de funcionar el catálogo.]]></comment>
+	</column>
+	<column name="fecha_creacion" not-null="true">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[Campo para almacenar la fecha de cración del registro. Se usa para trazabilidad.]]></comment>
+	</column>
+	<column name="fecha_modificacion" not-null="true">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[Campo para almacenar la fecha de modificación del registro. Se usa para trazabilidad.]]></comment>
+	</column>
+	<column name="activo" not-null="true">
+		<type name="boolean" length="0"/>
+		<comment><![CDATA[Campo para validar si se encuentra activo o no el registro. Se usa para trazabilidad.]]></comment>
+	</column>
+	<column name="subgrupo_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="pk_elemento" type="pk-constr" table="catalogo.elemento">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="tipo_bien_id_seq"
+	 start="1" increment="1"
+	 min-value="1" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="catalogo"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="tipo_bien">
+	<schema name="catalogo"/>
+	<role name="postgres"/>
+	<position x="180" y="180"/>
+	<column name="id" not-null="true" sequence="catalogo.tipo_bien_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="nombre" not-null="true">
+		<type name="character varying" length="20"/>
+	</column>
+	<column name="descripcion">
+		<type name="character varying" length="250"/>
+	</column>
+	<column name="codigo_abreviacion">
+		<type name="character varying" length="20"/>
+	</column>
+	<column name="orden">
+		<type name="numeric" length="5" precision="2"/>
+	</column>
+	<column name="activo" not-null="true">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="fecha_creacion" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="fecha_modificacion" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<constraint name="tipo_bien_pk" type="pk-constr" table="catalogo.tipo_bien">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="detalle_subgrupo_id_seq"
+	 start="1" increment="1"
+	 min-value="1" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="catalogo"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="detalle_subgrupo">
+	<schema name="catalogo"/>
+	<role name="postgres"/>
+	<position x="180" y="440"/>
+	<column name="id" not-null="true" sequence="catalogo.detalle_subgrupo_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="depreciacion" not-null="true">
+		<type name="boolean" length="0"/>
+		<comment><![CDATA[Campo que determina si un Grupo (subgrupo) se deprecia o no.]]></comment>
+	</column>
+	<column name="valorizacion" not-null="true">
+		<type name="boolean" length="0"/>
+		<comment><![CDATA[Campo que determina si un Grupo (subgrupo) se valoriza o no.]]></comment>
+	</column>
+	<column name="deterioro" not-null="true">
+		<type name="boolean" length="0"/>
+		<comment><![CDATA[Campo que determina si un Grupo (subgrupo) se deteriora o no.]]></comment>
+	</column>
+	<column name="activo" not-null="true">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="fecha_creacion" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="fecha_modificacion" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="subgrupo_id">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="tipo_bien_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="detalle_subgrupo_pk" type="pk-constr" table="catalogo.detalle_subgrupo">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="tipo_nivel_id_seq"
+	 start="1" increment="1"
+	 min-value="1" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="catalogo"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="tipo_nivel">
+	<schema name="catalogo"/>
+	<role name="postgres"/>
+	<position x="1280" y="900"/>
+	<column name="id" not-null="true" sequence="catalogo.tipo_nivel_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="nombre" not-null="true">
+		<type name="character varying" length="20"/>
+	</column>
+	<column name="descripcion">
+		<type name="character varying" length="250"/>
+	</column>
+	<column name="codigo_abreviacion">
+		<type name="character varying" length="20"/>
+	</column>
+	<column name="orden">
+		<type name="numeric" length="5" precision="2"/>
+	</column>
+	<column name="activo" not-null="true">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="fecha_creacion" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="fecha_modificacion" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<constraint name="pk_tipo_nivel" type="pk-constr" table="catalogo.tipo_nivel">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="relacion_nivel_id_seq"
+	 start="1" increment="1"
+	 min-value="1" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="catalogo"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="relacion_nivel">
+	<schema name="catalogo"/>
+	<role name="postgres"/>
+	<position x="1280" y="640"/>
+	<column name="id" not-null="true" sequence="catalogo.relacion_nivel_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="fecha_creacion" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="fecha_modificacion" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="activo" not-null="true">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="nivel_padre_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="nivel_hijo_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="pk_relacion_nivel" type="pk-constr" table="catalogo.relacion_nivel">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="uq_relacion_nivel" type="uq-constr" table="catalogo.relacion_nivel">
+		<columns names="nivel_padre_id,nivel_hijo_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<constraint name="fk_subgrupo_catalogo_subgrupo" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="catalogo.subgrupo" table="catalogo.subgrupo_catalogo">
+	<columns names="subgrupo_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_subgrupo_catalogo_catalogo" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="catalogo.catalogo" table="catalogo.subgrupo_catalogo">
+	<columns names="catalogo_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_subgrupo_tipo_nivel" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="catalogo.tipo_nivel" table="catalogo.subgrupo">
+	<columns names="tipo_nivel_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_subgrupo_subgrupo_subgrupo_padre" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="catalogo.subgrupo" table="catalogo.subgrupo_subgrupo">
+	<columns names="subgrupo_padre_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_subgrupo_subgrupo_subgrupo_hijo" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="catalogo.subgrupo" table="catalogo.subgrupo_subgrupo">
+	<columns names="subgrupo_hijo_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_cuentas_grupo_subgrupo" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="catalogo.subgrupo" table="catalogo.cuentas_subgrupo">
+	<columns names="subgrupo_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_elemento_subgrupo" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="catalogo.subgrupo" table="catalogo.elemento">
+	<columns names="subgrupo_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_detalle_subgrupo_tipo_bien" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="catalogo.tipo_bien" table="catalogo.detalle_subgrupo">
+	<columns names="tipo_bien_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_detalle_subgrupo_subgrupo" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="catalogo.subgrupo" table="catalogo.detalle_subgrupo">
+	<columns names="subgrupo_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_tipo_nivel_nivel_padre" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="catalogo.tipo_nivel" table="catalogo.relacion_nivel">
+	<columns names="nivel_padre_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_tipo_nivel_nivel_hijo" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="catalogo.tipo_nivel" table="catalogo.relacion_nivel">
+	<columns names="nivel_hijo_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<relationship name="rel_subgrupo_catalogo_subgrupo" type="relfk"
+	 custom-color="#f8f5c1"
+	 src-table="catalogo.subgrupo_catalogo"
+	 dst-table="catalogo.subgrupo" reference-fk="fk_subgrupo_catalogo_subgrupo"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="14.6492" y="9.79663"/>
+	</label>
+</relationship>
+
+<relationship name="rel_subgrupo_catalogo_catalogo" type="relfk"
+	 custom-color="#329912"
+	 src-table="catalogo.subgrupo_catalogo"
+	 dst-table="catalogo.catalogo" reference-fk="fk_subgrupo_catalogo_catalogo"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<relationship name="rel_subgrupo_tipo_nivel" type="relfk"
+	 custom-color="#34be39"
+	 src-table="catalogo.subgrupo"
+	 dst-table="catalogo.tipo_nivel" reference-fk="fk_subgrupo_tipo_nivel"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_subgrupo_subgrupo_subgrupo" type="relfk"
+	 custom-color="#c5a1c7"
+	 src-table="catalogo.subgrupo_subgrupo"
+	 dst-table="catalogo.subgrupo" reference-fk="fk_subgrupo_subgrupo_subgrupo_padre"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="26.3061" y="-68.0107"/>
+	</label>
+</relationship>
+
+<relationship name="rel_subgrupo_subgrupo_subgrupo1" type="relfk"
+	 custom-color="#b299c2"
+	 src-table="catalogo.subgrupo_subgrupo"
+	 dst-table="catalogo.subgrupo" reference-fk="fk_subgrupo_subgrupo_subgrupo_hijo"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="29.8061" y="-48.0107"/>
+	</label>
+</relationship>
+
+<relationship name="rel_cuentas_subgrupo_subgrupo" type="relfk"
+	 custom-color="#12d9ee"
+	 src-table="catalogo.cuentas_subgrupo"
+	 dst-table="catalogo.subgrupo" reference-fk="fk_cuentas_grupo_subgrupo"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_elemento_subgrupo" type="relfk"
+	 custom-color="#097dcf"
+	 src-table="catalogo.elemento"
+	 dst-table="catalogo.subgrupo" reference-fk="fk_elemento_subgrupo"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="7.80608" y="-4.26066"/>
+	</label>
+</relationship>
+
+<relationship name="rel_detalle_subgrupo_tipo_bien" type="relfk"
+	 custom-color="#b1303a"
+	 src-table="catalogo.detalle_subgrupo"
+	 dst-table="catalogo.tipo_bien" reference-fk="fk_detalle_subgrupo_tipo_bien"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="20.5395" y="-54.1895"/>
+	</label>
+</relationship>
+
+<relationship name="rel_detalle_subgrupo_subgrupo" type="relfk"
+	 custom-color="#f08a35"
+	 src-table="catalogo.detalle_subgrupo"
+	 dst-table="catalogo.subgrupo" reference-fk="fk_detalle_subgrupo_subgrupo"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<relationship name="rel_relacion_nivel_tipo_nivel" type="relfk"
+	 custom-color="#227253"
+	 src-table="catalogo.relacion_nivel"
+	 dst-table="catalogo.tipo_nivel" reference-fk="fk_tipo_nivel_nivel_padre"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="-90.0146" y="-10.7777"/>
+	</label>
+</relationship>
+
+<relationship name="rel_relacion_nivel_tipo_nivel1" type="relfk"
+	 custom-color="#a9140f"
+	 src-table="catalogo.relacion_nivel"
+	 dst-table="catalogo.tipo_nivel" reference-fk="fk_tipo_nivel_nivel_hijo"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="-86.5146" y="9.22227"/>
+	</label>
+</relationship>
+
+<permission>
+	<object name="catalogo" type="schema"/>
+	<roles names="postgres"/>
+	<privileges create="true" usage="true"/>
+</permission>
+<permission>
+	<object name="catalogo" type="schema"/>
+	<roles names="desarrollooas"/>
+	<privileges usage="true"/>
+</permission>
+<permission>
+	<object name="catalogo.subgrupo_catalogo" type="table"/>
+	<roles names="postgres"/>
+	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
+</permission>
+<permission>
+	<object name="catalogo.subgrupo_catalogo" type="table"/>
+	<roles names="desarrollooas"/>
+	<privileges select="true" delete="true" insert="true" update="true"/>
+</permission>
+<permission>
+	<object name="catalogo.catalogo" type="table"/>
+	<roles names="postgres"/>
+	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
+</permission>
+<permission>
+	<object name="catalogo.catalogo" type="table"/>
+	<roles names="desarrollooas"/>
+	<privileges select="true" delete="true" insert="true" update="true"/>
+</permission>
+<permission>
+	<object name="catalogo.subgrupo" type="table"/>
+	<roles names="postgres"/>
+	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
+</permission>
+<permission>
+	<object name="catalogo.subgrupo" type="table"/>
+	<roles names="desarrollooas"/>
+	<privileges select="true" delete="true" insert="true" update="true"/>
+</permission>
+<permission>
+	<object name="catalogo.subgrupo_subgrupo" type="table"/>
+	<roles names="postgres"/>
+	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
+</permission>
+<permission>
+	<object name="catalogo.subgrupo_subgrupo" type="table"/>
+	<roles names="desarrollooas"/>
+	<privileges select="true" delete="true" insert="true" update="true"/>
+</permission>
+<permission>
+	<object name="catalogo.cuentas_subgrupo" type="table"/>
+	<roles names="postgres"/>
+	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
+</permission>
+<permission>
+	<object name="catalogo.cuentas_subgrupo" type="table"/>
+	<roles names="desarrollooas"/>
+	<privileges select="true" delete="true" insert="true" update="true"/>
+</permission>
+</dbmodel>
