@@ -1,11 +1,11 @@
 workspace:
   base: /go
   path: src/github.com/udistrital/${DRONE_REPO##udistrital/}
-  when:
-      branch:
-      - develop
-      - release/*
-      - master
+  # when:
+  #   branch:
+  #   - develop
+  #   - release/*
+  #   - master
 
 kind: pipeline
 name: oas_api_ci
@@ -19,6 +19,7 @@ steps:
     branch:
     - develop
     - feature/*
+    - hotfix/*
     - release/*
     event:
     - push
@@ -31,6 +32,7 @@ steps:
     branch:
     - develop
     - feature/*
+    - hotfix/*
     - release/*
     event:
     - push
@@ -43,6 +45,7 @@ steps:
     branch:
     - develop
     - feature/*
+    - hotfix/*
     - release/*
     event:
     - push
@@ -50,14 +53,15 @@ steps:
 - name: go_build
   image: golang:1.14
   commands:
-  - go mod init
   - go get -t
   - GOOS=linux GOARCH=amd64 go build -o main
   when:
     branch:
     - develop
-    - release/*
+    - feature/*
+    - hotfix/*
     - master
+    - release/*
     event:
     - push
 
@@ -77,8 +81,10 @@ steps:
   when:
     branch:
     - develop
-    - release/*
+    - feature/*
+    - hotfix/*
     - master
+    - release/*
     event:
     - push
 
@@ -89,6 +95,15 @@ steps:
       from_secret: SONAR_HOST
     sonar_token:
       from_secret: SONAR_TOKEN
+  when:
+    branch:
+    - develop
+    - feature/*
+    - hotfix/*
+    - release/*
+    - master
+    event:
+    - push
 
 - name: beego_migrate
   image: golang:1.14
@@ -210,6 +225,7 @@ steps:
   when:
     branch:
     - develop
+    - hotfix/*
     - release/*
     - master
     event:
