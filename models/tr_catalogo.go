@@ -88,7 +88,7 @@ func getElemento(subgrupo_id int) []Elemento {
 	o := orm.NewOrm()
 	var elementos []Elemento
 
-	if _, err := o.QueryTable(new(Elemento)).RelatedSel().Filter("subgrupo_id", subgrupo_id).Filter("activo", true).All(&elementos); err == nil {
+	if _, err := o.QueryTable(new(Elemento)).RelatedSel().Filter("subgrupo_id", subgrupo_id).All(&elementos); err == nil {
 		return elementos
 	} else {
 		return nil
