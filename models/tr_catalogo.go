@@ -1,14 +1,15 @@
 package models
 
 import (
-	"github.com/astaxie/beego/logs"
-	"fmt"
-	"github.com/astaxie/beego/orm"
 	"encoding/json"
+	"fmt"
+
+	"github.com/astaxie/beego/logs"
+	"github.com/astaxie/beego/orm"
 )
 
 // GetCatalogo Transacción para consultar el árbol de catálogo
-func GetArbolCatalogo(catalogoId int) (arbolCatalogo []map[string]interface{}, err error) {
+func GetArbolCatalogo(catalogoId int, elementos bool) (arbolCatalogo []map[string]interface{}, err error) {
 	o := orm.NewOrm()
 
 	var grupos []SubgrupoCatalogo
@@ -20,7 +21,7 @@ func GetArbolCatalogo(catalogoId int) (arbolCatalogo []map[string]interface{}, e
 				data := make(map[string]interface{})
 				data["data"] = grupo.SubgrupoId
 				if getHijo(grupo.SubgrupoId.Id) {
-					data["children"] = getSubgrupo(grupo.SubgrupoId.Id)
+					data["children"] = getSubgrupo(grupo.SubgrupoId.Id, elementos)
 				}
 				arbolCatalogo = append(arbolCatalogo, data)
 			}
@@ -32,7 +33,7 @@ func GetArbolCatalogo(catalogoId int) (arbolCatalogo []map[string]interface{}, e
 }
 
 // getSubgrupo Transacción para consultar los subgrupos del árbol del catálogo
-func getSubgrupo(subgrupo_padre_id int) (arbolSubgrupo []map[string]interface{}) {
+func getSubgrupo(subgrupo_padre_id int, elementos bool) (arbolSubgrupo []map[string]interface{}) {
 	o := orm.NewOrm()
 
 	var subgrupos []SubgrupoSubgrupo
@@ -46,8 +47,15 @@ func getSubgrupo(subgrupo_padre_id int) (arbolSubgrupo []map[string]interface{})
 				data := make(map[string]interface{})
 				data["data"] = subgrupoHijo.SubgrupoHijoId
 
-				if getHijo(subgrupoHijo.SubgrupoHijoId.Id) {
-					data["children"] = getSubgrupo(subgrupoHijo.SubgrupoHijoId.Id)
+				if subgrupoHijo.SubgrupoHijoId.TipoNivelId.Id < 4 {
+					if getHijo(subgrupoHijo.SubgrupoHijoId.Id) {
+						data["children"] = getSubgrupo(subgrupoHijo.SubgrupoHijoId.Id, elementos)
+					}
+				} else if subgrupoHijo.SubgrupoHijoId.TipoNivelId.Id == 4 && elementos {
+					elementos := getElemento(subgrupoHijo.SubgrupoHijoId.Id)
+					if len(elementos) > 0 {
+						data["children"] = elementos
+					}
 				}
 
 				arbolSubgrupo = append(arbolSubgrupo, data)
@@ -76,7 +84,16 @@ func getHijo(subgrupo_padre_id int) (hijo bool) {
 	return hijo
 }
 
-func GetSubgruposRelacionados(Tipo_Bien int) (Subgrupos []map[string]interface{}, err error){
+func getElemento(subgrupo_id int) []Elemento {
+	o := orm.NewOrm()
+	var elementos []Elemento
+
+	if _, err := o.QueryTable(new(Elemento)).RelatedSel().Filter("subgrupo_id", subgrupo_id).Filter("activo", true).All(&elementos); err == nil {
+		return elementos
+	} else {
+		return nil
+	}
+}
 	o := orm.NewOrm()
 	var subgrupos []DetalleSubgrupo
 	var Subgrupos2 []map[string]interface{}
@@ -89,8 +106,7 @@ func GetSubgruposRelacionados(Tipo_Bien int) (Subgrupos []map[string]interface{}
 			// data["data"] = subgrupoHijo.SubgrupoId
 			if (subgrupoHijo.SubgrupoId.Activo == true) {
 				if getHijo(subgrupoHijo.SubgrupoId.Id) {
-					data["children"] = getSubgrupo(subgrupoHijo.SubgrupoId.Id)
-					
+					data["children"] = getSubgrupo(subgrupoHijo.SubgrupoId.Id, false)
 				}
 				Subgrupos2 = append(Subgrupos2, data)
 			}
