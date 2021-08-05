@@ -1761,9 +1761,21 @@
                     {
                         "in": "path",
                         "name": "id",
-                        "description": "The key for staticblock",
+                        "description": "ID del catalogo",
                         "required": true,
                         "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "elementos",
+                        "description": "traer arbol hasta el nivel elementos",
+                        "type": "boolean"
+                    },
+                    {
+                        "in": "query",
+                        "name": "modificar_elementos",
+                        "description": "Incluir elementos activos o no",
+                        "type": "boolean"
                     }
                 ],
                 "responses": {
