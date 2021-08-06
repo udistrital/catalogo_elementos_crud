@@ -23,14 +23,20 @@ func (c *TrCatalogoController) URLMapping() {
 // GetOne ...
 // @Title GetOne
 // @Description get TrCatalogo by id
-// @Param	id		path 	string	true		"The key for staticblock"
+// @Param	id			path 	string	true	"ID del catalogo"
+// @Param	elementos	query 	bool	false	"traer arbol hasta el nivel elementos"
 // @Success 200 {object} models.TrCatalogo
 // @Failure 403 :id is empty
 // @router /:id [get]
 func (c *TrCatalogoController) GetOne() {
+	elementos := false
+	if v, err := c.GetBool("elementos"); err == nil {
+		elementos = v
+	}
+
 	idCatalogoStr := c.Ctx.Input.Param(":id")
 	idCatalogo, _ := strconv.Atoi(idCatalogoStr)
-	l, err := models.GetArbolCatalogo(idCatalogo)
+	l, err := models.GetArbolCatalogo(idCatalogo, elementos)
 	if err != nil {
 		logs.Error(err)
 		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
