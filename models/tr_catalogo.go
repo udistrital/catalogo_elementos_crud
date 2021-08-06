@@ -3,6 +3,7 @@ package models
 import (
 	"encoding/json"
 	"fmt"
+	"strconv"
 
 	"github.com/astaxie/beego/logs"
 	"github.com/astaxie/beego/orm"
@@ -15,7 +16,6 @@ func GetArbolCatalogo(catalogoId int, elementos bool) (arbolCatalogo []map[strin
 	var grupos []SubgrupoCatalogo
 
 	if _, err := o.QueryTable(new(SubgrupoCatalogo)).RelatedSel().Filter("catalogo_id", catalogoId).Filter("Activo", true).All(&grupos); err == nil {
-
 		for _, grupo := range grupos {
 			if grupo.SubgrupoId.Activo == true {
 				data := make(map[string]interface{})
@@ -42,7 +42,6 @@ func getSubgrupo(subgrupo_padre_id int, elementos bool) (arbolSubgrupo []map[str
 
 		for _, subgrupoHijo := range subgrupos {
 			if subgrupoHijo.SubgrupoHijoId.Activo == true {
-				logs.Debug(subgrupoHijo.SubgrupoHijoId)
 
 				data := make(map[string]interface{})
 				data["data"] = subgrupoHijo.SubgrupoHijoId
@@ -52,9 +51,12 @@ func getSubgrupo(subgrupo_padre_id int, elementos bool) (arbolSubgrupo []map[str
 						data["children"] = getSubgrupo(subgrupoHijo.SubgrupoHijoId.Id, elementos)
 					}
 				} else if subgrupoHijo.SubgrupoHijoId.TipoNivelId.Id == 4 && elementos {
-					elementos := getElemento(subgrupoHijo.SubgrupoHijoId.Id)
-					if len(elementos) > 0 {
-						data["children"] = elementos
+					query := make(map[string]string)
+					query["subgrupo_id"] = strconv.Itoa(subgrupoHijo.SubgrupoHijoId.Id)
+
+					ListaElementos, _ := GetAllElemento(query, nil, nil, nil, 0, 0)
+					if len(ListaElementos) > 0 {
+						data["children"] = ListaElementos
 					}
 				}
 
@@ -84,16 +86,7 @@ func getHijo(subgrupo_padre_id int) (hijo bool) {
 	return hijo
 }
 
-func getElemento(subgrupo_id int) []Elemento {
-	o := orm.NewOrm()
-	var elementos []Elemento
-
-	if _, err := o.QueryTable(new(Elemento)).RelatedSel().Filter("subgrupo_id", subgrupo_id).All(&elementos); err == nil {
-		return elementos
-	} else {
-		return nil
-	}
-}
+func GetSubgruposRelacionados(Tipo_Bien int) (Subgrupos []map[string]interface{}, err error) {
 	o := orm.NewOrm()
 	var subgrupos []DetalleSubgrupo
 	var Subgrupos2 []map[string]interface{}
