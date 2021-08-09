@@ -56,7 +56,13 @@ func getSubgrupo(subgrupo_padre_id int, elementos bool) (arbolSubgrupo []map[str
 
 					ListaElementos, _ := GetAllElemento(query, nil, nil, nil, 0, 0)
 					if len(ListaElementos) > 0 {
-						data["children"] = ListaElementos
+						children := make([]map[string]interface{}, len(ListaElementos))
+						for i, elemento := range ListaElementos {
+							child := make(map[string]interface{})
+							child["data"] = elemento
+							children[i] = child
+						}
+						data["children"] = children
 					}
 				}
 
