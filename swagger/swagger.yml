@@ -1433,16 +1433,12 @@ definitions:
     properties:
       Activo:
         type: boolean
+      Codigo:
+        type: string
       Descripcion:
         type: string
       FechaCreacion:
         type: string
-      FechaFin:
-        type: string
-        format: datetime
-      FechaInicio:
-        type: string
-        format: datetime
       FechaModificacion:
         type: string
       Id:
