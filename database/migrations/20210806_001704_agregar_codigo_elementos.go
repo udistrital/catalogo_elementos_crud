@@ -23,7 +23,7 @@ func init() {
 
 // Run the migrations
 func (m *AgregarCodigoElementos_20210806_001704) Up() {
-	file, err := ioutil.ReadFile("../scripts/agregar_codigo_elementos_up.sql")
+	file, err := ioutil.ReadFile("../scripts/20210806_001704_agregar_codigo_elementos_up.sql")
 
 	if err != nil {
 		fmt.Println(err)
@@ -39,7 +39,7 @@ func (m *AgregarCodigoElementos_20210806_001704) Up() {
 
 // Reverse the migrations
 func (m *AgregarCodigoElementos_20210806_001704) Down() {
-	file, err := ioutil.ReadFile("../scripts/agregar_codigo_elementos_down.sql")
+	file, err := ioutil.ReadFile("../scripts/20210806_001704_agregar_codigo_elementos_down.sql")
 
 	if err != nil {
 		fmt.Println(err)
