@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.1" last-position="0,200" last-zoom="1"
+<dbmodel pgmodeler-ver="0.9.1" last-position="0,105" last-zoom="1"
 	 default-schema="public" default-owner="postgres">
 <role name="desarrollooas"
       superuser="true"
@@ -269,7 +269,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="catalogo"/>
 	<role name="postgres"/>
 	<comment><![CDATA[Tabla que almacena los catálogos disponibles en ARKA II]]></comment>
-	<position x="1280" y="420"/>
+	<position x="1300" y="460"/>
 	<column name="id" not-null="true" sequence="catalogo.elemento_id_seq">
 		<type name="integer" length="0"/>
 		<comment><![CDATA[Identificador único]]></comment>
@@ -278,17 +278,19 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="character varying" length="300"/>
 		<comment><![CDATA[Nombre del catálogo.]]></comment>
 	</column>
+	<column name="codigo" not-null="true">
+		<type name="text" length="0"/>
+	</column>
 	<column name="descripcion" not-null="true">
 		<type name="character varying" length="300"/>
 		<comment><![CDATA[Campo que almacena la información extra del catálogo.]]></comment>
 	</column>
-	<column name="fecha_inicio" not-null="true">
-		<type name="timestamp" length="0"/>
-		<comment><![CDATA[Campo que almacena cuando inicia el funcionamiento del catálogo.]]></comment>
+	<column name="activo" not-null="true">
+		<type name="boolean" length="0"/>
+		<comment><![CDATA[Campo para validar si se encuentra activo o no el registro. Se usa para trazabilidad.]]></comment>
 	</column>
-	<column name="fecha_fin">
-		<type name="timestamp" length="0"/>
-		<comment><![CDATA[Campo que almacena cuando deja de funcionar el catálogo.]]></comment>
+	<column name="subgrupo_id" not-null="true">
+		<type name="integer" length="0"/>
 	</column>
 	<column name="fecha_creacion" not-null="true">
 		<type name="timestamp" length="0"/>
@@ -297,13 +299,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="fecha_modificacion" not-null="true">
 		<type name="timestamp" length="0"/>
 		<comment><![CDATA[Campo para almacenar la fecha de modificación del registro. Se usa para trazabilidad.]]></comment>
-	</column>
-	<column name="activo" not-null="true">
-		<type name="boolean" length="0"/>
-		<comment><![CDATA[Campo para validar si se encuentra activo o no el registro. Se usa para trazabilidad.]]></comment>
-	</column>
-	<column name="subgrupo_id" not-null="true">
-		<type name="integer" length="0"/>
 	</column>
 	<constraint name="pk_elemento" type="pk-constr" table="catalogo.elemento">
 		<columns names="id" ref-type="src-columns"/>
@@ -409,7 +404,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="tipo_nivel">
 	<schema name="catalogo"/>
 	<role name="postgres"/>
-	<position x="1280" y="900"/>
+	<position x="1360" y="960"/>
 	<column name="id" not-null="true" sequence="catalogo.tipo_nivel_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -450,7 +445,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="relacion_nivel">
 	<schema name="catalogo"/>
 	<role name="postgres"/>
-	<position x="1280" y="640"/>
+	<position x="1380" y="680"/>
 	<column name="id" not-null="true" sequence="catalogo.relacion_nivel_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -631,7 +626,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 dst-table="catalogo.tipo_nivel" reference-fk="fk_tipo_nivel_nivel_padre"
 	 src-required="false" dst-required="false">
 	<label ref-type="name-label">
-		<position x="-90.0146" y="-10.7777"/>
+		<position x="80.693" y="-0.0934568"/>
 	</label>
 </relationship>
 
@@ -641,7 +636,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 dst-table="catalogo.tipo_nivel" reference-fk="fk_tipo_nivel_nivel_hijo"
 	 src-required="false" dst-required="false">
 	<label ref-type="name-label">
-		<position x="-86.5146" y="9.22227"/>
+		<position x="84.193" y="19.9065"/>
 	</label>
 </relationship>
 
