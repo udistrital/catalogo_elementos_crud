@@ -23,20 +23,25 @@ func (c *TrCatalogoController) URLMapping() {
 // GetOne ...
 // @Title GetOne
 // @Description get TrCatalogo by id
-// @Param	id			path 	string	true	"ID del catalogo"
-// @Param	elementos	query 	bool	false	"traer arbol hasta el nivel elementos"
+// @Param	id					path 	string	true	"ID del catalogo"
+// @Param	elementos			query 	bool	false	"traer arbol hasta el nivel elementos"
+// @Param	subgruposInactivos	query 	bool	false	"traer arbol con subgrupos inactivos"
 // @Success 200 {object} models.TrCatalogo
 // @Failure 403 :id is empty
 // @router /:id [get]
 func (c *TrCatalogoController) GetOne() {
 	elementos := false
+	subgruposInactivos := false
 	if v, err := c.GetBool("elementos"); err == nil {
 		elementos = v
+	}
+	if w, err := c.GetBool("subgruposInactivos"); err == nil {
+		subgruposInactivos = w
 	}
 
 	idCatalogoStr := c.Ctx.Input.Param(":id")
 	idCatalogo, _ := strconv.Atoi(idCatalogoStr)
-	l, err := models.GetArbolCatalogo(idCatalogo, elementos)
+	l, err := models.GetArbolCatalogo(idCatalogo, elementos, subgruposInactivos)
 	if err != nil {
 		logs.Error(err)
 		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}

@@ -10,7 +10,7 @@ import (
 )
 
 // GetCatalogo Transacción para consultar el árbol de catálogo
-func GetArbolCatalogo(catalogoId int, elementos bool) (arbolCatalogo []map[string]interface{}, err error) {
+func GetArbolCatalogo(catalogoId int, elementos bool, subgruposInactivos bool) (arbolCatalogo []map[string]interface{}, err error) {
 	o := orm.NewOrm()
 
 	var grupos []SubgrupoCatalogo
