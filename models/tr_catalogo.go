@@ -12,6 +12,11 @@ import (
 // GetCatalogo Transacción para consultar el árbol de catálogo
 func GetArbolCatalogo(catalogoId int, elementos bool, subgruposInactivos bool) (arbolCatalogo []map[string]interface{}, err error) {
 	o := orm.NewOrm()
+	qs := o.QueryTable(new(SubgrupoCatalogo)).RelatedSel().Filter("CatalogoId", catalogoId)
+
+	if !subgruposInactivos {
+		qs = qs.Filter("SubgrupoId__Activo", true)
+	}
 
 	var grupos []SubgrupoCatalogo
 
@@ -32,10 +37,14 @@ func GetArbolCatalogo(catalogoId int, elementos bool, subgruposInactivos bool) (
 }
 
 // getSubgrupo Transacción para consultar los subgrupos del árbol del catálogo
-func getSubgrupo(subgrupo_padre_id int, elementos bool) (arbolSubgrupo []map[string]interface{}) {
-	o := orm.NewOrm()
-
+func getSubgrupo(subgrupoPadreID int, elementos bool, subgrupoInactivo bool) (arbolSubgrupo []map[string]interface{}) {
 	var subgrupos []SubgrupoSubgrupo
+	o := orm.NewOrm()
+	qs := o.QueryTable(new(SubgrupoSubgrupo)).RelatedSel().Filter("SubgrupoPadreId", subgrupoPadreID)
+
+	if !subgrupoInactivo {
+		qs = qs.Filter("SubgrupoHijoId__Activo", true)
+	}
 
 	if _, err := o.QueryTable(new(SubgrupoSubgrupo)).RelatedSel().Filter("subgrupo_padre_id", subgrupo_padre_id).Filter("Activo", true).All(&subgrupos); err == nil {
 
