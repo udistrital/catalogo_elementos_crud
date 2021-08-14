@@ -60,24 +60,36 @@ func getSubgrupo(subgrupoPadreID int, elementos bool, subgrupoInactivo bool) (ar
 					data["children"] = subgruposHijos
 				}
 
-					ListaElementos, _ := GetAllElemento(query, nil, nil, nil, 0, 0)
-					if len(ListaElementos) > 0 {
-						children := make([]map[string]interface{}, len(ListaElementos))
-						for i, elemento := range ListaElementos {
-							child := make(map[string]interface{})
-							child["data"] = elemento
-							children[i] = child
-						}
-						data["children"] = children
-					}
+			} else if elementos && subgrupoHijo.SubgrupoHijoId.TipoNivelId.Id == 4 {
+
+				elementosHijos := getElementosByParent(subgrupoHijo.SubgrupoHijoId.Id)
+				if len(elementosHijos) > 0 {
+					data["children"] = elementosHijos
 				}
 
-				arbolSubgrupo = append(arbolSubgrupo, data)
 			}
-		}
 
-	}
+			arbolSubgrupo = append(arbolSubgrupo, data)
+
 	return
+}
+
+func getElementosByParent(subgrupoId int) []map[string]interface{} {
+	query := make(map[string]string)
+	query["SubgrupoId"] = strconv.Itoa(subgrupoId)
+	listaElementos, _ := GetAllElemento(query, nil, nil, nil, 0, 0)
+
+	children := make([]map[string]interface{}, len(listaElementos))
+
+	if len(listaElementos) > 0 {
+
+		for i, elemento := range listaElementos {
+			child := make(map[string]interface{})
+			child["data"] = elemento
+			children[i] = child
+		}
+	}
+	return children
 }
 
 func GetSubgruposRelacionados(Tipo_Bien int) (Subgrupos []map[string]interface{}, err error) {
