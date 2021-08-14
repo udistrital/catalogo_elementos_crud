@@ -20,10 +20,9 @@ func GetArbolCatalogo(catalogoId int, elementos bool, subgruposInactivos bool) (
 			if grupo.SubgrupoId.Activo == true {
 				data := make(map[string]interface{})
 				data["data"] = grupo.SubgrupoId
-				if getHijo(grupo.SubgrupoId.Id) {
-					data["children"] = getSubgrupo(grupo.SubgrupoId.Id, elementos)
-				}
-				arbolCatalogo = append(arbolCatalogo, data)
+			subgruposHijos := getSubgrupo(grupo.SubgrupoId.Id, elementos, subgruposInactivos)
+			if len(subgruposHijos) > 0 {
+				data["children"] = subgruposHijos
 			}
 		}
 
@@ -47,12 +46,10 @@ func getSubgrupo(subgrupo_padre_id int, elementos bool) (arbolSubgrupo []map[str
 				data["data"] = subgrupoHijo.SubgrupoHijoId
 
 				if subgrupoHijo.SubgrupoHijoId.TipoNivelId.Id < 4 {
-					if getHijo(subgrupoHijo.SubgrupoHijoId.Id) {
-						data["children"] = getSubgrupo(subgrupoHijo.SubgrupoHijoId.Id, elementos)
-					}
-				} else if subgrupoHijo.SubgrupoHijoId.TipoNivelId.Id == 4 && elementos {
-					query := make(map[string]string)
-					query["subgrupo_id"] = strconv.Itoa(subgrupoHijo.SubgrupoHijoId.Id)
+				subgruposHijos := getSubgrupo(subgrupoHijo.SubgrupoHijoId.Id, elementos, subgrupoInactivo)
+				if len(subgruposHijos) > 0 {
+					data["children"] = subgruposHijos
+				}
 
 					ListaElementos, _ := GetAllElemento(query, nil, nil, nil, 0, 0)
 					if len(ListaElementos) > 0 {
@@ -74,24 +71,6 @@ func getSubgrupo(subgrupo_padre_id int, elementos bool) (arbolSubgrupo []map[str
 	return
 }
 
-// getHijo Función para consultar si un subgrupo tiene hijos
-func getHijo(subgrupo_padre_id int) (hijo bool) {
-	o := orm.NewOrm()
-
-	var subgrupos []SubgrupoSubgrupo
-	hijo = false
-
-	if _, err := o.QueryTable(new(SubgrupoSubgrupo)).RelatedSel().Filter("subgrupo_padre_id", subgrupo_padre_id).Filter("Activo", true).All(&subgrupos); err == nil {
-
-		for _, subgrupoHijo := range subgrupos {
-			logs.Debug(subgrupoHijo)
-			hijo = true
-		}
-
-	}
-	return hijo
-}
-
 func GetSubgruposRelacionados(Tipo_Bien int) (Subgrupos []map[string]interface{}, err error) {
 	o := orm.NewOrm()
 	var subgrupos []DetalleSubgrupo
@@ -104,8 +83,10 @@ func GetSubgruposRelacionados(Tipo_Bien int) (Subgrupos []map[string]interface{}
 			data := make(map[string]interface{})
 			// data["data"] = subgrupoHijo.SubgrupoId
 			if subgrupoHijo.SubgrupoId.Activo == true {
-				if getHijo(subgrupoHijo.SubgrupoId.Id) {
-					data["children"] = getSubgrupo(subgrupoHijo.SubgrupoId.Id, false)
+
+				subgruposHijos := getSubgrupo(subgrupoHijo.SubgrupoId.Id, false, false)
+				if len(subgruposHijos) > 0 {
+					data["children"] = subgruposHijos
 				}
 				Subgrupos2 = append(Subgrupos2, data)
 			}
