@@ -73,22 +73,20 @@ func getSubgrupo(subgrupoPadreID int, elementos bool, subgrupoInactivo bool) (ar
 	return
 }
 
-func getElementosByParent(subgrupoId int) []map[string]interface{} {
+func getElementosByParent(subgrupoId int) (elementos []map[string]interface{}) {
 	query := make(map[string]string)
 	query["SubgrupoId"] = strconv.Itoa(subgrupoId)
 	listaElementos, _ := GetAllElemento(query, nil, nil, nil, 0, 0)
 
-	children := make([]map[string]interface{}, len(listaElementos))
-
 	if len(listaElementos) > 0 {
-
-		for i, elemento := range listaElementos {
+		for _, elemento := range listaElementos {
 			child := make(map[string]interface{})
 			child["data"] = elemento
-			children[i] = child
+			elementos = append(elementos, child)
 		}
 	}
-	return children
+
+	return
 }
 
 func GetSubgruposRelacionados(Tipo_Bien int) (Subgrupos []map[string]interface{}, err error) {
