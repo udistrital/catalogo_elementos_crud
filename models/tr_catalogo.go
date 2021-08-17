@@ -10,21 +10,24 @@ import (
 )
 
 // GetCatalogo Transacción para consultar el árbol de catálogo
-func GetArbolCatalogo(catalogoId int, elementos bool) (arbolCatalogo []map[string]interface{}, err error) {
+func GetArbolCatalogo(catalogoId int, elementos bool, subgruposInactivos bool) (arbolCatalogo []map[string]interface{}, err error) {
 	o := orm.NewOrm()
+	qs := o.QueryTable(new(SubgrupoCatalogo)).RelatedSel().Filter("CatalogoId", catalogoId)
+
+	if !subgruposInactivos {
+		qs = qs.Filter("SubgrupoId__Activo", true)
+	}
 
 	var grupos []SubgrupoCatalogo
-
-	if _, err := o.QueryTable(new(SubgrupoCatalogo)).RelatedSel().Filter("catalogo_id", catalogoId).Filter("Activo", true).All(&grupos); err == nil {
+	if _, err := qs.All(&grupos, "SubgrupoId"); err == nil {
 		for _, grupo := range grupos {
-			if grupo.SubgrupoId.Activo == true {
-				data := make(map[string]interface{})
-				data["data"] = grupo.SubgrupoId
-				if getHijo(grupo.SubgrupoId.Id) {
-					data["children"] = getSubgrupo(grupo.SubgrupoId.Id, elementos)
-				}
-				arbolCatalogo = append(arbolCatalogo, data)
+			data := make(map[string]interface{})
+			data["data"] = grupo.SubgrupoId
+			subgruposHijos := getSubgrupo(grupo.SubgrupoId.Id, elementos, subgruposInactivos)
+			if len(subgruposHijos) > 0 {
+				data["children"] = subgruposHijos
 			}
+			arbolCatalogo = append(arbolCatalogo, data)
 		}
 
 		return arbolCatalogo, nil
@@ -33,63 +36,57 @@ func GetArbolCatalogo(catalogoId int, elementos bool) (arbolCatalogo []map[strin
 }
 
 // getSubgrupo Transacción para consultar los subgrupos del árbol del catálogo
-func getSubgrupo(subgrupo_padre_id int, elementos bool) (arbolSubgrupo []map[string]interface{}) {
-	o := orm.NewOrm()
-
+func getSubgrupo(subgrupoPadreID int, elementos bool, subgrupoInactivo bool) (arbolSubgrupo []map[string]interface{}) {
 	var subgrupos []SubgrupoSubgrupo
+	o := orm.NewOrm()
+	qs := o.QueryTable(new(SubgrupoSubgrupo)).RelatedSel().Filter("SubgrupoPadreId", subgrupoPadreID)
 
-	if _, err := o.QueryTable(new(SubgrupoSubgrupo)).RelatedSel().Filter("subgrupo_padre_id", subgrupo_padre_id).Filter("Activo", true).All(&subgrupos); err == nil {
+	if !subgrupoInactivo {
+		qs = qs.Filter("SubgrupoHijoId__Activo", true)
+	}
+
+	if _, err := qs.All(&subgrupos, "SubgrupoHijoId"); err == nil {
 
 		for _, subgrupoHijo := range subgrupos {
-			if subgrupoHijo.SubgrupoHijoId.Activo == true {
+			data := make(map[string]interface{})
+			data["data"] = subgrupoHijo.SubgrupoHijoId
 
-				data := make(map[string]interface{})
-				data["data"] = subgrupoHijo.SubgrupoHijoId
-
-				if subgrupoHijo.SubgrupoHijoId.TipoNivelId.Id < 4 {
-					if getHijo(subgrupoHijo.SubgrupoHijoId.Id) {
-						data["children"] = getSubgrupo(subgrupoHijo.SubgrupoHijoId.Id, elementos)
-					}
-				} else if subgrupoHijo.SubgrupoHijoId.TipoNivelId.Id == 4 && elementos {
-					query := make(map[string]string)
-					query["subgrupo_id"] = strconv.Itoa(subgrupoHijo.SubgrupoHijoId.Id)
-
-					ListaElementos, _ := GetAllElemento(query, nil, nil, nil, 0, 0)
-					if len(ListaElementos) > 0 {
-						children := make([]map[string]interface{}, len(ListaElementos))
-						for i, elemento := range ListaElementos {
-							child := make(map[string]interface{})
-							child["data"] = elemento
-							children[i] = child
-						}
-						data["children"] = children
-					}
+			if subgrupoHijo.SubgrupoHijoId.TipoNivelId.Id < 4 {
+				subgruposHijos := getSubgrupo(subgrupoHijo.SubgrupoHijoId.Id, elementos, subgrupoInactivo)
+				if len(subgruposHijos) > 0 {
+					data["children"] = subgruposHijos
 				}
 
-				arbolSubgrupo = append(arbolSubgrupo, data)
-			}
-		}
+			} else if elementos && subgrupoHijo.SubgrupoHijoId.TipoNivelId.Id == 4 {
 
+				elementosHijos := getElementosByParent(subgrupoHijo.SubgrupoHijoId.Id)
+				if len(elementosHijos) > 0 {
+					data["children"] = elementosHijos
+				}
+
+			}
+
+			arbolSubgrupo = append(arbolSubgrupo, data)
+		}
 	}
+
 	return
 }
 
-// getHijo Función para consultar si un subgrupo tiene hijos
-func getHijo(subgrupo_padre_id int) (hijo bool) {
-	o := orm.NewOrm()
+func getElementosByParent(subgrupoId int) (elementos []map[string]interface{}) {
+	query := make(map[string]string)
+	query["SubgrupoId"] = strconv.Itoa(subgrupoId)
+	listaElementos, _ := GetAllElemento(query, nil, nil, nil, 0, 0)
 
-	var subgrupos []SubgrupoSubgrupo
-	hijo = false
-
-	if _, err := o.QueryTable(new(SubgrupoSubgrupo)).RelatedSel().Filter("subgrupo_padre_id", subgrupo_padre_id).Filter("Activo", true).All(&subgrupos); err == nil {
-
-		for _, subgrupoHijo := range subgrupos {
-			logs.Debug(subgrupoHijo)
-			hijo = true
+	if len(listaElementos) > 0 {
+		for _, elemento := range listaElementos {
+			child := make(map[string]interface{})
+			child["data"] = elemento
+			elementos = append(elementos, child)
 		}
-
 	}
-	return hijo
+
+	return
 }
 
 func GetSubgruposRelacionados(Tipo_Bien int) (Subgrupos []map[string]interface{}, err error) {
@@ -104,8 +101,10 @@ func GetSubgruposRelacionados(Tipo_Bien int) (Subgrupos []map[string]interface{}
 			data := make(map[string]interface{})
 			// data["data"] = subgrupoHijo.SubgrupoId
 			if subgrupoHijo.SubgrupoId.Activo == true {
-				if getHijo(subgrupoHijo.SubgrupoId.Id) {
-					data["children"] = getSubgrupo(subgrupoHijo.SubgrupoId.Id, false)
+
+				subgruposHijos := getSubgrupo(subgrupoHijo.SubgrupoId.Id, false, false)
+				if len(subgruposHijos) > 0 {
+					data["children"] = subgruposHijos
 				}
 				Subgrupos2 = append(Subgrupos2, data)
 			}

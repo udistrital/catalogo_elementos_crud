@@ -1770,6 +1770,12 @@
                         "name": "elementos",
                         "description": "traer arbol hasta el nivel elementos",
                         "type": "boolean"
+                    },
+                    {
+                        "in": "query",
+                        "name": "subgruposInactivos",
+                        "description": "traer arbol con subgrupos inactivos",
+                        "type": "boolean"
                     }
                 ],
                 "responses": {
