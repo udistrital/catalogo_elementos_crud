@@ -1172,6 +1172,48 @@ paths:
             $ref: '#/definitions/models.TrCatalogo'
         "403":
           description: :id is empty
+  /tr_catalogo/arbol:
+    get:
+      tags:
+      - tr_catalogo
+      description: Consulta del arbol de un catalogo de forma progresiva, es decir,
+        retorna un nivel a la vez. Permite construir el arbol completo o desde una
+        rama en particular
+      operationId: TrCatalogoController.GetOne
+      parameters:
+      - in: query
+        name: primer_nivel
+        description: "false"
+        type: boolean
+        default: "false"
+      - in: query
+        name: catalogo_id
+        description: Catalogo del que se desea obtener el primer nivel. Se ignora
+          si no se desea el primer nivel. En caso contrario, tiene prioridad sobre
+          el subgrupo_id
+        type: integer
+        format: int64
+      - in: query
+        name: subgrupo_id
+        description: SubgrupoId del que se desean los detalles. Ya sea este o no el
+          primer nivel
+        type: integer
+        format: int64
+      - in: query
+        name: get_inactivos
+        description: "false"
+        type: boolean
+        default: "false"
+      - in: query
+        name: get_elementos
+        description: "false"
+        type: boolean
+        default: "false"
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.NodoSubgrupo'
   /tr_catalogo/tipo_de_bien/{id}:
     get:
       tags:
@@ -1365,6 +1407,9 @@ paths:
         "400":
           description: the request contains incorrect syntax
 definitions:
+  44550.0xc000773e30.false:
+    title: "false"
+    type: object
   models.Catalogo:
     title: Catalogo
     type: object
@@ -1452,6 +1497,14 @@ definitions:
         type: string
       SubgrupoId:
         $ref: '#/definitions/models.Subgrupo'
+  models.NodoSubgrupo:
+    title: NodoSubgrupo
+    type: object
+    properties:
+      Data:
+        $ref: '#/definitions/44550.0xc000773e30.false'
+      Expandible:
+        type: boolean
   models.RelacionNivel:
     title: RelacionNivel
     type: object
