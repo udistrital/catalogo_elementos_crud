@@ -18,6 +18,7 @@ type TrCatalogoController struct {
 func (c *TrCatalogoController) URLMapping() {
 	c.Mapping("GetOne", c.GetOne)
 	c.Mapping("GetSubgruposTipo_Bien", c.GetSubgruposTipo_Bien)
+	c.Mapping("TreeCatalogo", c.TreeCatalogo)
 }
 
 // GetOne ...
@@ -78,5 +79,91 @@ func (c *TrCatalogoController) GetSubgruposTipo_Bien() {
 		}
 		c.Data["json"] = l
 	}
+	c.ServeJSON()
+}
+
+// TreeCatalogo ...
+// @Title GetOne
+// @Description Consulta del arbol de un catalogo de forma progresiva, es decir, retorna un nivel a la vez. Permite construir el arbol completo o desde una rama en particular
+// @Param	primer_nivel	query	bool	false	"Retornar el primer nivel según se especifique el catalogo o un subgrupo" false
+// @Param	catalogo_id		query	int	"Catalogo del que se desea obtener el primer nivel. Se ignora si no se desea el primer nivel. En caso contrario, tiene prioridad sobre el subgrupo_id"
+// @Param	subgrupo_id		query	int	"SubgrupoId del que se desean los detalles. Ya sea este o no el primer nivel"
+// @Param	get_inactivos	query	bool	false	"Incluir componentes inactivos" false
+// @Param	get_elementos	query	bool	false	"Incluir el nivel elementos" false
+// @Success 200 {object} models.NodoSubgrupo
+// @router /arbol [get]
+func (c *TrCatalogoController) TreeCatalogo() {
+	var primerNivel bool
+	var subgrupoId int
+	var catalogoId int
+	var getElementos bool
+	var getInactivos bool
+
+	if v, err := c.GetBool("primer_nivel"); err == nil {
+		primerNivel = v
+	}
+	if v, err := c.GetInt("catalogo_id"); err == nil {
+		catalogoId = v
+	}
+	if v, err := c.GetInt("subgrupo_id"); err == nil {
+		subgrupoId = v
+	}
+	if v, err := c.GetBool("get_inactivos"); err == nil {
+		getInactivos = v
+	}
+	if v, err := c.GetBool("get_elementos"); err == nil {
+		getElementos = v
+	}
+
+	if primerNivel {
+		if catalogoId > 0 {
+			l, err := models.GetPrimerNivel(catalogoId, 0, getInactivos)
+			if err != nil {
+				logs.Error(err)
+				c.Data["system"] = err
+				c.Abort("404")
+			} else {
+				if l == nil {
+					c.Data["json"] = []map[string]interface{}{}
+				} else {
+					c.Data["json"] = l
+				}
+			}
+		} else if subgrupoId > 0 {
+			l, err := models.GetPrimerNivel(0, subgrupoId, getInactivos)
+			if err != nil {
+				logs.Error(err)
+				c.Data["system"] = err
+				c.Abort("404")
+			} else {
+				if l == nil {
+					c.Data["json"] = []map[string]interface{}{}
+				} else {
+					c.Data["json"] = l
+				}
+			}
+		} else {
+			c.Data["system"] = "Debe indicar un subgrupo o un catalogo"
+			c.Abort("404")
+		}
+	} else if subgrupoId > 0 {
+		l, err := models.GetHijos(subgrupoId, getInactivos, getElementos)
+		if err != nil {
+			logs.Error(err)
+			c.Data["system"] = err
+			c.Abort("404")
+		} else {
+			c.Data["json"] = l
+			if l == nil {
+				c.Data["json"] = []map[string]interface{}{}
+			} else {
+				c.Data["json"] = l
+			}
+		}
+	} else {
+		c.Data["system"] = "Debe indicar un subgrupo"
+		c.Abort("404")
+	}
+
 	c.ServeJSON()
 }
