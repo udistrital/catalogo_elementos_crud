@@ -9,6 +9,11 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
+type NodoSubgrupo struct {
+	Data       map[string]interface{}
+	Expandible bool
+}
+
 // GetCatalogo Transacción para consultar el árbol de catálogo
 func GetArbolCatalogo(catalogoId int, elementos bool, subgruposInactivos bool) (arbolCatalogo []map[string]interface{}, err error) {
 	o := orm.NewOrm()
@@ -165,4 +170,175 @@ func getSubgrupo2(subgrupo_padre []map[string]interface{}) (Subgrupos []map[stri
 	}
 
 	return
+}
+
+func GetPrimerNivel(catalogoId int, subgrupoId int, getInactivos bool) (nodos []map[string]interface{}, err error) {
+	o := orm.NewOrm()
+
+	if catalogoId > 0 {
+		qs := o.QueryTable(new(SubgrupoCatalogo)).RelatedSel().Filter("CatalogoId", catalogoId)
+
+		if !getInactivos {
+			qs = qs.Filter("SubgrupoId__Activo", true)
+		}
+
+		var subgrupos []SubgrupoCatalogo
+		if _, err := qs.All(&subgrupos); err == nil && len(subgrupos) > 0 {
+			for _, subgrupo := range subgrupos {
+
+				nodo := make(map[string]interface{})
+				nodo["expandible"] = checkSubgrupos(subgrupo.SubgrupoId.Id, getInactivos)
+				nodo["data"] = subgrupo.SubgrupoId
+
+				nodos = append(nodos, nodo)
+			}
+		} else if len(subgrupos) == 0 {
+			return nil, nil
+		} else {
+			return nil, err
+		}
+	} else {
+		qs := o.QueryTable(new(Subgrupo)).RelatedSel().Filter("Id", subgrupoId)
+
+		var subgrupoPadre []Subgrupo
+		if _, err := qs.All(&subgrupoPadre); err == nil && len(subgrupoPadre) > 0 {
+			nodo := make(map[string]interface{})
+
+			if subgrupoPadre[0].TipoNivelId.Id < 4 {
+				nodo["expandible"] = checkSubgrupos(subgrupoId, getInactivos)
+			} else {
+				nodo["expandible"] = checkElementos(subgrupoId, getInactivos)
+			}
+
+			nodo["data"] = subgrupoPadre
+			nodos = append(nodos, nodo)
+
+		} else if len(subgrupoPadre) == 0 {
+			return nil, nil
+		} else {
+			return nil, err
+		}
+	}
+	return nodos, nil
+}
+
+func GetHijos(subgrupoId int, getInactivos bool, getElementos bool) (nodos []map[string]interface{}, err error) {
+	o := orm.NewOrm()
+
+	if getElementos {
+		qs := o.QueryTable(new(Subgrupo)).RelatedSel().Filter("Id", subgrupoId)
+
+		var subgrupo Subgrupo
+		if sg, err := qs.All(&subgrupo); err == nil && sg > 0 {
+			if subgrupo.Id > 0 {
+				if subgrupo.TipoNivelId.Id == 3 {
+					if subgrupos, err := getSubgrupos(subgrupoId, getInactivos); err == nil && len(subgrupos) > 0 {
+						for _, subgrupo := range subgrupos {
+
+							nodo := make(map[string]interface{})
+							nodo["expandible"] = checkElementos(subgrupo.SubgrupoHijoId.Id, getInactivos)
+							nodo["data"] = subgrupo.SubgrupoHijoId
+
+							nodos = append(nodos, nodo)
+						}
+					}
+				} else if subgrupo.TipoNivelId.Id == 4 {
+					if elementos, err := getElementosChildren(subgrupoId, getInactivos); err == nil && len(elementos) > 0 {
+						for _, elemento := range elementos {
+
+							nodo := make(map[string]interface{})
+							nodo["expandible"] = false
+							nodo["data"] = elemento
+
+							nodos = append(nodos, nodo)
+						}
+					}
+				} else {
+					if subgrupos, err := getSubgrupos(subgrupoId, getInactivos); err == nil && len(subgrupos) > 0 {
+						for _, subgrupo := range subgrupos {
+
+							nodo := make(map[string]interface{})
+							nodo["expandible"] = checkSubgrupos(subgrupo.SubgrupoHijoId.Id, getInactivos)
+							nodo["data"] = subgrupo.SubgrupoHijoId
+
+							nodos = append(nodos, nodo)
+						}
+					} else {
+						return nil, err
+					}
+				}
+			}
+		} else {
+			return nil, err
+		}
+	} else {
+		if subgrupos, err := getSubgrupos(subgrupoId, getInactivos); err == nil && len(subgrupos) > 0 {
+			for _, subgrupo := range subgrupos {
+
+				nodo := make(map[string]interface{})
+				nodo["expandible"] = checkSubgrupos(subgrupo.SubgrupoHijoId.Id, getInactivos)
+				nodo["data"] = subgrupo.SubgrupoHijoId
+
+				nodos = append(nodos, nodo)
+			}
+		} else if len(subgrupos) == 0 {
+			return nil, nil
+		} else {
+			return nil, err
+		}
+	}
+	return
+}
+
+func getSubgrupos(subgrupoId int, getInactivos bool) (lista []SubgrupoSubgrupo, err error) {
+	o := orm.NewOrm()
+	qs := o.QueryTable(new(SubgrupoSubgrupo)).RelatedSel().Filter("SubgrupoPadreId__Id", subgrupoId)
+
+	if !getInactivos {
+		qs = qs.Filter("SubgrupoHijoId__Activo", true)
+	}
+
+	var subgrupos []SubgrupoSubgrupo
+	if _, err := qs.All(&subgrupos); err == nil {
+		return subgrupos, err
+	} else {
+		return nil, err
+	}
+}
+
+func getElementosChildren(subgrupoId int, getInactivos bool) (elementos []Elemento, err error) {
+	o := orm.NewOrm()
+	qs := o.QueryTable(new(Elemento)).RelatedSel().Filter("SubgrupoId", subgrupoId)
+	if !getInactivos {
+		qs = qs.Filter("Activo", true)
+	}
+
+	if _, err := qs.All(&elementos); err == nil {
+		return elementos, nil
+	}
+	return nil, err
+}
+
+func checkSubgrupos(subgrupoId int, getInactivos bool) (hasSubgrupos bool) {
+	o := orm.NewOrm()
+	qs := o.QueryTable(new(SubgrupoSubgrupo)).RelatedSel().Filter("SubgrupoPadreId__Id", subgrupoId)
+	if !getInactivos {
+		qs = qs.Filter("SubgrupoHijoId__Activo", true)
+	}
+
+	hasSubgrupos = qs.Exist()
+
+	return hasSubgrupos
+}
+
+func checkElementos(subgrupoId int, getInactivos bool) (hasElementos bool) {
+	o := orm.NewOrm()
+	qs := o.QueryTable(new(Elemento)).RelatedSel().Filter("SubgrupoId", subgrupoId)
+	if !getInactivos {
+		qs = qs.Filter("Activo", true)
+	}
+
+	hasElementos = qs.Exist()
+
+	return hasElementos
 }

@@ -459,6 +459,15 @@ func init() {
 
     beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrCatalogoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrCatalogoController"],
         beego.ControllerComments{
+            Method: "TreeCatalogo",
+            Router: "/arbol",
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrCatalogoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrCatalogoController"],
+        beego.ControllerComments{
             Method: "GetSubgruposTipo_Bien",
             Router: `/tipo_de_bien/:id`,
             AllowHTTPMethods: []string{"get"},
