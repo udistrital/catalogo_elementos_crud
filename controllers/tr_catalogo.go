@@ -123,11 +123,7 @@ func (c *TrCatalogoController) TreeCatalogo() {
 				c.Data["system"] = err
 				c.Abort("404")
 			} else {
-				if l == nil {
-					c.Data["json"] = []map[string]interface{}{}
-				} else {
-					c.Data["json"] = l
-				}
+				c.Data["json"] = checkResult(l)
 			}
 		} else if subgrupoId > 0 {
 			l, err := models.GetPrimerNivel(0, subgrupoId, getInactivos)
@@ -136,11 +132,7 @@ func (c *TrCatalogoController) TreeCatalogo() {
 				c.Data["system"] = err
 				c.Abort("404")
 			} else {
-				if l == nil {
-					c.Data["json"] = []map[string]interface{}{}
-				} else {
-					c.Data["json"] = l
-				}
+				c.Data["json"] = checkResult(l)
 			}
 		} else {
 			c.Data["system"] = "Debe indicar un subgrupo o un catalogo"
@@ -153,12 +145,7 @@ func (c *TrCatalogoController) TreeCatalogo() {
 			c.Data["system"] = err
 			c.Abort("404")
 		} else {
-			c.Data["json"] = l
-			if l == nil {
-				c.Data["json"] = []map[string]interface{}{}
-			} else {
-				c.Data["json"] = l
-			}
+			c.Data["json"] = checkResult(l)
 		}
 	} else {
 		c.Data["system"] = "Debe indicar un subgrupo"
@@ -166,4 +153,13 @@ func (c *TrCatalogoController) TreeCatalogo() {
 	}
 
 	c.ServeJSON()
+}
+
+func checkResult(l []map[string]interface{}) (result []map[string]interface{}) {
+	if l == nil {
+		result = []map[string]interface{}{}
+	} else {
+		result = l
+	}
+	return result
 }
