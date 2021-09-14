@@ -176,7 +176,7 @@ func GetPrimerNivel(catalogoId int, subgrupoId int, getInactivos bool) (nodos []
 	o := orm.NewOrm()
 
 	if catalogoId > 0 {
-		qs := o.QueryTable(new(SubgrupoCatalogo)).RelatedSel().Filter("CatalogoId", catalogoId)
+		qs := o.QueryTable(new(SubgrupoCatalogo)).RelatedSel().Filter("CatalogoId", catalogoId).OrderBy("SubgrupoId__Codigo")
 
 		if !getInactivos {
 			qs = qs.Filter("SubgrupoId__Activo", true)
@@ -292,7 +292,7 @@ func GetHijos(subgrupoId int, getInactivos bool, getElementos bool) (nodos []map
 
 func getSubgrupos(subgrupoId int, getInactivos bool) (lista []SubgrupoSubgrupo, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(SubgrupoSubgrupo)).RelatedSel().Filter("SubgrupoPadreId__Id", subgrupoId)
+	qs := o.QueryTable(new(SubgrupoSubgrupo)).RelatedSel().Filter("SubgrupoPadreId__Id", subgrupoId).OrderBy("SubgrupoHijoId__Codigo")
 
 	if !getInactivos {
 		qs = qs.Filter("SubgrupoHijoId__Activo", true)
@@ -308,7 +308,7 @@ func getSubgrupos(subgrupoId int, getInactivos bool) (lista []SubgrupoSubgrupo, 
 
 func getElementosChildren(subgrupoId int, getInactivos bool) (elementos []Elemento, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Elemento)).RelatedSel().Filter("SubgrupoId", subgrupoId)
+	qs := o.QueryTable(new(Elemento)).RelatedSel().Filter("SubgrupoId", subgrupoId).OrderBy("Codigo")
 	if !getInactivos {
 		qs = qs.Filter("Activo", true)
 	}
