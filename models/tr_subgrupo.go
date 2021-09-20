@@ -110,13 +110,20 @@ func UpdateTransaccionSubgrupo(m *TrSubgrupo) (err error) {
 		}
 	}()
 
-	if _, err = o.Update(m.SubgrupoHijo, "Activo", "Nombre", "Codigo", "Descripcion", "FechaModificacion"); err == nil {
-		if m.DetalleSubgrupo != nil {
-			if _, err = o.Update(m.DetalleSubgrupo, "Depreciacion", "Valorizacion", "TipoBienId", "FechaModificacion"); err != nil {
+	if m.DetalleSubgrupo != nil {
+
+		if m.DetalleSubgrupo.Id == 0 {
+			if _, err := o.Insert(m.DetalleSubgrupo); err != nil {
+				panic(err.Error())
+			}
+		} else {
+			if _, err = o.Update(m.DetalleSubgrupo, "Depreciacion", "Valorizacion", "TipoBienId"); err != nil {
 				panic(err.Error())
 			}
 		}
-	} else {
+	}
+
+	if _, err = o.Update(m.SubgrupoHijo, "Activo", "Nombre", "Codigo", "Descripcion"); err != nil {
 		panic(err.Error())
 	}
 
