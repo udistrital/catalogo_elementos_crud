@@ -1407,7 +1407,7 @@ paths:
         "400":
           description: the request contains incorrect syntax
 definitions:
-  44550.0xc0006a83f0.false:
+  44580.0xc00077c9f0.false:
     title: "false"
     type: object
   models.Catalogo:
@@ -1465,8 +1465,10 @@ definitions:
         type: boolean
       FechaCreacion:
         type: string
+        format: datetime
       FechaModificacion:
         type: string
+        format: datetime
       Id:
         type: integer
         format: int64
@@ -1502,7 +1504,7 @@ definitions:
     type: object
     properties:
       Data:
-        $ref: '#/definitions/44550.0xc0006a83f0.false'
+        $ref: '#/definitions/44580.0xc00077c9f0.false'
       Expandible:
         type: boolean
   models.RelacionNivel:

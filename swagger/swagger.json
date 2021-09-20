@@ -2108,7 +2108,7 @@
         }
     },
     "definitions": {
-        "44550.0xc0006a83f0.false": {
+        "44580.0xc00077c9f0.false": {
             "title": "false",
             "type": "object"
         },
@@ -2189,10 +2189,12 @@
                     "type": "boolean"
                 },
                 "FechaCreacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "FechaModificacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "Id": {
                     "type": "integer",
@@ -2245,7 +2247,7 @@
             "type": "object",
             "properties": {
                 "Data": {
-                    "$ref": "#/definitions/44550.0xc0006a83f0.false"
+                    "$ref": "#/definitions/44580.0xc00077c9f0.false"
                 },
                 "Expandible": {
                     "type": "boolean"
