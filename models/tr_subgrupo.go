@@ -57,8 +57,6 @@ func AddTransaccionSubgrupo(m *TrSubgrupo) (err error) {
                         if (m.DetalleSubgrupo != nil) {
 				m.DetalleSubgrupo.SubgrupoId = m.SubgrupoHijo 
 				m.DetalleSubgrupo.Activo = true
-				m.DetalleSubgrupo.FechaCreacion = time_bogota.TiempoBogotaFormato()
-				m.DetalleSubgrupo.FechaModificacion = time_bogota.TiempoBogotaFormato()
 				if _, err = o.Insert(m.DetalleSubgrupo); err != nil {
 					panic(err.Error())
 				}
