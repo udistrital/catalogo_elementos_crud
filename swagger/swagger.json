@@ -2108,7 +2108,7 @@
         }
     },
     "definitions": {
-        "44580.0xc00077c9f0.false": {
+        "44684.0xc000798870.false": {
             "title": "false",
             "type": "object"
         },
@@ -2123,7 +2123,8 @@
                     "type": "string"
                 },
                 "FechaCreacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "FechaFin": {
                     "type": "string"
@@ -2132,7 +2133,8 @@
                     "type": "string"
                 },
                 "FechaModificacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "Id": {
                     "type": "integer",
@@ -2157,10 +2159,12 @@
                     "type": "string"
                 },
                 "FechaCreacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "FechaModificacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "Id": {
                     "type": "integer",
@@ -2225,10 +2229,12 @@
                     "type": "string"
                 },
                 "FechaCreacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "FechaModificacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "Id": {
                     "type": "integer",
@@ -2247,7 +2253,7 @@
             "type": "object",
             "properties": {
                 "Data": {
-                    "$ref": "#/definitions/44580.0xc00077c9f0.false"
+                    "$ref": "#/definitions/44684.0xc000798870.false"
                 },
                 "Expandible": {
                     "type": "boolean"
@@ -2262,10 +2268,12 @@
                     "type": "boolean"
                 },
                 "FechaCreacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "FechaModificacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "Id": {
                     "type": "integer",
@@ -2293,10 +2301,12 @@
                     "type": "string"
                 },
                 "FechaCreacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "FechaModificacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "Id": {
                     "type": "integer",
@@ -2321,10 +2331,12 @@
                     "$ref": "#/definitions/models.Catalogo"
                 },
                 "FechaCreacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "FechaModificacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "Id": {
                     "type": "integer",
@@ -2343,10 +2355,12 @@
                     "type": "boolean"
                 },
                 "FechaCreacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "FechaModificacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "Id": {
                     "type": "integer",
@@ -2374,10 +2388,12 @@
                     "type": "string"
                 },
                 "FechaCreacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "FechaModificacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "Id": {
                     "type": "integer",
@@ -2406,10 +2422,12 @@
                     "type": "string"
                 },
                 "FechaCreacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "FechaModificacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "Id": {
                     "type": "integer",
