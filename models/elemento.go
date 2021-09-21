@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/astaxie/beego/orm"
 )
@@ -16,8 +17,8 @@ type Elemento struct {
 	Codigo            string    `orm:"column(codigo)"`
 	SubgrupoId        *Subgrupo `orm:"column(subgrupo_id);rel(fk)"`
 	Activo            bool      `orm:"column(activo)"`
-	FechaCreacion     string    `orm:"column(fecha_creacion);type(timestamp without time zone)"`
-	FechaModificacion string    `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
+	FechaCreacion     time.Time `orm:"column(fecha_creacion);type(timestamp with time zone)"`
+	FechaModificacion time.Time `orm:"column(fecha_modificacion);type(timestamp with time zone)"`
 }
 
 func (t *Elemento) TableName() string {

@@ -5,7 +5,6 @@ import (
 
 	"github.com/astaxie/beego/logs"
 	"github.com/astaxie/beego/orm"
-	"github.com/udistrital/utils_oas/time_bogota"
 )
 
 type TransaccionCuentasGrupo struct {
@@ -33,8 +32,6 @@ func AddTransaccionCuentasGrupo(m *TransaccionCuentasGrupo) (id int64, err error
 	}()
 	fmt.Println("ok")
 	for _, v := range m.Cuentas {
-		v.FechaCreacion = time_bogota.TiempoBogotaFormato()
-		v.FechaModificacion = time_bogota.TiempoBogotaFormato()
 		v.Activo = true
 		if _, err = o.Insert(&v); err != nil {
 			panic(err.Error())
@@ -116,8 +113,6 @@ func UpdateCuentas_GrupoById(m *TransaccionCuentasGrupo, id int) (err error) {
 					r.SubtipoMovimientoId = v.SubtipoMovimientoId
 					r.Activo = true
 					r.SubgrupoId = v.SubgrupoId
-					r.FechaModificacion = time_bogota.TiempoBogotaFormato()
-					r.FechaCreacion = r.FechaModificacion
 					if _, err = o.Insert(&r); err != nil {
 						panic(err.Error())
 					}
@@ -136,8 +131,6 @@ func UpdateCuentas_GrupoById(m *TransaccionCuentasGrupo, id int) (err error) {
 			r.SubtipoMovimientoId = v.SubtipoMovimientoId
 			r.Activo = true
 			r.SubgrupoId = v.SubgrupoId
-			r.FechaModificacion = time_bogota.TiempoBogotaFormato()
-			r.FechaCreacion = r.FechaModificacion
 			if _, err = o.Insert(&r); err != nil {
 				panic(err.Error())
 			}

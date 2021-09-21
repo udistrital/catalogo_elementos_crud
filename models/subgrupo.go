@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/astaxie/beego/orm"
 )
@@ -13,8 +14,8 @@ type Subgrupo struct {
 	Id                int        `orm:"column(id);pk;auto"`
 	Nombre            string     `orm:"column(nombre)"`
 	Descripcion       string     `orm:"column(descripcion)"`
-	FechaCreacion     string     `orm:"column(fecha_creacion);type(timestamp without time zone)"`
-	FechaModificacion string     `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
+	FechaCreacion     time.Time  `orm:"column(fecha_creacion);type(timestamp with time zone)"`
+	FechaModificacion time.Time  `orm:"column(fecha_modificacion);type(timestamp with time zone)"`
 	Activo            bool       `orm:"column(activo)"`
 	Codigo            string     `orm:"column(codigo)"`
 	TipoNivelId       *TipoNivel `orm:"column(tipo_nivel_id);rel(fk)"`
@@ -130,6 +131,9 @@ func GetAllSubgrupo(query map[string]string, fields []string, sortby []string, o
 func UpdateSubgrupoById(m *Subgrupo) (err error) {
 	o := orm.NewOrm()
 	v := Subgrupo{Id: m.Id}
+	// m.FechaCreacion = time_bogota.TiempoBogotaFormato()
+	// m.FechaModificacion = time_bogota.TiempoBogotaFormato()
+
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64

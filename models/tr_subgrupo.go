@@ -2,7 +2,6 @@ package models
 
 import (
 	"github.com/astaxie/beego/logs"
-	"github.com/udistrital/utils_oas/time_bogota"
 
 	"github.com/astaxie/beego/orm"
 )
@@ -34,8 +33,6 @@ func AddTransaccionSubgrupo(m *TrSubgrupo) (err error) {
 	}()
 
 //	for _, v := range *m.SubgrupoHijo {
-		m.SubgrupoHijo.FechaCreacion = time_bogota.TiempoBogotaFormato()
-	        m.SubgrupoHijo.FechaModificacion = time_bogota.TiempoBogotaFormato()
 
 		// SE INSERTA SUBGRUPO
 		if idSubgrupoHijo, err := o.Insert(m.SubgrupoHijo); err == nil {
@@ -44,8 +41,6 @@ func AddTransaccionSubgrupo(m *TrSubgrupo) (err error) {
 			// SE INSERTA SUBGRUPO_SUBGRUO
 			var subGrupoSubgrupo SubgrupoSubgrupo
 			subGrupoSubgrupo.Activo = true
-			subGrupoSubgrupo.FechaCreacion = time_bogota.TiempoBogotaFormato()
-			subGrupoSubgrupo.FechaModificacion = time_bogota.TiempoBogotaFormato()
 			subGrupoSubgrupo.SubgrupoPadreId = m.SubgrupoPadre
 			subGrupoSubgrupo.SubgrupoHijoId = m.SubgrupoHijo
 

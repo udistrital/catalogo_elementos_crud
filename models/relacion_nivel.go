@@ -5,14 +5,15 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/astaxie/beego/orm"
 )
 
 type RelacionNivel struct {
 	Id                int            `orm:"column(id);pk;auto"`
-	FechaCreacion     string         `orm:"column(fecha_creacion);type(timestamp without time zone)"`
-	FechaModificacion string         `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
+	FechaCreacion     time.Time      `orm:"column(fecha_creacion);type(timestamp with time zone)"`
+	FechaModificacion time.Time      `orm:"column(fecha_modificacion);type(timestamp with time zone)"`
 	Activo            bool           `orm:"column(activo)"`
 	NivelPadreId      *RelacionNivel `orm:"column(nivel_padre_id);rel(fk)"`
 	NivelHijoId       *RelacionNivel `orm:"column(nivel_hijo_id);rel(fk)"`
