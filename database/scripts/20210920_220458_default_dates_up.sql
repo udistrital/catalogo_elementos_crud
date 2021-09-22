@@ -43,6 +43,7 @@ ALTER TABLE catalogo.relacion_nivel
 CREATE OR REPLACE FUNCTION trigger_set_fecha_modificacion()
 RETURNS TRIGGER AS $$
 BEGIN
+  NEW.fecha_creacion = OLD.fecha_creacion;
   NEW.fecha_modificacion = NOW();
   RETURN NEW;
 END;

@@ -131,9 +131,6 @@ func GetAllSubgrupo(query map[string]string, fields []string, sortby []string, o
 func UpdateSubgrupoById(m *Subgrupo) (err error) {
 	o := orm.NewOrm()
 	v := Subgrupo{Id: m.Id}
-	// m.FechaCreacion = time_bogota.TiempoBogotaFormato()
-	// m.FechaModificacion = time_bogota.TiempoBogotaFormato()
-
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
