@@ -16,7 +16,6 @@ type TrGrupo struct {
 // AddTransaccionProduccionAcademica Transacción para registrar toda la información de un grupo asociándolo a un catálogo
 func AddTransaccionGrupo(m *TrGrupo) (err error) {
 	o := orm.NewOrm()
-	logs.Info("lo que llega")
 	logs.Info(m)
 	err = o.Begin()
 
@@ -49,51 +48,6 @@ func AddTransaccionGrupo(m *TrGrupo) (err error) {
 			panic(err.Error())
 		}
 
-		/*          if (m.DetalleSubgrupo != nil) {
-					m.DetalleSubgrupo.SubgrupoId = m.Subgrupo
-					m.DetalleSubgrupo.Activo = true
-					m.DetalleSubgrupo.FechaCreacion = time_bogota.TiempoBogotaFormato()
-					m.DetalleSubgrupo.FechaModificacion = time_bogota.TiempoBogotaFormato()
-					if _, err = o.Insert(m.DetalleSubgrupo); err != nil {
-						panic(err.Error())
-					}
-		                }*/
-	} else {
-		panic(err.Error())
-	}
-
-	return
-}
-
-func UpdateTransaccionGrupo(m *TrGrupo) (err error) {
-	o := orm.NewOrm()
-	err = o.Begin()
-
-	if err != nil {
-		return
-	}
-
-	defer func() {
-		if r := recover(); r != nil {
-			o.Rollback()
-			logs.Error(r)
-		} else {
-			o.Commit()
-		}
-	}()
-
-	//	var Detalle DetalleSubgrupo
-	//	w := m.DetalleSubgrupo
-
-	v := Subgrupo{Id: m.Subgrupo.Id}
-
-	if errTr := o.Read(&v); errTr == nil {
-
-		if _, err = o.Update(m.Subgrupo, "Activo", "Nombre", "Codigo", "Descripcion"); err == nil {
-
-		} else {
-			panic(err.Error())
-		}
 	} else {
 		panic(err.Error())
 	}
