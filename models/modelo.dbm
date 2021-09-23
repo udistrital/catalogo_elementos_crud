@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.1" last-position="0,105" last-zoom="1"
+<dbmodel pgmodeler-ver="0.9.1" last-position="0,0" last-zoom="1"
 	 default-schema="public" default-owner="postgres">
 <role name="desarrollooas"
       superuser="true"
@@ -24,7 +24,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <schema name="public" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
 </schema>
 
-<schema name="catalogo" rect-visible="true" fill-color="#888a85">
+<schema name="catalogo" rect-visible="true" fill-color="#babdb6">
 	<role name="postgres"/>
 </schema>
 
@@ -40,17 +40,17 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="catalogo"/>
 	<role name="postgres"/>
 	<comment><![CDATA[Tabla que almacena los subgrupos de catálogos disponibles en ARKA II en caso de existir más de uno.]]></comment>
-	<position x="740" y="800"/>
+	<position x="700" y="720"/>
 	<column name="id" not-null="true" sequence="catalogo.subgrupo_catalogo_id_seq">
 		<type name="integer" length="0"/>
 		<comment><![CDATA[Identificador único]]></comment>
 	</column>
 	<column name="fecha_creacion" not-null="true">
-		<type name="timestamp" length="0"/>
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
 		<comment><![CDATA[Campo para almacenar la fecha de cración del registro. Se usa para trazabilidad.]]></comment>
 	</column>
 	<column name="fecha_modificacion" not-null="true">
-		<type name="timestamp" length="0"/>
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
 		<comment><![CDATA[Campo para almacenar la fecha de modificación del registro. Se usa para trazabilidad.]]></comment>
 	</column>
 	<column name="activo" not-null="true">
@@ -80,7 +80,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="catalogo"/>
 	<role name="postgres"/>
 	<comment><![CDATA[Tabla que almacena los catálogos disponibles en ARKA II]]></comment>
-	<position x="160" y="860"/>
+	<position x="60" y="780"/>
 	<column name="id" not-null="true" sequence="catalogo.catalogo_id_seq">
 		<type name="integer" length="0"/>
 		<comment><![CDATA[Identificador único]]></comment>
@@ -102,11 +102,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<comment><![CDATA[Campo que almacena cuando deja de funcionar el catálogo.]]></comment>
 	</column>
 	<column name="fecha_creacion" not-null="true">
-		<type name="timestamp" length="0"/>
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
 		<comment><![CDATA[Campo para almacenar la fecha de cración del registro. Se usa para trazabilidad.]]></comment>
 	</column>
 	<column name="fecha_modificacion" not-null="true">
-		<type name="timestamp" length="0"/>
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
 		<comment><![CDATA[Campo para almacenar la fecha de modificación del registro. Se usa para trazabilidad.]]></comment>
 	</column>
 	<column name="activo" not-null="true">
@@ -130,7 +130,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="catalogo"/>
 	<role name="postgres"/>
 	<comment><![CDATA[Tabla que almacena los subgrupos disponibles en ARKA II]]></comment>
-	<position x="720" y="540"/>
+	<position x="700" y="420"/>
 	<column name="id" not-null="true" sequence="catalogo.subgrupo_id_seq">
 		<type name="integer" length="0"/>
 		<comment><![CDATA[Identificador único]]></comment>
@@ -143,11 +143,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="character varying" length="300"/>
 	</column>
 	<column name="fecha_creacion" not-null="true">
-		<type name="timestamp" length="0"/>
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
 		<comment><![CDATA[Campo para almacenar la fecha de cración del registro. Se usa para trazabilidad.]]></comment>
 	</column>
 	<column name="fecha_modificacion" not-null="true">
-		<type name="timestamp" length="0"/>
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
 		<comment><![CDATA[Campo para almacenar la fecha de modificación del registro. Se usa para trazabilidad.]]></comment>
 	</column>
 	<column name="activo" not-null="true">
@@ -177,17 +177,17 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="catalogo"/>
 	<role name="postgres"/>
 	<comment><![CDATA[Tabla que almacena los subgrupos de los subgrupos disponibles en ARKA II en caso de que se pueda desagregar más un subgrupo.]]></comment>
-	<position x="1300" y="160"/>
+	<position x="1420" y="60"/>
 	<column name="id" not-null="true" sequence="catalogo.subgrupo_subgrupo_id_seq">
 		<type name="integer" length="0"/>
 		<comment><![CDATA[Identificador único]]></comment>
 	</column>
 	<column name="fecha_creacion" not-null="true">
-		<type name="timestamp" length="0"/>
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
 		<comment><![CDATA[Campo para almacenar la fecha de cración del registro. Se usa para trazabilidad.]]></comment>
 	</column>
 	<column name="fecha_modificacion" not-null="true">
-		<type name="timestamp" length="0"/>
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
 		<comment><![CDATA[Campo para almacenar la fecha de modificación del registro. Se usa para trazabilidad.]]></comment>
 	</column>
 	<column name="activo" not-null="true">
@@ -220,7 +220,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="catalogo"/>
 	<role name="postgres"/>
 	<comment><![CDATA[Tabla de rompimiento para asociar múltiples cuentas a un subgrupo de un catálogo dependiento el tipo de movimiento. Por ejemplo, donación pertenece a un tipo de movimiento entrada, pero no tiene las mismas cuentas que el tipo de movimiento.]]></comment>
-	<position x="720" y="200"/>
+	<position x="700" y="60"/>
 	<column name="id" not-null="true" sequence="catalogo.cuentas_grupo_id_seq">
 		<type name="integer" length="0"/>
 		<comment><![CDATA[Identificador único]]></comment>
@@ -238,11 +238,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<comment><![CDATA[Campo que guarda la foranea del movimiento, para asociar una cuenta a un tipo de movimiento específico.  Proviene de KRONOS.]]></comment>
 	</column>
 	<column name="fecha_creacion" not-null="true">
-		<type name="timestamp" length="0"/>
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
 		<comment><![CDATA[Campo para almacenar la fecha de cración del registro. Se usa para trazabilidad.]]></comment>
 	</column>
 	<column name="fecha_modificacion" not-null="true">
-		<type name="timestamp" length="0"/>
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
 		<comment><![CDATA[Campo para almacenar la fecha de modificación del registro. Se usa para trazabilidad.]]></comment>
 	</column>
 	<column name="activo" not-null="true">
@@ -269,7 +269,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="catalogo"/>
 	<role name="postgres"/>
 	<comment><![CDATA[Tabla que almacena los catálogos disponibles en ARKA II]]></comment>
-	<position x="1300" y="460"/>
+	<position x="1440" y="340"/>
 	<column name="id" not-null="true" sequence="catalogo.elemento_id_seq">
 		<type name="integer" length="0"/>
 		<comment><![CDATA[Identificador único]]></comment>
@@ -278,12 +278,17 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="character varying" length="300"/>
 		<comment><![CDATA[Nombre del catálogo.]]></comment>
 	</column>
-	<column name="codigo" not-null="true">
-		<type name="text" length="0"/>
-	</column>
 	<column name="descripcion" not-null="true">
 		<type name="character varying" length="300"/>
 		<comment><![CDATA[Campo que almacena la información extra del catálogo.]]></comment>
+	</column>
+	<column name="fecha_creacion" not-null="true">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+		<comment><![CDATA[Campo para almacenar la fecha de cración del registro. Se usa para trazabilidad.]]></comment>
+	</column>
+	<column name="fecha_modificacion" not-null="true">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+		<comment><![CDATA[Campo para almacenar la fecha de modificación del registro. Se usa para trazabilidad.]]></comment>
 	</column>
 	<column name="activo" not-null="true">
 		<type name="boolean" length="0"/>
@@ -292,13 +297,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="subgrupo_id" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
-	<column name="fecha_creacion" not-null="true">
-		<type name="timestamp" length="0"/>
-		<comment><![CDATA[Campo para almacenar la fecha de cración del registro. Se usa para trazabilidad.]]></comment>
-	</column>
-	<column name="fecha_modificacion" not-null="true">
-		<type name="timestamp" length="0"/>
-		<comment><![CDATA[Campo para almacenar la fecha de modificación del registro. Se usa para trazabilidad.]]></comment>
+	<column name="codigo" not-null="true" default-value="''">
+		<type name="text" length="0"/>
 	</column>
 	<constraint name="pk_elemento" type="pk-constr" table="catalogo.elemento">
 		<columns names="id" ref-type="src-columns"/>
@@ -316,7 +316,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="tipo_bien">
 	<schema name="catalogo"/>
 	<role name="postgres"/>
-	<position x="180" y="180"/>
+	<position x="80" y="20"/>
 	<column name="id" not-null="true" sequence="catalogo.tipo_bien_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -336,10 +336,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="boolean" length="0"/>
 	</column>
 	<column name="fecha_creacion" not-null="true">
-		<type name="timestamp" length="0"/>
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
 	</column>
 	<column name="fecha_modificacion" not-null="true">
-		<type name="timestamp" length="0"/>
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
 	</column>
 	<constraint name="tipo_bien_pk" type="pk-constr" table="catalogo.tipo_bien">
 		<columns names="id" ref-type="src-columns"/>
@@ -357,7 +357,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="detalle_subgrupo">
 	<schema name="catalogo"/>
 	<role name="postgres"/>
-	<position x="180" y="440"/>
+	<position x="40" y="320"/>
 	<column name="id" not-null="true" sequence="catalogo.detalle_subgrupo_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -377,10 +377,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="boolean" length="0"/>
 	</column>
 	<column name="fecha_creacion" not-null="true">
-		<type name="timestamp" length="0"/>
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
 	</column>
 	<column name="fecha_modificacion" not-null="true">
-		<type name="timestamp" length="0"/>
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
 	</column>
 	<column name="subgrupo_id">
 		<type name="integer" length="0"/>
@@ -404,7 +404,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="tipo_nivel">
 	<schema name="catalogo"/>
 	<role name="postgres"/>
-	<position x="1360" y="960"/>
+	<position x="1440" y="940"/>
 	<column name="id" not-null="true" sequence="catalogo.tipo_nivel_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -424,10 +424,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="boolean" length="0"/>
 	</column>
 	<column name="fecha_creacion" not-null="true">
-		<type name="timestamp" length="0"/>
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
 	</column>
 	<column name="fecha_modificacion" not-null="true">
-		<type name="timestamp" length="0"/>
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
 	</column>
 	<constraint name="pk_tipo_nivel" type="pk-constr" table="catalogo.tipo_nivel">
 		<columns names="id" ref-type="src-columns"/>
@@ -445,15 +445,15 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="relacion_nivel">
 	<schema name="catalogo"/>
 	<role name="postgres"/>
-	<position x="1380" y="680"/>
+	<position x="1440" y="640"/>
 	<column name="id" not-null="true" sequence="catalogo.relacion_nivel_id_seq">
 		<type name="integer" length="0"/>
 	</column>
 	<column name="fecha_creacion" not-null="true">
-		<type name="timestamp" length="0"/>
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
 	</column>
 	<column name="fecha_modificacion" not-null="true">
-		<type name="timestamp" length="0"/>
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
 	</column>
 	<column name="activo" not-null="true">
 		<type name="boolean" length="0"/>
@@ -471,6 +471,171 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<columns names="nivel_padre_id,nivel_hijo_id" ref-type="src-columns"/>
 	</constraint>
 </table>
+
+<function name="trigger_set_fecha_modificacion"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="CALLED ON NULL INPUT"
+		function-type="VOLATILE"
+		security-type="SECURITY INVOKER"
+		execution-cost="100"
+		row-amount="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<language name="plpgsql" sql-disabled="true"/>
+	<return-type>
+	<type name="trigger" length="1"/>
+	</return-type>
+	<definition><![CDATA[
+BEGIN
+  NEW.fecha_modificacion = NOW();
+  RETURN NEW;
+END;
+]]></definition>
+</function>
+
+<trigger name="set_fecha_modificacion_detalle_subgrupo" firing-type="BEFORE" per-line="true" constraint="false"
+	 ins-event="false" del-event="false" upd-event="true" trunc-event="false"
+	 table="catalogo.detalle_subgrupo">
+		<function signature="public.trigger_set_fecha_modificacion()"/>
+</trigger>
+
+<function name="trigger_set_fecha_creacion"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="CALLED ON NULL INPUT"
+		function-type="VOLATILE"
+		security-type="SECURITY INVOKER"
+		execution-cost="100"
+		row-amount="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<language name="plpgsql" sql-disabled="true"/>
+	<return-type>
+	<type name="trigger" length="1"/>
+	</return-type>
+	<definition><![CDATA[
+BEGIN
+  NEW.fecha_creacion = NOW();
+  NEW.fecha_modificacion = NOW();
+  RETURN NEW;
+END;
+]]></definition>
+</function>
+
+<trigger name="set_fecha_creacion_detalle_subgrupo" firing-type="BEFORE" per-line="true" constraint="false"
+	 ins-event="true" del-event="false" upd-event="false" trunc-event="false"
+	 table="catalogo.detalle_subgrupo">
+		<function signature="public.trigger_set_fecha_creacion()"/>
+</trigger>
+
+<trigger name="set_fecha_modificacion_subgrupo" firing-type="BEFORE" per-line="true" constraint="false"
+	 ins-event="false" del-event="false" upd-event="true" trunc-event="false"
+	 table="catalogo.subgrupo">
+		<function signature="public.trigger_set_fecha_modificacion()"/>
+</trigger>
+
+<trigger name="set_fecha_creacion_subgrupo" firing-type="BEFORE" per-line="true" constraint="false"
+	 ins-event="true" del-event="false" upd-event="false" trunc-event="false"
+	 table="catalogo.subgrupo">
+		<function signature="public.trigger_set_fecha_creacion()"/>
+</trigger>
+
+<trigger name="set_fecha_modificacion_catalogo" firing-type="BEFORE" per-line="true" constraint="false"
+	 ins-event="false" del-event="false" upd-event="true" trunc-event="false"
+	 table="catalogo.catalogo">
+		<function signature="public.trigger_set_fecha_modificacion()"/>
+</trigger>
+
+<trigger name="set_fecha_creacion_catalogo" firing-type="BEFORE" per-line="true" constraint="false"
+	 ins-event="true" del-event="false" upd-event="false" trunc-event="false"
+	 table="catalogo.catalogo">
+		<function signature="public.trigger_set_fecha_creacion()"/>
+</trigger>
+
+<trigger name="set_fecha_modificacion_cuentas_subgrupo" firing-type="BEFORE" per-line="true" constraint="false"
+	 ins-event="false" del-event="false" upd-event="true" trunc-event="false"
+	 table="catalogo.cuentas_subgrupo">
+		<function signature="public.trigger_set_fecha_modificacion()"/>
+</trigger>
+
+<trigger name="set_fecha_creacion_cuentas_subgrupo" firing-type="BEFORE" per-line="true" constraint="false"
+	 ins-event="true" del-event="false" upd-event="false" trunc-event="false"
+	 table="catalogo.cuentas_subgrupo">
+		<function signature="public.trigger_set_fecha_creacion()"/>
+</trigger>
+
+<trigger name="set_fecha_modificacion_elemento" firing-type="BEFORE" per-line="true" constraint="false"
+	 ins-event="false" del-event="false" upd-event="true" trunc-event="false"
+	 table="catalogo.elemento">
+		<function signature="public.trigger_set_fecha_modificacion()"/>
+</trigger>
+
+<trigger name="set_fecha_creacion_elemento" firing-type="BEFORE" per-line="true" constraint="false"
+	 ins-event="true" del-event="false" upd-event="false" trunc-event="false"
+	 table="catalogo.elemento">
+		<function signature="public.trigger_set_fecha_creacion()"/>
+</trigger>
+
+<trigger name="set_fecha_modificacion_relacion_nivel" firing-type="BEFORE" per-line="true" constraint="false"
+	 ins-event="false" del-event="false" upd-event="true" trunc-event="false"
+	 table="catalogo.relacion_nivel">
+		<function signature="public.trigger_set_fecha_modificacion()"/>
+</trigger>
+
+<trigger name="set_fecha_creacion_relacion_nivel" firing-type="BEFORE" per-line="true" constraint="false"
+	 ins-event="true" del-event="false" upd-event="false" trunc-event="false"
+	 table="catalogo.relacion_nivel">
+		<function signature="public.trigger_set_fecha_creacion()"/>
+</trigger>
+
+<trigger name="set_fecha_modificacion_subgrupo_catalogo" firing-type="BEFORE" per-line="true" constraint="false"
+	 ins-event="false" del-event="false" upd-event="true" trunc-event="false"
+	 table="catalogo.subgrupo_catalogo">
+		<function signature="public.trigger_set_fecha_modificacion()"/>
+</trigger>
+
+<trigger name="set_fecha_creacion_subgrupo_catalogo" firing-type="BEFORE" per-line="true" constraint="false"
+	 ins-event="true" del-event="false" upd-event="false" trunc-event="false"
+	 table="catalogo.subgrupo_catalogo">
+		<function signature="public.trigger_set_fecha_creacion()"/>
+</trigger>
+
+<trigger name="set_fecha_modificacion_subgrupo_subgrupo" firing-type="BEFORE" per-line="true" constraint="false"
+	 ins-event="false" del-event="false" upd-event="true" trunc-event="false"
+	 table="catalogo.subgrupo_subgrupo">
+		<function signature="public.trigger_set_fecha_modificacion()"/>
+</trigger>
+
+<trigger name="set_fecha_creacion_subgrupo_subgrupo" firing-type="BEFORE" per-line="true" constraint="false"
+	 ins-event="true" del-event="false" upd-event="false" trunc-event="false"
+	 table="catalogo.subgrupo_subgrupo">
+		<function signature="public.trigger_set_fecha_creacion()"/>
+</trigger>
+
+<trigger name="set_fecha_modificacion_tipo_bien" firing-type="BEFORE" per-line="true" constraint="false"
+	 ins-event="false" del-event="false" upd-event="true" trunc-event="false"
+	 table="catalogo.tipo_bien">
+		<function signature="public.trigger_set_fecha_modificacion()"/>
+</trigger>
+
+<trigger name="set_fecha_creacion_tipo_bien" firing-type="BEFORE" per-line="true" constraint="false"
+	 ins-event="true" del-event="false" upd-event="false" trunc-event="false"
+	 table="catalogo.tipo_bien">
+		<function signature="public.trigger_set_fecha_creacion()"/>
+</trigger>
+
+<trigger name="set_fecha_modificacion_tipo_nivel" firing-type="BEFORE" per-line="true" constraint="false"
+	 ins-event="false" del-event="false" upd-event="true" trunc-event="false"
+	 table="catalogo.tipo_nivel">
+		<function signature="public.trigger_set_fecha_modificacion()"/>
+</trigger>
+
+<trigger name="set_fecha_creacion_tipo_nivel" firing-type="BEFORE" per-line="true" constraint="false"
+	 ins-event="true" del-event="false" upd-event="false" trunc-event="false"
+	 table="catalogo.tipo_nivel">
+		<function signature="public.trigger_set_fecha_creacion()"/>
+</trigger>
 
 <constraint name="fk_subgrupo_catalogo_subgrupo" type="fk-constr" comparison-type="MATCH FULL"
 	 upd-action="CASCADE" del-action="RESTRICT" ref-table="catalogo.subgrupo" table="catalogo.subgrupo_catalogo">
@@ -539,106 +704,74 @@ CAUTION: Do not modify this file unless you know what you are doing.
 </constraint>
 
 <relationship name="rel_subgrupo_catalogo_subgrupo" type="relfk"
-	 custom-color="#f8f5c1"
+	 custom-color="#4c8bb6"
 	 src-table="catalogo.subgrupo_catalogo"
 	 dst-table="catalogo.subgrupo" reference-fk="fk_subgrupo_catalogo_subgrupo"
-	 src-required="false" dst-required="false">
-	<label ref-type="name-label">
-		<position x="14.6492" y="9.79663"/>
-	</label>
-</relationship>
+	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_subgrupo_catalogo_catalogo" type="relfk"
-	 custom-color="#329912"
+	 custom-color="#48c0f6"
 	 src-table="catalogo.subgrupo_catalogo"
 	 dst-table="catalogo.catalogo" reference-fk="fk_subgrupo_catalogo_catalogo"
-	 src-required="false" dst-required="false">
-	<label ref-type="name-label">
-		<position x="0" y="0"/>
-	</label>
-</relationship>
+	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_subgrupo_tipo_nivel" type="relfk"
-	 custom-color="#34be39"
+	 custom-color="#063730"
 	 src-table="catalogo.subgrupo"
 	 dst-table="catalogo.tipo_nivel" reference-fk="fk_subgrupo_tipo_nivel"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_subgrupo_subgrupo_subgrupo" type="relfk"
-	 custom-color="#c5a1c7"
+	 custom-color="#1c4274"
 	 src-table="catalogo.subgrupo_subgrupo"
 	 dst-table="catalogo.subgrupo" reference-fk="fk_subgrupo_subgrupo_subgrupo_padre"
-	 src-required="false" dst-required="false">
-	<label ref-type="name-label">
-		<position x="26.3061" y="-68.0107"/>
-	</label>
-</relationship>
+	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_subgrupo_subgrupo_subgrupo1" type="relfk"
-	 custom-color="#b299c2"
+	 custom-color="#f2f365"
 	 src-table="catalogo.subgrupo_subgrupo"
 	 dst-table="catalogo.subgrupo" reference-fk="fk_subgrupo_subgrupo_subgrupo_hijo"
 	 src-required="false" dst-required="false">
 	<label ref-type="name-label">
-		<position x="29.8061" y="-48.0107"/>
+		<position x="10.2647" y="21.9893"/>
 	</label>
 </relationship>
 
 <relationship name="rel_cuentas_subgrupo_subgrupo" type="relfk"
-	 custom-color="#12d9ee"
+	 custom-color="#85a400"
 	 src-table="catalogo.cuentas_subgrupo"
 	 dst-table="catalogo.subgrupo" reference-fk="fk_cuentas_grupo_subgrupo"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_elemento_subgrupo" type="relfk"
-	 custom-color="#097dcf"
+	 custom-color="#412f90"
 	 src-table="catalogo.elemento"
 	 dst-table="catalogo.subgrupo" reference-fk="fk_elemento_subgrupo"
-	 src-required="false" dst-required="false">
-	<label ref-type="name-label">
-		<position x="7.80608" y="-4.26066"/>
-	</label>
-</relationship>
+	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_detalle_subgrupo_tipo_bien" type="relfk"
-	 custom-color="#b1303a"
+	 custom-color="#4adf07"
 	 src-table="catalogo.detalle_subgrupo"
 	 dst-table="catalogo.tipo_bien" reference-fk="fk_detalle_subgrupo_tipo_bien"
-	 src-required="false" dst-required="false">
-	<label ref-type="name-label">
-		<position x="20.5395" y="-54.1895"/>
-	</label>
-</relationship>
+	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_detalle_subgrupo_subgrupo" type="relfk"
-	 custom-color="#f08a35"
+	 custom-color="#bdd5eb"
 	 src-table="catalogo.detalle_subgrupo"
 	 dst-table="catalogo.subgrupo" reference-fk="fk_detalle_subgrupo_subgrupo"
-	 src-required="false" dst-required="false">
-	<label ref-type="name-label">
-		<position x="0" y="0"/>
-	</label>
-</relationship>
+	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_relacion_nivel_tipo_nivel" type="relfk"
-	 custom-color="#227253"
+	 custom-color="#34c28e"
 	 src-table="catalogo.relacion_nivel"
 	 dst-table="catalogo.tipo_nivel" reference-fk="fk_tipo_nivel_nivel_padre"
-	 src-required="false" dst-required="false">
-	<label ref-type="name-label">
-		<position x="80.693" y="-0.0934568"/>
-	</label>
-</relationship>
+	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_relacion_nivel_tipo_nivel1" type="relfk"
-	 custom-color="#a9140f"
+	 custom-color="#5bad13"
 	 src-table="catalogo.relacion_nivel"
 	 dst-table="catalogo.tipo_nivel" reference-fk="fk_tipo_nivel_nivel_hijo"
-	 src-required="false" dst-required="false">
-	<label ref-type="name-label">
-		<position x="84.193" y="19.9065"/>
-	</label>
-</relationship>
+	 src-required="false" dst-required="false"/>
 
 <permission>
 	<object name="catalogo" type="schema"/>

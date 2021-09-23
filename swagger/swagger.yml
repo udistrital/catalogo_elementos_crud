@@ -1407,7 +1407,7 @@ paths:
         "400":
           description: the request contains incorrect syntax
 definitions:
-  44550.0xc0006a83f0.false:
+  44567.0xc0007c3440.false:
     title: "false"
     type: object
   models.Catalogo:
@@ -1420,12 +1420,14 @@ definitions:
         type: string
       FechaCreacion:
         type: string
+        format: datetime
       FechaFin:
         type: string
       FechaInicio:
         type: string
       FechaModificacion:
         type: string
+        format: datetime
       Id:
         type: integer
         format: int64
@@ -1443,8 +1445,10 @@ definitions:
         type: string
       FechaCreacion:
         type: string
+        format: datetime
       FechaModificacion:
         type: string
+        format: datetime
       Id:
         type: integer
         format: int64
@@ -1465,8 +1469,10 @@ definitions:
         type: boolean
       FechaCreacion:
         type: string
+        format: datetime
       FechaModificacion:
         type: string
+        format: datetime
       Id:
         type: integer
         format: int64
@@ -1488,8 +1494,10 @@ definitions:
         type: string
       FechaCreacion:
         type: string
+        format: datetime
       FechaModificacion:
         type: string
+        format: datetime
       Id:
         type: integer
         format: int64
@@ -1502,7 +1510,7 @@ definitions:
     type: object
     properties:
       Data:
-        $ref: '#/definitions/44550.0xc0006a83f0.false'
+        $ref: '#/definitions/44567.0xc0007c3440.false'
       Expandible:
         type: boolean
   models.RelacionNivel:
@@ -1513,8 +1521,10 @@ definitions:
         type: boolean
       FechaCreacion:
         type: string
+        format: datetime
       FechaModificacion:
         type: string
+        format: datetime
       Id:
         type: integer
         format: int64
@@ -1534,8 +1544,10 @@ definitions:
         type: string
       FechaCreacion:
         type: string
+        format: datetime
       FechaModificacion:
         type: string
+        format: datetime
       Id:
         type: integer
         format: int64
@@ -1553,8 +1565,10 @@ definitions:
         $ref: '#/definitions/models.Catalogo'
       FechaCreacion:
         type: string
+        format: datetime
       FechaModificacion:
         type: string
+        format: datetime
       Id:
         type: integer
         format: int64
@@ -1568,8 +1582,10 @@ definitions:
         type: boolean
       FechaCreacion:
         type: string
+        format: datetime
       FechaModificacion:
         type: string
+        format: datetime
       Id:
         type: integer
         format: int64
@@ -1589,8 +1605,10 @@ definitions:
         type: string
       FechaCreacion:
         type: string
+        format: datetime
       FechaModificacion:
         type: string
+        format: datetime
       Id:
         type: integer
         format: int64
@@ -1611,8 +1629,10 @@ definitions:
         type: string
       FechaCreacion:
         type: string
+        format: datetime
       FechaModificacion:
         type: string
+        format: datetime
       Id:
         type: integer
         format: int64

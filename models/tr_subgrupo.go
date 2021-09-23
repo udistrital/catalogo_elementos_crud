@@ -2,7 +2,6 @@ package models
 
 import (
 	"github.com/astaxie/beego/logs"
-	"github.com/udistrital/utils_oas/time_bogota"
 
 	"github.com/astaxie/beego/orm"
 )
@@ -34,8 +33,6 @@ func AddTransaccionSubgrupo(m *TrSubgrupo) (err error) {
 	}()
 
 //	for _, v := range *m.SubgrupoHijo {
-		m.SubgrupoHijo.FechaCreacion = time_bogota.TiempoBogotaFormato()
-	        m.SubgrupoHijo.FechaModificacion = time_bogota.TiempoBogotaFormato()
 
 		// SE INSERTA SUBGRUPO
 		if idSubgrupoHijo, err := o.Insert(m.SubgrupoHijo); err == nil {
@@ -44,8 +41,6 @@ func AddTransaccionSubgrupo(m *TrSubgrupo) (err error) {
 			// SE INSERTA SUBGRUPO_SUBGRUO
 			var subGrupoSubgrupo SubgrupoSubgrupo
 			subGrupoSubgrupo.Activo = true
-			subGrupoSubgrupo.FechaCreacion = time_bogota.TiempoBogotaFormato()
-			subGrupoSubgrupo.FechaModificacion = time_bogota.TiempoBogotaFormato()
 			subGrupoSubgrupo.SubgrupoPadreId = m.SubgrupoPadre
 			subGrupoSubgrupo.SubgrupoHijoId = m.SubgrupoHijo
 
@@ -57,8 +52,6 @@ func AddTransaccionSubgrupo(m *TrSubgrupo) (err error) {
                         if (m.DetalleSubgrupo != nil) {
 				m.DetalleSubgrupo.SubgrupoId = m.SubgrupoHijo 
 				m.DetalleSubgrupo.Activo = true
-				m.DetalleSubgrupo.FechaCreacion = time_bogota.TiempoBogotaFormato()
-				m.DetalleSubgrupo.FechaModificacion = time_bogota.TiempoBogotaFormato()
 				if _, err = o.Insert(m.DetalleSubgrupo); err != nil {
 					panic(err.Error())
 				}
@@ -112,13 +105,20 @@ func UpdateTransaccionSubgrupo(m *TrSubgrupo) (err error) {
 		}
 	}()
 
-	if _, err = o.Update(m.SubgrupoHijo, "Activo", "Nombre", "Codigo", "Descripcion", "FechaModificacion"); err == nil {
-		if m.DetalleSubgrupo != nil {
-			if _, err = o.Update(m.DetalleSubgrupo, "Depreciacion", "Valorizacion", "TipoBienId", "FechaModificacion"); err != nil {
+	if m.DetalleSubgrupo != nil {
+
+		if m.DetalleSubgrupo.Id == 0 {
+			if _, err := o.Insert(m.DetalleSubgrupo); err != nil {
+				panic(err.Error())
+			}
+		} else {
+			if _, err = o.Update(m.DetalleSubgrupo, "Depreciacion", "Valorizacion", "TipoBienId"); err != nil {
 				panic(err.Error())
 			}
 		}
-	} else {
+	}
+
+	if _, err = o.Update(m.SubgrupoHijo, "Activo", "Nombre", "Codigo", "Descripcion"); err != nil {
 		panic(err.Error())
 	}
 

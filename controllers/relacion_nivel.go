@@ -7,7 +7,6 @@ import (
 	"strings"
 
 	"github.com/udistrital/catalogo_elementos_crud/models"
-	"github.com/udistrital/utils_oas/time_bogota"
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
@@ -37,8 +36,6 @@ func (c *RelacionNivelController) URLMapping() {
 func (c *RelacionNivelController) Post() {
 	var v models.RelacionNivel
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		v.FechaCreacion = time_bogota.TiempoBogotaFormato()
-		v.FechaModificacion = time_bogota.TiempoBogotaFormato()
 		if _, err := models.AddRelacionNivel(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = v
@@ -161,8 +158,6 @@ func (c *RelacionNivelController) Put() {
 	id, _ := strconv.Atoi(idStr)
 	v := models.RelacionNivel{Id: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		v.FechaCreacion = time_bogota.TiempoCorreccionFormato(v.FechaCreacion)
-		v.FechaModificacion = time_bogota.TiempoBogotaFormato()
 		if err := models.UpdateRelacionNivelById(&v); err == nil {
 			c.Data["json"] = v
 		} else {

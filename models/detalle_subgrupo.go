@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/astaxie/beego/orm"
 )
@@ -15,8 +16,8 @@ type DetalleSubgrupo struct {
 	Valorizacion      bool      `orm:"column(valorizacion)"`
 	Deterioro         bool      `orm:"column(deterioro)"`
 	Activo            bool      `orm:"column(activo)"`
-	FechaCreacion     string    `orm:"column(fecha_creacion);type(timestamp without time zone)"`
-	FechaModificacion string    `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
+	FechaCreacion     time.Time `orm:"column(fecha_creacion);type(timestamp with time zone)"`
+	FechaModificacion time.Time `orm:"column(fecha_modificacion);type(timestamp with time zone)"`
 	SubgrupoId        *Subgrupo `orm:"column(subgrupo_id);rel(fk)"`
 	TipoBienId        *TipoBien `orm:"column(tipo_bien_id);rel(fk)"`
 }

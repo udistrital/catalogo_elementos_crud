@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/astaxie/beego/orm"
 )
@@ -13,8 +14,8 @@ type Subgrupo struct {
 	Id                int        `orm:"column(id);pk;auto"`
 	Nombre            string     `orm:"column(nombre)"`
 	Descripcion       string     `orm:"column(descripcion)"`
-	FechaCreacion     string     `orm:"column(fecha_creacion);type(timestamp without time zone)"`
-	FechaModificacion string     `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
+	FechaCreacion     time.Time  `orm:"column(fecha_creacion);type(timestamp with time zone)"`
+	FechaModificacion time.Time  `orm:"column(fecha_modificacion);type(timestamp with time zone)"`
 	Activo            bool       `orm:"column(activo)"`
 	Codigo            string     `orm:"column(codigo)"`
 	TipoNivelId       *TipoNivel `orm:"column(tipo_nivel_id);rel(fk)"`
