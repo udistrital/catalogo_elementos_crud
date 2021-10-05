@@ -1972,42 +1972,6 @@
                         "description": ":id is empty"
                     }
                 }
-            },
-            "put": {
-                "tags": [
-                    "tr_grupo"
-                ],
-                "description": "update the TrGrupoController",
-                "operationId": "TrGrupoController.Put",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "id",
-                        "description": "The id you want to update",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "description": "body for TrGrupoController content",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.TrGrupoController"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/models.TrGrupoController"
-                        }
-                    },
-                    "400": {
-                        "description": "the request contains incorrect syntax"
-                    }
-                }
             }
         },
         "/tr_subgrupo/": {
@@ -2108,7 +2072,7 @@
         }
     },
     "definitions": {
-        "44567.0xc0007c3440.false": {
+        "44690.0xc000679a40.false": {
             "title": "false",
             "type": "object"
         },
@@ -2253,7 +2217,7 @@
             "type": "object",
             "properties": {
                 "Data": {
-                    "$ref": "#/definitions/44567.0xc0007c3440.false"
+                    "$ref": "#/definitions/44690.0xc000679a40.false"
                 },
                 "Expandible": {
                     "type": "boolean"
@@ -2405,6 +2369,14 @@
                 "Orden": {
                     "type": "number",
                     "format": "double"
+                },
+                "Reglas": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Tipo_bien_padre": {
+                    "type": "integer",
+                    "format": "int64"
                 }
             }
         },
