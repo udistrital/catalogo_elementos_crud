@@ -19,7 +19,7 @@ type TipoBien struct {
 	Activo            bool      `orm:"column(activo)"`
 	FechaCreacion     time.Time `orm:"column(fecha_creacion);type(timestamp with time zone)"`
 	FechaModificacion time.Time `orm:"column(fecha_modificacion);type(timestamp with time zone)"`
-	Tipo_bien_padre   int       `orm:"column(tipo_bien_padre);null"`
+	Tipo_bien_padre   *TipoBien `orm:"column(tipo_bien_padre);rel(fk);null"`
 	Reglas            int       `orm:"column(reglas);null"`
 }
 

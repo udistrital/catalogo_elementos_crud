@@ -1366,7 +1366,7 @@ paths:
         "400":
           description: the request contains incorrect syntax
 definitions:
-  44690.0xc000679a40.false:
+  44698.0xc00074ab10.false:
     title: "false"
     type: object
   models.Catalogo:
@@ -1469,7 +1469,7 @@ definitions:
     type: object
     properties:
       Data:
-        $ref: '#/definitions/44690.0xc000679a40.false'
+        $ref: '#/definitions/44698.0xc00074ab10.false'
       Expandible:
         type: boolean
   models.RelacionNivel:
@@ -1580,8 +1580,7 @@ definitions:
         type: integer
         format: int64
       Tipo_bien_padre:
-        type: integer
-        format: int64
+        $ref: '#/definitions/models.TipoBien'
   models.TipoNivel:
     title: TipoNivel
     type: object

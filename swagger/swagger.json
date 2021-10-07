@@ -2072,7 +2072,7 @@
         }
     },
     "definitions": {
-        "44690.0xc000679a40.false": {
+        "44698.0xc00074ab10.false": {
             "title": "false",
             "type": "object"
         },
@@ -2217,7 +2217,7 @@
             "type": "object",
             "properties": {
                 "Data": {
-                    "$ref": "#/definitions/44690.0xc000679a40.false"
+                    "$ref": "#/definitions/44698.0xc00074ab10.false"
                 },
                 "Expandible": {
                     "type": "boolean"
@@ -2375,8 +2375,7 @@
                     "format": "int64"
                 },
                 "Tipo_bien_padre": {
-                    "type": "integer",
-                    "format": "int64"
+                    "$ref": "#/definitions/models.TipoBien"
                 }
             }
         },
