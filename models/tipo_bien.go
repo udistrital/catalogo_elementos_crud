@@ -20,7 +20,7 @@ type TipoBien struct {
 	FechaCreacion     time.Time `orm:"column(fecha_creacion);type(timestamp with time zone)"`
 	FechaModificacion time.Time `orm:"column(fecha_modificacion);type(timestamp with time zone)"`
 	Tipo_bien_padre   *TipoBien `orm:"column(tipo_bien_padre);rel(fk);null"`
-	Reglas            int       `orm:"column(reglas);null"`
+	Reglas            string    `orm:"column(reglas);type(jsonb);null"`
 }
 
 func (t *TipoBien) TableName() string {
