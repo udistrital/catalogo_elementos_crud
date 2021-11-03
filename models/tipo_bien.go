@@ -21,6 +21,7 @@ type TipoBien struct {
 	FechaModificacion time.Time `orm:"column(fecha_modificacion);type(timestamp with time zone)"`
 	Tipo_bien_padre   *TipoBien `orm:"column(tipo_bien_padre);rel(fk);null"`
 	Reglas            string    `orm:"column(reglas);type(jsonb);null"`
+	NecesitaPlaca     bool      `orm:"column(necesita_placa)"`
 }
 
 func (t *TipoBien) TableName() string {
