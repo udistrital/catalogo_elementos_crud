@@ -80,9 +80,9 @@ Pruebas unitarias
 
 ## Estado CI
 
-| Develop | Relese 0.6.1 | Master |
+| Develop | Relese 0.7.0 | Master |
 | -- | -- | -- |
-| [![Build Status](https://hubci.portaloas.udistrital.edu.co/api/badges/udistrital/catalogo_elementos_crud/status.svg?ref=refs/heads/develop)](https://hubci.portaloas.udistrital.edu.co/udistrital/catalogo_elementos_crud/) | [![Build Status](https://hubci.portaloas.udistrital.edu.co/api/badges/udistrital/catalogo_elementos_crud/status.svg?ref=refs/heads/release/0.6.1)](https://hubci.portaloas.udistrital.edu.co/udistrital/catalogo_elementos_crud/) | [![Build Status](https://hubci.portaloas.udistrital.edu.co/api/badges/udistrital/catalogo_elementos_crud/status.svg?ref=refs/heads/master)](https://hubci.portaloas.udistrital.edu.co/udistrital/catalogo_elementos_crud/) |
+| [![Build Status](https://hubci.portaloas.udistrital.edu.co/api/badges/udistrital/catalogo_elementos_crud/status.svg?ref=refs/heads/develop)](https://hubci.portaloas.udistrital.edu.co/udistrital/catalogo_elementos_crud/) | [![Build Status](https://hubci.portaloas.udistrital.edu.co/api/badges/udistrital/catalogo_elementos_crud/status.svg?ref=refs/heads/release/0.7.0)](https://hubci.portaloas.udistrital.edu.co/udistrital/catalogo_elementos_crud/) | [![Build Status](https://hubci.portaloas.udistrital.edu.co/api/badges/udistrital/catalogo_elementos_crud/status.svg?ref=refs/heads/master)](https://hubci.portaloas.udistrital.edu.co/udistrital/catalogo_elementos_crud/) |
 
 ## Modelo de Datos
 
