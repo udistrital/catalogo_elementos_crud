@@ -1,6 +1,6 @@
 -- Database generated with pgModeler (PostgreSQL Database Modeler).
 -- pgModeler  version: 0.9.1
--- PostgreSQL version: 10.0
+-- PostgreSQL version: 9.6
 -- Project Site: pgmodeler.io
 -- Model Author: ---
 
@@ -337,6 +337,9 @@ CREATE TABLE catalogo.tipo_bien(
 	activo boolean NOT NULL,
 	fecha_creacion timestamp with time zone NOT NULL,
 	fecha_modificacion timestamp with time zone NOT NULL,
+	reglas jsonb,
+	tipo_bien_padre integer,
+	necesita_placa boolean NOT NULL,
 	CONSTRAINT tipo_bien_pk PRIMARY KEY (id)
 
 );
@@ -365,6 +368,8 @@ CREATE TABLE catalogo.detalle_subgrupo(
 	depreciacion boolean NOT NULL,
 	valorizacion boolean NOT NULL,
 	deterioro boolean NOT NULL,
+	vida_util numeric(10,5),
+	valor_residual numeric(5,4),
 	activo boolean NOT NULL,
 	fecha_creacion timestamp with time zone NOT NULL,
 	fecha_modificacion timestamp with time zone NOT NULL,
@@ -379,6 +384,10 @@ COMMENT ON COLUMN catalogo.detalle_subgrupo.depreciacion IS 'Campo que determina
 COMMENT ON COLUMN catalogo.detalle_subgrupo.valorizacion IS 'Campo que determina si un Grupo (subgrupo) se valoriza o no.';
 -- ddl-end --
 COMMENT ON COLUMN catalogo.detalle_subgrupo.deterioro IS 'Campo que determina si un Grupo (subgrupo) se deteriora o no.';
+-- ddl-end --
+COMMENT ON COLUMN catalogo.detalle_subgrupo.vida_util IS 'Valor de la vida útil sugerida para un tipo de bien en años';
+-- ddl-end --
+COMMENT ON COLUMN catalogo.detalle_subgrupo.valor_residual IS 'Porcentaje del valor residual sugerido para un tipo de bien (0-1)';
 -- ddl-end --
 ALTER TABLE catalogo.detalle_subgrupo OWNER TO postgres;
 -- ddl-end --
@@ -446,9 +455,9 @@ CREATE TABLE catalogo.relacion_nivel(
 ALTER TABLE catalogo.relacion_nivel OWNER TO postgres;
 -- ddl-end --
 
--- object: public.trigger_set_fecha_modificacion | type: FUNCTION --
--- DROP FUNCTION IF EXISTS public.trigger_set_fecha_modificacion() CASCADE;
-CREATE FUNCTION public.trigger_set_fecha_modificacion ()
+-- object: pg_catalog.trigger_set_fecha_modificacion | type: FUNCTION --
+-- DROP FUNCTION IF EXISTS pg_catalog.trigger_set_fecha_modificacion() CASCADE;
+CREATE FUNCTION pg_catalog.trigger_set_fecha_modificacion ()
 	RETURNS trigger
 	LANGUAGE plpgsql
 	VOLATILE 
@@ -458,13 +467,14 @@ CREATE FUNCTION public.trigger_set_fecha_modificacion ()
 	AS $$
 
 BEGIN
+  NEW.fecha_creacion = OLD.fecha_creacion;
   NEW.fecha_modificacion = NOW();
   RETURN NEW;
 END;
 
 $$;
 -- ddl-end --
-ALTER FUNCTION public.trigger_set_fecha_modificacion() OWNER TO postgres;
+ALTER FUNCTION pg_catalog.trigger_set_fecha_modificacion() OWNER TO postgres;
 -- ddl-end --
 
 -- object: set_fecha_modificacion_detalle_subgrupo | type: TRIGGER --
@@ -473,12 +483,12 @@ CREATE TRIGGER set_fecha_modificacion_detalle_subgrupo
 	BEFORE UPDATE
 	ON catalogo.detalle_subgrupo
 	FOR EACH ROW
-	EXECUTE PROCEDURE public.trigger_set_fecha_modificacion();
+	EXECUTE PROCEDURE pg_catalog.trigger_set_fecha_modificacion();
 -- ddl-end --
 
--- object: public.trigger_set_fecha_creacion | type: FUNCTION --
--- DROP FUNCTION IF EXISTS public.trigger_set_fecha_creacion() CASCADE;
-CREATE FUNCTION public.trigger_set_fecha_creacion ()
+-- object: pg_catalog.trigger_set_fecha_creacion | type: FUNCTION --
+-- DROP FUNCTION IF EXISTS pg_catalog.trigger_set_fecha_creacion() CASCADE;
+CREATE FUNCTION pg_catalog.trigger_set_fecha_creacion ()
 	RETURNS trigger
 	LANGUAGE plpgsql
 	VOLATILE 
@@ -495,7 +505,7 @@ END;
 
 $$;
 -- ddl-end --
-ALTER FUNCTION public.trigger_set_fecha_creacion() OWNER TO postgres;
+ALTER FUNCTION pg_catalog.trigger_set_fecha_creacion() OWNER TO postgres;
 -- ddl-end --
 
 -- object: set_fecha_creacion_detalle_subgrupo | type: TRIGGER --
@@ -504,7 +514,7 @@ CREATE TRIGGER set_fecha_creacion_detalle_subgrupo
 	BEFORE INSERT 
 	ON catalogo.detalle_subgrupo
 	FOR EACH ROW
-	EXECUTE PROCEDURE public.trigger_set_fecha_creacion();
+	EXECUTE PROCEDURE pg_catalog.trigger_set_fecha_creacion();
 -- ddl-end --
 
 -- object: set_fecha_modificacion_subgrupo | type: TRIGGER --
@@ -513,7 +523,7 @@ CREATE TRIGGER set_fecha_modificacion_subgrupo
 	BEFORE UPDATE
 	ON catalogo.subgrupo
 	FOR EACH ROW
-	EXECUTE PROCEDURE public.trigger_set_fecha_modificacion();
+	EXECUTE PROCEDURE pg_catalog.trigger_set_fecha_modificacion();
 -- ddl-end --
 
 -- object: set_fecha_creacion_subgrupo | type: TRIGGER --
@@ -522,7 +532,7 @@ CREATE TRIGGER set_fecha_creacion_subgrupo
 	BEFORE INSERT 
 	ON catalogo.subgrupo
 	FOR EACH ROW
-	EXECUTE PROCEDURE public.trigger_set_fecha_creacion();
+	EXECUTE PROCEDURE pg_catalog.trigger_set_fecha_creacion();
 -- ddl-end --
 
 -- object: set_fecha_modificacion_catalogo | type: TRIGGER --
@@ -531,7 +541,7 @@ CREATE TRIGGER set_fecha_modificacion_catalogo
 	BEFORE UPDATE
 	ON catalogo.catalogo
 	FOR EACH ROW
-	EXECUTE PROCEDURE public.trigger_set_fecha_modificacion();
+	EXECUTE PROCEDURE pg_catalog.trigger_set_fecha_modificacion();
 -- ddl-end --
 
 -- object: set_fecha_creacion_catalogo | type: TRIGGER --
@@ -540,7 +550,7 @@ CREATE TRIGGER set_fecha_creacion_catalogo
 	BEFORE INSERT 
 	ON catalogo.catalogo
 	FOR EACH ROW
-	EXECUTE PROCEDURE public.trigger_set_fecha_creacion();
+	EXECUTE PROCEDURE pg_catalog.trigger_set_fecha_creacion();
 -- ddl-end --
 
 -- object: set_fecha_modificacion_cuentas_subgrupo | type: TRIGGER --
@@ -549,7 +559,7 @@ CREATE TRIGGER set_fecha_modificacion_cuentas_subgrupo
 	BEFORE UPDATE
 	ON catalogo.cuentas_subgrupo
 	FOR EACH ROW
-	EXECUTE PROCEDURE public.trigger_set_fecha_modificacion();
+	EXECUTE PROCEDURE pg_catalog.trigger_set_fecha_modificacion();
 -- ddl-end --
 
 -- object: set_fecha_creacion_cuentas_subgrupo | type: TRIGGER --
@@ -558,7 +568,7 @@ CREATE TRIGGER set_fecha_creacion_cuentas_subgrupo
 	BEFORE INSERT 
 	ON catalogo.cuentas_subgrupo
 	FOR EACH ROW
-	EXECUTE PROCEDURE public.trigger_set_fecha_creacion();
+	EXECUTE PROCEDURE pg_catalog.trigger_set_fecha_creacion();
 -- ddl-end --
 
 -- object: set_fecha_modificacion_elemento | type: TRIGGER --
@@ -567,7 +577,7 @@ CREATE TRIGGER set_fecha_modificacion_elemento
 	BEFORE UPDATE
 	ON catalogo.elemento
 	FOR EACH ROW
-	EXECUTE PROCEDURE public.trigger_set_fecha_modificacion();
+	EXECUTE PROCEDURE pg_catalog.trigger_set_fecha_modificacion();
 -- ddl-end --
 
 -- object: set_fecha_creacion_elemento | type: TRIGGER --
@@ -576,7 +586,7 @@ CREATE TRIGGER set_fecha_creacion_elemento
 	BEFORE INSERT 
 	ON catalogo.elemento
 	FOR EACH ROW
-	EXECUTE PROCEDURE public.trigger_set_fecha_creacion();
+	EXECUTE PROCEDURE pg_catalog.trigger_set_fecha_creacion();
 -- ddl-end --
 
 -- object: set_fecha_modificacion_relacion_nivel | type: TRIGGER --
@@ -585,7 +595,7 @@ CREATE TRIGGER set_fecha_modificacion_relacion_nivel
 	BEFORE UPDATE
 	ON catalogo.relacion_nivel
 	FOR EACH ROW
-	EXECUTE PROCEDURE public.trigger_set_fecha_modificacion();
+	EXECUTE PROCEDURE pg_catalog.trigger_set_fecha_modificacion();
 -- ddl-end --
 
 -- object: set_fecha_creacion_relacion_nivel | type: TRIGGER --
@@ -594,7 +604,7 @@ CREATE TRIGGER set_fecha_creacion_relacion_nivel
 	BEFORE INSERT 
 	ON catalogo.relacion_nivel
 	FOR EACH ROW
-	EXECUTE PROCEDURE public.trigger_set_fecha_creacion();
+	EXECUTE PROCEDURE pg_catalog.trigger_set_fecha_creacion();
 -- ddl-end --
 
 -- object: set_fecha_modificacion_subgrupo_catalogo | type: TRIGGER --
@@ -603,7 +613,7 @@ CREATE TRIGGER set_fecha_modificacion_subgrupo_catalogo
 	BEFORE UPDATE
 	ON catalogo.subgrupo_catalogo
 	FOR EACH ROW
-	EXECUTE PROCEDURE public.trigger_set_fecha_modificacion();
+	EXECUTE PROCEDURE pg_catalog.trigger_set_fecha_modificacion();
 -- ddl-end --
 
 -- object: set_fecha_creacion_subgrupo_catalogo | type: TRIGGER --
@@ -612,7 +622,7 @@ CREATE TRIGGER set_fecha_creacion_subgrupo_catalogo
 	BEFORE INSERT 
 	ON catalogo.subgrupo_catalogo
 	FOR EACH ROW
-	EXECUTE PROCEDURE public.trigger_set_fecha_creacion();
+	EXECUTE PROCEDURE pg_catalog.trigger_set_fecha_creacion();
 -- ddl-end --
 
 -- object: set_fecha_modificacion_subgrupo_subgrupo | type: TRIGGER --
@@ -621,7 +631,7 @@ CREATE TRIGGER set_fecha_modificacion_subgrupo_subgrupo
 	BEFORE UPDATE
 	ON catalogo.subgrupo_subgrupo
 	FOR EACH ROW
-	EXECUTE PROCEDURE public.trigger_set_fecha_modificacion();
+	EXECUTE PROCEDURE pg_catalog.trigger_set_fecha_modificacion();
 -- ddl-end --
 
 -- object: set_fecha_creacion_subgrupo_subgrupo | type: TRIGGER --
@@ -630,7 +640,7 @@ CREATE TRIGGER set_fecha_creacion_subgrupo_subgrupo
 	BEFORE INSERT 
 	ON catalogo.subgrupo_subgrupo
 	FOR EACH ROW
-	EXECUTE PROCEDURE public.trigger_set_fecha_creacion();
+	EXECUTE PROCEDURE pg_catalog.trigger_set_fecha_creacion();
 -- ddl-end --
 
 -- object: set_fecha_modificacion_tipo_bien | type: TRIGGER --
@@ -639,7 +649,7 @@ CREATE TRIGGER set_fecha_modificacion_tipo_bien
 	BEFORE UPDATE
 	ON catalogo.tipo_bien
 	FOR EACH ROW
-	EXECUTE PROCEDURE public.trigger_set_fecha_modificacion();
+	EXECUTE PROCEDURE pg_catalog.trigger_set_fecha_modificacion();
 -- ddl-end --
 
 -- object: set_fecha_creacion_tipo_bien | type: TRIGGER --
@@ -648,7 +658,7 @@ CREATE TRIGGER set_fecha_creacion_tipo_bien
 	BEFORE INSERT 
 	ON catalogo.tipo_bien
 	FOR EACH ROW
-	EXECUTE PROCEDURE public.trigger_set_fecha_creacion();
+	EXECUTE PROCEDURE pg_catalog.trigger_set_fecha_creacion();
 -- ddl-end --
 
 -- object: set_fecha_modificacion_tipo_nivel | type: TRIGGER --
@@ -657,7 +667,7 @@ CREATE TRIGGER set_fecha_modificacion_tipo_nivel
 	BEFORE UPDATE
 	ON catalogo.tipo_nivel
 	FOR EACH ROW
-	EXECUTE PROCEDURE public.trigger_set_fecha_modificacion();
+	EXECUTE PROCEDURE pg_catalog.trigger_set_fecha_modificacion();
 -- ddl-end --
 
 -- object: set_fecha_creacion_tipo_nivel | type: TRIGGER --
@@ -666,7 +676,7 @@ CREATE TRIGGER set_fecha_creacion_tipo_nivel
 	BEFORE INSERT 
 	ON catalogo.tipo_nivel
 	FOR EACH ROW
-	EXECUTE PROCEDURE public.trigger_set_fecha_creacion();
+	EXECUTE PROCEDURE pg_catalog.trigger_set_fecha_creacion();
 -- ddl-end --
 
 -- object: fk_subgrupo_catalogo_subgrupo | type: CONSTRAINT --
@@ -718,6 +728,13 @@ REFERENCES catalogo.subgrupo (id) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;
 -- ddl-end --
 
+-- object: fk_tipo_bien_tipo_bien_padre | type: CONSTRAINT --
+-- ALTER TABLE catalogo.tipo_bien DROP CONSTRAINT IF EXISTS fk_tipo_bien_tipo_bien_padre CASCADE;
+ALTER TABLE catalogo.tipo_bien ADD CONSTRAINT fk_tipo_bien_tipo_bien_padre FOREIGN KEY (tipo_bien_padre)
+REFERENCES catalogo.tipo_bien (id) MATCH FULL
+ON DELETE RESTRICT ON UPDATE CASCADE;
+-- ddl-end --
+
 -- object: fk_detalle_subgrupo_tipo_bien | type: CONSTRAINT --
 -- ALTER TABLE catalogo.detalle_subgrupo DROP CONSTRAINT IF EXISTS fk_detalle_subgrupo_tipo_bien CASCADE;
 ALTER TABLE catalogo.detalle_subgrupo ADD CONSTRAINT fk_detalle_subgrupo_tipo_bien FOREIGN KEY (tipo_bien_id)
@@ -746,73 +763,73 @@ REFERENCES catalogo.tipo_nivel (id) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;
 -- ddl-end --
 
--- object: grant_4908527b70 | type: PERMISSION --
+-- object: grant_9ad857ec28 | type: PERMISSION --
 GRANT CREATE,USAGE
    ON SCHEMA catalogo
    TO postgres;
 -- ddl-end --
 
--- object: grant_b2f13698f2 | type: PERMISSION --
+-- object: grant_26bb822c85 | type: PERMISSION --
 GRANT USAGE
    ON SCHEMA catalogo
    TO desarrollooas;
 -- ddl-end --
 
--- object: grant_2d7bb710b2 | type: PERMISSION --
+-- object: grant_325e8d543c | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE catalogo.subgrupo_catalogo
    TO postgres;
 -- ddl-end --
 
--- object: grant_a5a5151163 | type: PERMISSION --
+-- object: grant_62ff4de657 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE
    ON TABLE catalogo.subgrupo_catalogo
    TO desarrollooas;
 -- ddl-end --
 
--- object: grant_4400246ad7 | type: PERMISSION --
+-- object: grant_78272b60cd | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE catalogo.catalogo
    TO postgres;
 -- ddl-end --
 
--- object: grant_a59c0e9641 | type: PERMISSION --
+-- object: grant_6aadc732b3 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE
    ON TABLE catalogo.catalogo
    TO desarrollooas;
 -- ddl-end --
 
--- object: grant_572b3b6e4c | type: PERMISSION --
+-- object: grant_6de413bb0a | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE catalogo.subgrupo
    TO postgres;
 -- ddl-end --
 
--- object: grant_d8092b4fbe | type: PERMISSION --
+-- object: grant_83829958b7 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE
    ON TABLE catalogo.subgrupo
    TO desarrollooas;
 -- ddl-end --
 
--- object: grant_c6808d6e29 | type: PERMISSION --
+-- object: grant_7c20442439 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE catalogo.subgrupo_subgrupo
    TO postgres;
 -- ddl-end --
 
--- object: grant_73ce59bd54 | type: PERMISSION --
+-- object: grant_7f8e1e55d2 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE
    ON TABLE catalogo.subgrupo_subgrupo
    TO desarrollooas;
 -- ddl-end --
 
--- object: grant_7be2d9e201 | type: PERMISSION --
+-- object: grant_2427a117bc | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE catalogo.cuentas_subgrupo
    TO postgres;
 -- ddl-end --
 
--- object: grant_80ff8a836e | type: PERMISSION --
+-- object: grant_fce2c5e8a5 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE
    ON TABLE catalogo.cuentas_subgrupo
    TO desarrollooas;
