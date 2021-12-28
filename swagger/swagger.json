@@ -2072,7 +2072,7 @@
         }
     },
     "definitions": {
-        "44770.0xc0007c38f0.false": {
+        "44995.0xc0007845a0.false": {
             "title": "false",
             "type": "object"
         },
@@ -2174,8 +2174,16 @@
                 "TipoBienId": {
                     "$ref": "#/definitions/models.TipoBien"
                 },
+                "ValorResidual": {
+                    "type": "number",
+                    "format": "double"
+                },
                 "Valorizacion": {
                     "type": "boolean"
+                },
+                "VidaUtil": {
+                    "type": "number",
+                    "format": "double"
                 }
             }
         },
@@ -2217,7 +2225,7 @@
             "type": "object",
             "properties": {
                 "Data": {
-                    "$ref": "#/definitions/44770.0xc0007c38f0.false"
+                    "$ref": "#/definitions/44995.0xc0007845a0.false"
                 },
                 "Expandible": {
                     "type": "boolean"
