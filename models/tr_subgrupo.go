@@ -112,7 +112,7 @@ func UpdateTransaccionSubgrupo(m *TrSubgrupo) (err error) {
 				panic(err.Error())
 			}
 		} else {
-			if _, err = o.Update(m.DetalleSubgrupo, "Depreciacion", "Valorizacion", "TipoBienId"); err != nil {
+			if _, err = o.Update(m.DetalleSubgrupo, "Depreciacion", "Valorizacion", "TipoBienId", "ValorResidual", "VidaUtil"); err != nil {
 				panic(err.Error())
 			}
 		}
