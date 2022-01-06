@@ -2072,7 +2072,7 @@
         }
     },
     "definitions": {
-        "44770.0xc0007c38f0.false": {
+        "44931.0xc0006841b0.false": {
             "title": "false",
             "type": "object"
         },
@@ -2217,7 +2217,7 @@
             "type": "object",
             "properties": {
                 "Data": {
-                    "$ref": "#/definitions/44770.0xc0007c38f0.false"
+                    "$ref": "#/definitions/44931.0xc0006841b0.false"
                 },
                 "Expandible": {
                     "type": "boolean"
@@ -2364,6 +2364,9 @@
                     "format": "int64"
                 },
                 "NecesitaPlaca": {
+                    "type": "boolean"
+                },
+                "NecesitaPoliza": {
                     "type": "boolean"
                 },
                 "Nombre": {
