@@ -49,10 +49,7 @@ func (c *TrCatalogoController) GetOne() {
 		c.Data["system"] = err
 		c.Abort("404")
 	} else {
-		if l == nil {
-			l = append(l, map[string]interface{}{})
-		}
-		c.Data["json"] = l
+		c.Data["json"] = checkResult(l)
 	}
 	c.ServeJSON()
 }
@@ -74,10 +71,7 @@ func (c *TrCatalogoController) GetSubgruposTipo_Bien() {
 		c.Data["system"] = err
 		c.Abort("404")
 	} else {
-		if l == nil {
-			l = append(l, map[string]interface{}{})
-		}
-		c.Data["json"] = l
+		c.Data["json"] = checkResult(l)
 	}
 	c.ServeJSON()
 }
