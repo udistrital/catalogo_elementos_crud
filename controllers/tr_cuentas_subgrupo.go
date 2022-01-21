@@ -57,7 +57,6 @@ func (c *TrCuentasSubgrupoController) Post() {
 // @Success 200 {object} models.TransaccionCuentasGrupo
 // @Failure 403 :id is empty
 // @router /:id [get]
-/*
 func (c *TrCuentasSubgrupoController) GetAllById() {
 	idPersonaStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idPersonaStr)
@@ -72,7 +71,6 @@ func (c *TrCuentasSubgrupoController) GetAllById() {
 	}
 	c.ServeJSON()
 }
-*/
 
 // GetAll ...
 // @Title GetAll

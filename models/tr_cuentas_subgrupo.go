@@ -44,35 +44,21 @@ func AddTransaccionCuentasGrupo(m *TransaccionCuentasGrupo) (id int64, err error
 
 // GetTransaccionCuentasGrupo retrieves CuentasGrupo by Subgrupo__Id. Returns error if
 // Id doesn't exist
-func GetTransaccionCuentasGrupo(id int) (v []interface{}, err error) {
+func GetTransaccionCuentasGrupo(id int) (v []*CuentasSubgrupo, err error) {
+
 	o := orm.NewOrm()
-	var Cuentas_Movimientos []CuentasSubgrupo
-	var w []interface{}
-	var q []interface{}
-	if _, err := o.QueryTable(new(CuentasSubgrupo)).RelatedSel().Filter("SubgrupoId__Id", id).Filter("Activo", true).All(&Cuentas_Movimientos); err == nil {
+	var cuentas []*CuentasSubgrupo
 
-		fmt.Println(Cuentas_Movimientos)
-
-		for _, s := range Cuentas_Movimientos {
-			q = append(q, map[string]interface{}{
-				"Id":                  s.Id,
-				"CuentaDebitoId":      s.CuentaDebitoId,
-				"CuentaCreditoId":     s.CuentaCreditoId,
-				"SubtipoMovimientoId": s.SubtipoMovimientoId,
-				"SubgrupoId":          s.SubgrupoId,
-				"Activo":              s.Activo,
-				"FechaCreacion":       s.FechaCreacion,
-				"FechaModificacion":   s.FechaModificacion,
-			})
-		}
-
-		w = append(w, map[string]interface{}{
-			"Cuentas": &q,
-		})
-
-		return w, nil
+	if _, err := o.QueryTable(new(CuentasSubgrupo)).Filter("SubgrupoId__Id", id).Filter("Activo", true).Distinct().All(&cuentas, "SubtipoMovimientoId"); err != nil {
+		return nil, err
 	}
-	return nil, err
+
+	for _, id_ := range cuentas {
+		if err := o.QueryTable(new(CuentasSubgrupo)).Filter("SubgrupoId__Id", id).Filter("Activo", true).Filter("SubtipoMovimientoId", id_.SubtipoMovimientoId).OrderBy("-FechaCreacion").One(id_); err != nil {
+			return nil, err
+		}
+	}
+	return cuentas, nil
 
 }
 

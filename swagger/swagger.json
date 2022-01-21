@@ -1877,6 +1877,33 @@
             }
         },
         "/tr_cuentas_subgrupo/{id}": {
+            "get": {
+                "tags": [
+                    "tr_cuentas_subgrupo"
+                ],
+                "description": "get TrSubgrupo by id",
+                "operationId": "TrCuentasSubgrupoController.GetOne",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.TransaccionCuentasGrupo"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is empty"
+                    }
+                }
+            },
             "put": {
                 "tags": [
                     "tr_cuentas_subgrupo"
