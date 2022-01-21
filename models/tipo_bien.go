@@ -22,6 +22,7 @@ type TipoBien struct {
 	Tipo_bien_padre   *TipoBien `orm:"column(tipo_bien_padre);rel(fk);null"`
 	Reglas            string    `orm:"column(reglas);type(jsonb);null"`
 	NecesitaPlaca     bool      `orm:"column(necesita_placa)"`
+	NecesitaPoliza    bool      `orm:"column(necesita_poliza)"`
 }
 
 func (t *TipoBien) TableName() string {

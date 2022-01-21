@@ -22,7 +22,7 @@ CATALOGO_ELEMENTOS_CRUD_SCHEMA=[esquema donde se ubican las tablas]
 CATALOGO_ELEMENTOS_CRUD_HTTP_PORT=[puerto de ejecucion] bee run
 ```
 
-**NOTA:** Las variables se pueden ver en el fichero conf/app.conf y están identificadas con CATALOGO_ELEMENTOS_CRUD_...
+**NOTA:** Las variables se pueden ver en el fichero conf/app.conf y están identificadas con `CATALOGO_ELEMENTOS_CRUD_...`
 
 ### Ejecución del Proyecto
 
@@ -86,8 +86,7 @@ Pruebas unitarias
 
 ## Modelo de Datos
 
-[Modelo de Datos CATALOGO ELEMENTOS CRUD](https://drive.google.com/drive/u/2/folders/1LkLHwuF-FKOyuMEMs0DjMdIUH-YXDJnY)\
-[PGModeler](models/modelo.dbm) - [SVG](models/modelo.svg)
+[SVG](database/modelo.svg) - [PGModeler](database/modelo.dbm)
 
 ## Licencia
 
