@@ -24,7 +24,7 @@ func (c *TrGrupoController) URLMapping() {
 // Post ...
 // @Title Create
 // @Description create TrGrupoController
-// @Param	body		body 	models.TrGrupoController	true		"body for TrGrupoController content"
+// @Param	body		body 	models.TrGrupo	true		"body for TrGrupoController content"
 // @Success 201 {object} models.TrGrupo
 // @Failure 403 body is empty
 // @router / [post]
@@ -55,7 +55,7 @@ func (c *TrGrupoController) Post() {
 // @Title GetOne
 // @Description get TrGrupoController by id
 // @Param	id		path 	string	true		"The key for staticblock"
-// @Success 200 {object} models.TrGrupoController
+// @Success 200 {object} []models.TrGrupo2
 // @Failure 403 :id is empty
 // @router /:id [get]
 func (c *TrGrupoController) GetOne() {

@@ -32,8 +32,7 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply
-          to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -47,7 +46,9 @@ paths:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.Catalogo'
+            type: array
+            items:
+              $ref: '#/definitions/models.Catalogo'
         "404":
           description: not found resource
     post:
@@ -147,8 +148,7 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply
-          to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -162,7 +162,9 @@ paths:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.CuentasSubgrupo'
+            type: array
+            items:
+              $ref: '#/definitions/models.CuentasSubgrupo'
         "404":
           description: not found resource
     post:
@@ -262,8 +264,7 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply
-          to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -277,7 +278,9 @@ paths:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.DetalleSubgrupo'
+            type: array
+            items:
+              $ref: '#/definitions/models.DetalleSubgrupo'
         "404":
           description: not found resource
     post:
@@ -377,8 +380,7 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply
-          to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -392,7 +394,9 @@ paths:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.Elemento'
+            type: array
+            items:
+              $ref: '#/definitions/models.Elemento'
         "404":
           description: not found resource
     post:
@@ -492,8 +496,7 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply
-          to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -507,7 +510,9 @@ paths:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.RelacionNivel'
+            type: array
+            items:
+              $ref: '#/definitions/models.RelacionNivel'
         "404":
           description: not found resource
     post:
@@ -591,8 +596,7 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply
-          to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -606,7 +610,9 @@ paths:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.Subgrupo'
+            type: array
+            items:
+              $ref: '#/definitions/models.Subgrupo'
         "404":
           description: not found resource
     post:
@@ -706,8 +712,7 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply
-          to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -721,7 +726,9 @@ paths:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.SubgrupoCatalogo'
+            type: array
+            items:
+              $ref: '#/definitions/models.SubgrupoCatalogo'
         "404":
           description: not found resource
     post:
@@ -821,8 +828,7 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply
-          to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -836,7 +842,9 @@ paths:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.SubgrupoSubgrupo'
+            type: array
+            items:
+              $ref: '#/definitions/models.SubgrupoSubgrupo'
         "404":
           description: not found resource
     post:
@@ -936,8 +944,7 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply
-          to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -951,7 +958,9 @@ paths:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.TipoBien'
+            type: array
+            items:
+              $ref: '#/definitions/models.TipoBien'
         "404":
           description: not found resource
     post:
@@ -1051,8 +1060,7 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply
-          to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -1066,7 +1074,9 @@ paths:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.TipoNivel'
+            type: array
+            items:
+              $ref: '#/definitions/models.TipoNivel'
         "404":
           description: not found resource
     post:
@@ -1169,16 +1179,16 @@ paths:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.TrCatalogo'
+            type: array
+            items:
+              $ref: '#/definitions/models.RamaArbolSubgrupo'
         "403":
           description: :id is empty
   /tr_catalogo/arbol:
     get:
       tags:
       - tr_catalogo
-      description: Consulta del arbol de un catalogo de forma progresiva, es decir,
-        retorna un nivel a la vez. Permite construir el arbol completo o desde una
-        rama en particular
+      description: Consulta del arbol de un catalogo de forma progresiva, es decir, retorna un nivel a la vez. Permite construir el arbol completo o desde una rama en particular
       operationId: TrCatalogoController.GetOne
       parameters:
       - in: query
@@ -1188,15 +1198,12 @@ paths:
         default: "false"
       - in: query
         name: catalogo_id
-        description: Catalogo del que se desea obtener el primer nivel. Se ignora
-          si no se desea el primer nivel. En caso contrario, tiene prioridad sobre
-          el subgrupo_id
+        description: Catalogo del que se desea obtener el primer nivel. Se ignora si no se desea el primer nivel. En caso contrario, tiene prioridad sobre el subgrupo_id
         type: integer
         format: int64
       - in: query
         name: subgrupo_id
-        description: SubgrupoId del que se desean los detalles. Ya sea este o no el
-          primer nivel
+        description: SubgrupoId del que se desean los detalles. Ya sea este o no el primer nivel
         type: integer
         format: int64
       - in: query
@@ -1213,7 +1220,9 @@ paths:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.NodoSubgrupo'
+            type: array
+            items:
+              $ref: '#/definitions/models.NodoGenerico'
   /tr_catalogo/tipo_de_bien/{id}:
     get:
       tags:
@@ -1230,16 +1239,16 @@ paths:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.TrCatalogo'
+            type: array
+            items:
+              $ref: '#/definitions/models.Subgrupo'
         "403":
           description: :id is empty
   /tr_cuentas_subgrupo/:
     post:
       tags:
       - tr_cuentas_subgrupo
-      description: Create multiple cuentas_grupo records. Please note that the functionality
-        of this controller are included/implemented also within the PUT transaction,
-        so this controller might be DEPRECATED
+      description: Create multiple cuentas_grupo records. Please note that the functionality of this controller are included/implemented also within the PUT transaction, so this controller might be DEPRECATED
       operationId: TrCuentasSubgrupoController.Create
       parameters:
       - in: body
@@ -1292,7 +1301,7 @@ paths:
         description: body for TrGrupoController content
         required: true
         schema:
-          $ref: '#/definitions/models.TrGrupoController'
+          $ref: '#/definitions/models.TrGrupo'
       responses:
         "201":
           description: ""
@@ -1316,7 +1325,9 @@ paths:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.TrGrupoController'
+            type: array
+            items:
+              $ref: '#/definitions/models.TrGrupo2'
         "403":
           description: :id is empty
   /tr_subgrupo/:
@@ -1331,7 +1342,7 @@ paths:
         description: body for TrSubgrupo content
         required: true
         schema:
-          $ref: '#/definitions/models.Tr_subgrupo'
+          $ref: '#/definitions/models.TrSubgrupo'
       responses:
         "201":
           description: ""
@@ -1355,7 +1366,9 @@ paths:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.TrSubgrupo'
+            type: array
+            items:
+              $ref: '#/definitions/models.SubgrupoDetalle1'
         "403":
           description: :id is empty
     put:
@@ -1383,7 +1396,7 @@ paths:
         "400":
           description: the request contains incorrect syntax
 definitions:
-  44931.0xc0006841b0.false:
+  36396.0xc000550f00.false:
     title: "false"
     type: object
   models.Catalogo:
@@ -1456,8 +1469,14 @@ definitions:
         $ref: '#/definitions/models.Subgrupo'
       TipoBienId:
         $ref: '#/definitions/models.TipoBien'
+      ValorResidual:
+        type: number
+        format: double
       Valorizacion:
         type: boolean
+      VidaUtil:
+        type: number
+        format: double
   models.Elemento:
     title: Elemento
     type: object
@@ -1481,14 +1500,24 @@ definitions:
         type: string
       SubgrupoId:
         $ref: '#/definitions/models.Subgrupo'
-  models.NodoSubgrupo:
-    title: NodoSubgrupo
+  models.NodoGenerico:
+    title: NodoGenerico
     type: object
     properties:
-      Data:
-        $ref: '#/definitions/44931.0xc0006841b0.false'
-      Expandible:
+      data:
+        $ref: '#/definitions/36396.0xc000550f00.false'
+      expandible:
         type: boolean
+  models.RamaArbolSubgrupo:
+    title: RamaArbolSubgrupo
+    type: object
+    properties:
+      children:
+        type: array
+        items:
+          $ref: '#/definitions/models.RamaArbolSubgrupo'
+      data:
+        $ref: '#/definitions/models.Subgrupo'
   models.RelacionNivel:
     title: RelacionNivel
     type: object
@@ -1549,6 +1578,14 @@ definitions:
         type: integer
         format: int64
       SubgrupoId:
+        $ref: '#/definitions/models.Subgrupo'
+  models.SubgrupoDetalle1:
+    title: SubgrupoDetalle1
+    type: object
+    properties:
+      Detalle:
+        $ref: '#/definitions/models.DetalleSubgrupo'
+      Subgrupo:
         $ref: '#/definitions/models.Subgrupo'
   models.SubgrupoSubgrupo:
     title: SubgrupoSubgrupo
@@ -1625,12 +1662,6 @@ definitions:
       Orden:
         type: number
         format: double
-  models.Tr_subgrupo:
-    title: Tr_subgrupo
-    type: object
-  models.TrCatalogo:
-    title: TrCatalogo
-    type: object
   models.TrGrupo:
     title: TrGrupo
     type: object
@@ -1641,9 +1672,16 @@ definitions:
         $ref: '#/definitions/models.DetalleSubgrupo'
       Subgrupo:
         $ref: '#/definitions/models.Subgrupo'
-  models.TrGrupoController:
-    title: TrGrupoController
+  models.TrGrupo2:
+    title: TrGrupo2
     type: object
+    properties:
+      Catalogo:
+        $ref: '#/definitions/models.Catalogo'
+      Detalle:
+        $ref: '#/definitions/models.DetalleSubgrupo'
+      Subgrupo:
+        $ref: '#/definitions/models.Subgrupo'
   models.TrSubgrupo:
     title: TrSubgrupo
     type: object

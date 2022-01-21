@@ -15,6 +15,8 @@ type DetalleSubgrupo struct {
 	Depreciacion      bool      `orm:"column(depreciacion)"`
 	Valorizacion      bool      `orm:"column(valorizacion)"`
 	Deterioro         bool      `orm:"column(deterioro)"`
+	VidaUtil          float64   `orm:"column(vida_util);null"`
+	ValorResidual     float64   `orm:"column(valor_residual);null"`
 	Activo            bool      `orm:"column(activo)"`
 	FechaCreacion     time.Time `orm:"column(fecha_creacion);type(timestamp with time zone)"`
 	FechaModificacion time.Time `orm:"column(fecha_modificacion);type(timestamp with time zone)"`

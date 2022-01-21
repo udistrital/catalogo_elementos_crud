@@ -22,7 +22,7 @@ CATALOGO_ELEMENTOS_CRUD_SCHEMA=[esquema donde se ubican las tablas]
 CATALOGO_ELEMENTOS_CRUD_HTTP_PORT=[puerto de ejecucion] bee run
 ```
 
-**NOTA:** Las variables se pueden ver en el fichero conf/app.conf y están identificadas con CATALOGO_ELEMENTOS_CRUD_...
+**NOTA:** Las variables se pueden ver en el fichero conf/app.conf y están identificadas con `CATALOGO_ELEMENTOS_CRUD_...`
 
 ### Ejecución del Proyecto
 
@@ -80,14 +80,13 @@ Pruebas unitarias
 
 ## Estado CI
 
-| Develop | Relese 0.7.2 | Master |
+| Develop | Relese 0.8.0 | Master |
 | -- | -- | -- |
-| [![Build Status](https://hubci.portaloas.udistrital.edu.co/api/badges/udistrital/catalogo_elementos_crud/status.svg?ref=refs/heads/develop)](https://hubci.portaloas.udistrital.edu.co/udistrital/catalogo_elementos_crud/) | [![Build Status](https://hubci.portaloas.udistrital.edu.co/api/badges/udistrital/catalogo_elementos_crud/status.svg?ref=refs/heads/release/0.7.2)](https://hubci.portaloas.udistrital.edu.co/udistrital/catalogo_elementos_crud/) | [![Build Status](https://hubci.portaloas.udistrital.edu.co/api/badges/udistrital/catalogo_elementos_crud/status.svg?ref=refs/heads/master)](https://hubci.portaloas.udistrital.edu.co/udistrital/catalogo_elementos_crud/) |
+| [![Build Status](https://hubci.portaloas.udistrital.edu.co/api/badges/udistrital/catalogo_elementos_crud/status.svg?ref=refs/heads/develop)](https://hubci.portaloas.udistrital.edu.co/udistrital/catalogo_elementos_crud/) | [![Build Status](https://hubci.portaloas.udistrital.edu.co/api/badges/udistrital/catalogo_elementos_crud/status.svg?ref=refs/heads/release/0.8.0)](https://hubci.portaloas.udistrital.edu.co/udistrital/catalogo_elementos_crud/) | [![Build Status](https://hubci.portaloas.udistrital.edu.co/api/badges/udistrital/catalogo_elementos_crud/status.svg?ref=refs/heads/master)](https://hubci.portaloas.udistrital.edu.co/udistrital/catalogo_elementos_crud/) |
 
 ## Modelo de Datos
 
-[Modelo de Datos CATALOGO ELEMENTOS CRUD](https://drive.google.com/drive/u/2/folders/1LkLHwuF-FKOyuMEMs0DjMdIUH-YXDJnY)\
-[PGModeler](models/modelo.dbm) - [SVG](models/modelo.svg)
+[SVG](database/modelo.svg) - [PGModeler](database/modelo.dbm)
 
 ## Licencia
 

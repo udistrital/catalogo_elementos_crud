@@ -27,7 +27,7 @@ func (c *TrCatalogoController) URLMapping() {
 // @Param	id					path 	string	true	"ID del catalogo"
 // @Param	elementos			query 	bool	false	"traer arbol hasta el nivel elementos"
 // @Param	subgruposInactivos	query 	bool	false	"traer arbol con subgrupos inactivos"
-// @Success 200 {object} models.TrCatalogo
+// @Success 200 {object} []models.RamaArbolSubgrupo
 // @Failure 403 :id is empty
 // @router /:id [get]
 func (c *TrCatalogoController) GetOne() {
@@ -61,7 +61,7 @@ func (c *TrCatalogoController) GetOne() {
 // @Title GetSubgruposTipo_Bien
 // @Description get TrCatalogo by id
 // @Param	id		path 	string	true		"The key for staticblock"
-// @Success 200 {object} models.TrCatalogo
+// @Success 200 {object} []models.Subgrupo
 // @Failure 403 :id is empty
 // @router /tipo_de_bien/:id [get]
 func (c *TrCatalogoController) GetSubgruposTipo_Bien() {
@@ -90,7 +90,7 @@ func (c *TrCatalogoController) GetSubgruposTipo_Bien() {
 // @Param	subgrupo_id		query	int	"SubgrupoId del que se desean los detalles. Ya sea este o no el primer nivel"
 // @Param	get_inactivos	query	bool	false	"Incluir componentes inactivos" false
 // @Param	get_elementos	query	bool	false	"Incluir el nivel elementos" false
-// @Success 200 {object} models.NodoSubgrupo
+// @Success 200 {object} []models.NodoGenerico
 // @router /arbol [get]
 func (c *TrCatalogoController) TreeCatalogo() {
 	var primerNivel bool
