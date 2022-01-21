@@ -13,6 +13,12 @@ type TrGrupo struct {
 	DetalleSubgrupo *DetalleSubgrupo
 }
 
+type TrGrupo2 struct {
+	Catalogo *Catalogo
+	Subgrupo *Subgrupo
+	Detalle  *DetalleSubgrupo
+}
+
 // AddTransaccionProduccionAcademica Transacción para registrar toda la información de un grupo asociándolo a un catálogo
 func AddTransaccionGrupo(m *TrGrupo) (err error) {
 	o := orm.NewOrm()
