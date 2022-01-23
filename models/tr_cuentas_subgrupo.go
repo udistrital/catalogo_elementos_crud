@@ -1,46 +1,12 @@
 package models
 
 import (
-	"fmt"
-
 	"github.com/astaxie/beego/logs"
 	"github.com/astaxie/beego/orm"
 )
 
-type TransaccionCuentasGrupo struct {
-	Cuentas []CuentasSubgrupo
-}
 
-// AddCuentasGrupo insert a new CuentasGrupo into database and returns
-// last inserted Id on success.
-func AddTransaccionCuentasGrupo(m *TransaccionCuentasGrupo) (id int64, err error) {
 
-	o := orm.NewOrm()
-	err = o.Begin()
-
-	if err != nil {
-		return
-	}
-
-	defer func() {
-		if r := recover(); r != nil {
-			o.Rollback()
-			logs.Error(r)
-		} else {
-			o.Commit()
-		}
-	}()
-	fmt.Println("ok")
-	for _, v := range m.Cuentas {
-		v.Activo = true
-		if _, err = o.Insert(&v); err != nil {
-			panic(err.Error())
-		}
-		fmt.Println("ok")
-	}
-
-	return
-}
 
 // GetTransaccionCuentasGrupo retrieves CuentasGrupo by Subgrupo__Id. Returns error if
 // Id doesn't exist

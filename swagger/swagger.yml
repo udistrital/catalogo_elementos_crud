@@ -1244,26 +1244,6 @@ paths:
               $ref: '#/definitions/models.Subgrupo'
         "403":
           description: :id is empty
-  /tr_cuentas_subgrupo/:
-    post:
-      tags:
-      - tr_cuentas_subgrupo
-      description: Create multiple cuentas_grupo records. Please note that the functionality of this controller are included/implemented also within the PUT transaction, so this controller might be DEPRECATED
-      operationId: TrCuentasSubgrupoController.Create
-      parameters:
-      - in: body
-        name: body
-        description: body for TrSubgrupo content
-        required: true
-        schema:
-          $ref: '#/definitions/models.TransaccionCuentasGrupo'
-      responses:
-        "201":
-          description: ""
-          schema:
-            $ref: '#/definitions/models.TrSubgrupo'
-        "403":
-          description: body is empty
   /tr_cuentas_subgrupo/{id}:
     get:
       tags:
@@ -1713,11 +1693,6 @@ definitions:
   models.TransaccionCuentasGrupo:
     title: TransaccionCuentasGrupo
     type: object
-    properties:
-      Cuentas:
-        type: array
-        items:
-          $ref: '#/definitions/models.CuentasSubgrupo'
 tags:
 - name: catalogo
   description: |
