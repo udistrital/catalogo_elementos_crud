@@ -522,7 +522,7 @@ func init() {
 
     beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrSubgrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrSubgrupoController"],
         beego.ControllerComments{
-            Method: "GetAllById",
+            Method: "GetOne",
             Router: "/:id",
             AllowHTTPMethods: []string{"get"},
             MethodParams: param.Make(),

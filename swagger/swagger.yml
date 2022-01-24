@@ -1398,7 +1398,7 @@ paths:
         "400":
           description: the request contains incorrect syntax
 definitions:
-  36396.0xc000821080.false:
+  36396.0xc0007abf20.false:
     title: "false"
     type: object
   models.Catalogo:
@@ -1507,7 +1507,7 @@ definitions:
     type: object
     properties:
       data:
-        $ref: '#/definitions/36396.0xc000821080.false'
+        $ref: '#/definitions/36396.0xc0007abf20.false'
       expandible:
         type: boolean
   models.RamaArbolSubgrupo:
