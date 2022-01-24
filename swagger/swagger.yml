@@ -1248,19 +1248,21 @@ paths:
     get:
       tags:
       - tr_cuentas_subgrupo
-      description: get TrSubgrupo by id
+      description: Consulta las cuentas asignadas a un determinado subgrupo
       operationId: TrCuentasSubgrupoController.GetOne
       parameters:
       - in: path
         name: id
-        description: The key for staticblock
+        description: subgrupoId del que se consultan las cuentas
         required: true
         type: string
       responses:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.TransaccionCuentasGrupo'
+            type: array
+            items:
+              $ref: '#/definitions/models.CuentasSubgrupo'
         "403":
           description: :id is empty
     put:

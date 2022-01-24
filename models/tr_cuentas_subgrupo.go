@@ -5,25 +5,34 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-
-
-
-// GetTransaccionCuentasGrupo retrieves CuentasGrupo by Subgrupo__Id. Returns error if
-// Id doesn't exist
-func GetTransaccionCuentasGrupo(id int) (v []*CuentasSubgrupo, err error) {
+// GetCuentasSubgrupoBySubgrupoId Consulta la última cuenta activa de cada movimiento para un subgrupo determinado. Retorna arreglo vacío si no hay cuentas
+func GetCuentasSubgrupoBySubgrupoId(subgrupoId int) (v []*CuentasSubgrupo, err error) {
 
 	o := orm.NewOrm()
-	var cuentas []*CuentasSubgrupo
+	if err != nil {
+		return
+	}
 
-	if _, err := o.QueryTable(new(CuentasSubgrupo)).Filter("SubgrupoId__Id", id).Filter("Activo", true).Distinct().All(&cuentas, "SubtipoMovimientoId"); err != nil {
+	defer func() {
+		if r := recover(); r != nil {
+			o.Rollback()
+			logs.Error(r)
+		} else {
+			o.Commit()
+		}
+	}()
+
+	var cuentas []*CuentasSubgrupo
+	if _, err := o.QueryTable(new(CuentasSubgrupo)).Filter("SubgrupoId__Id", subgrupoId).Filter("Activo", true).Distinct().All(&cuentas, "SubtipoMovimientoId"); err != nil {
 		return nil, err
 	}
 
 	for _, id_ := range cuentas {
-		if err := o.QueryTable(new(CuentasSubgrupo)).Filter("SubgrupoId__Id", id).Filter("Activo", true).Filter("SubtipoMovimientoId", id_.SubtipoMovimientoId).OrderBy("-FechaCreacion").One(id_); err != nil {
+		if err := o.QueryTable(new(CuentasSubgrupo)).Filter("SubgrupoId__Id", subgrupoId).Filter("Activo", true).Filter("SubtipoMovimientoId", id_.SubtipoMovimientoId).OrderBy("-FechaCreacion").One(id_); err != nil {
 			return nil, err
 		}
 	}
+
 	return cuentas, nil
 
 }
