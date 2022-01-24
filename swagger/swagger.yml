@@ -1268,25 +1268,27 @@ paths:
     put:
       tags:
       - tr_cuentas_subgrupo
-      description: update the TrSubgrupo
+      description: Actualiza cuentas contables de un subgrupo
       operationId: TrCuentasSubgrupoController.Put
       parameters:
       - in: path
         name: id
-        description: The id you want to update
+        description: Subgrupo Id al que se le asignan las cuentas
         required: true
         type: string
       - in: body
         name: body
-        description: body for TrSubgrupo content
+        description: Lista de cuentas que se asignarán al subgrupo
         required: true
         schema:
-          $ref: '#/definitions/models.TransaccionCuentasGrupo'
+          $ref: '#/definitions/models.CuentasSubgrupo'
       responses:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.TrSubgrupo'
+            type: array
+            items:
+              $ref: '#/definitions/models.CuentasSubgrupo'
         "400":
           description: the request contains incorrect syntax
   /tr_grupo/:
@@ -1396,7 +1398,7 @@ paths:
         "400":
           description: the request contains incorrect syntax
 definitions:
-  36396.0xc00058c9c0.false:
+  36396.0xc000821080.false:
     title: "false"
     type: object
   models.Catalogo:
@@ -1505,7 +1507,7 @@ definitions:
     type: object
     properties:
       data:
-        $ref: '#/definitions/36396.0xc00058c9c0.false'
+        $ref: '#/definitions/36396.0xc000821080.false'
       expandible:
         type: boolean
   models.RamaArbolSubgrupo:
@@ -1692,9 +1694,6 @@ definitions:
         $ref: '#/definitions/models.Subgrupo'
       SubgrupoPadre:
         $ref: '#/definitions/models.Subgrupo'
-  models.TransaccionCuentasGrupo:
-    title: TransaccionCuentasGrupo
-    type: object
 tags:
 - name: catalogo
   description: |

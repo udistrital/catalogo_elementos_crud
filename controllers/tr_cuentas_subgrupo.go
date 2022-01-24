@@ -3,7 +3,6 @@ package controllers
 import (
 	"encoding/json"
 	"errors"
-	"strconv"
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
@@ -56,19 +55,33 @@ func (c *TrCuentasSubgrupoController) GetOne() {
 
 // Put ...
 // @Title Put
-// @Description update the TrSubgrupo
-// @Param	id		path 	string	true		"The id you want to update"
-// @Param	body		body 	models.TransaccionCuentasGrupo true		"body for TrSubgrupo content"
-// @Success 200 {object} models.TrSubgrupo
+// @Description Actualiza cuentas contables de un subgrupo
+// @Param	id		path 	string	true		"Subgrupo Id al que se le asignan las cuentas"
+// @Param	body	body 	models.CuentasSubgrupo	true	"Lista de cuentas que se asignarán al subgrupo"
+// @Success 200 {object} []models.CuentasSubgrupo
 // @Failure 400 the request contains incorrect syntax
 // @router /:id [put]
 func (c *TrCuentasSubgrupoController) Put() {
-	idPersonaStr := c.Ctx.Input.Param(":id")
-	id, _ := strconv.Atoi(idPersonaStr)
-	var v models.TransaccionCuentasGrupo
+
+	defer errorctrl.ErrorControlController(c.Controller, "TrCuentasSubgrupoController")
+
+	var id int
+	if v, err := c.GetInt(":id"); err != nil || v <= 0 {
+		if err == nil {
+			err = errors.New("Se debe especificar una subgrupo válido")
+		}
+		panic(errorctrl.Error(`Put - c.GetInt(":id")`, err, "400"))
+	} else {
+		id = v
+	}
+
+	var v []*models.CuentasSubgrupo
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if err := models.UpdateCuentas_GrupoById(&v, id); err == nil {
-			c.Data["json"] = v
+		if n, err := models.UpdateCuentasSubgrupo(v, id); err == nil {
+			if n == nil {
+				n = append(n, &models.CuentasSubgrupo{})
+			}
+			c.Data["json"] = n
 		} else {
 			logs.Error(err)
 			//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
