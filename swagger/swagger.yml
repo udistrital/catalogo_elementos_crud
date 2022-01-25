@@ -32,7 +32,8 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -148,7 +149,8 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -264,7 +266,8 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -380,7 +383,8 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -496,7 +500,8 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -596,7 +601,8 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -712,7 +718,8 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -828,7 +835,8 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -944,7 +952,8 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -1060,7 +1069,8 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -1188,7 +1198,9 @@ paths:
     get:
       tags:
       - tr_catalogo
-      description: Consulta del arbol de un catalogo de forma progresiva, es decir, retorna un nivel a la vez. Permite construir el arbol completo o desde una rama en particular
+      description: Consulta del arbol de un catalogo de forma progresiva, es decir,
+        retorna un nivel a la vez. Permite construir el arbol completo o desde una
+        rama en particular
       operationId: TrCatalogoController.GetOne
       parameters:
       - in: query
@@ -1198,12 +1210,15 @@ paths:
         default: "false"
       - in: query
         name: catalogo_id
-        description: Catalogo del que se desea obtener el primer nivel. Se ignora si no se desea el primer nivel. En caso contrario, tiene prioridad sobre el subgrupo_id
+        description: Catalogo del que se desea obtener el primer nivel. Se ignora
+          si no se desea el primer nivel. En caso contrario, tiene prioridad sobre
+          el subgrupo_id
         type: integer
         format: int64
       - in: query
         name: subgrupo_id
-        description: SubgrupoId del que se desean los detalles. Ya sea este o no el primer nivel
+        description: SubgrupoId del que se desean los detalles. Ya sea este o no el
+          primer nivel
         type: integer
         format: int64
       - in: query
@@ -1398,7 +1413,7 @@ paths:
         "400":
           description: the request contains incorrect syntax
 definitions:
-  36396.0xc0007abf20.false:
+  36592.0xc00075d3b0.false:
     title: "false"
     type: object
   models.Catalogo:
@@ -1507,7 +1522,7 @@ definitions:
     type: object
     properties:
       data:
-        $ref: '#/definitions/36396.0xc0007abf20.false'
+        $ref: '#/definitions/36592.0xc00075d3b0.false'
       expandible:
         type: boolean
   models.RamaArbolSubgrupo:
