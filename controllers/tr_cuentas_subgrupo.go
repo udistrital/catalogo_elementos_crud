@@ -2,11 +2,12 @@ package controllers
 
 import (
 	"encoding/json"
-	"strconv"
+	"errors"
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
 	"github.com/udistrital/catalogo_elementos_crud/models"
+	"github.com/udistrital/utils_oas/errorctrl"
 )
 
 // TrCuentasSubgrupoController operations for Tr_subgrupo
@@ -16,52 +17,32 @@ type TrCuentasSubgrupoController struct {
 
 // URLMapping ...
 func (c *TrCuentasSubgrupoController) URLMapping() {
-	c.Mapping("Post", c.Post)
-	// c.Mapping("GetAll", c.GetAll)
+	c.Mapping("GetOne", c.GetOne)
 	c.Mapping("Put", c.Put)
-	// c.Mapping("Delete", c.Delete)
-}
-
-// Post ...
-// @Title Create
-// @Description Create multiple cuentas_grupo records. Please note that the functionality of this controller are included/implemented also within the PUT transaction, so this controller might be DEPRECATED
-// @Param	body		body 	models.TransaccionCuentasGrupo	true		"body for TrSubgrupo content"
-// @Success 201 {object} models.TrSubgrupo
-// @Failure 403 body is empty
-// @router / [post]
-func (c *TrCuentasSubgrupoController) Post() {
-	var v models.TransaccionCuentasGrupo
-	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if _, err := models.AddTransaccionCuentasGrupo(&v); err == nil {
-			c.Ctx.Output.SetStatus(201)
-			c.Data["json"] = v
-		} else {
-			logs.Error(err)
-			//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
-			c.Data["system"] = err
-			c.Abort("400")
-		}
-	} else {
-		logs.Error(err)
-		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
-		c.Data["system"] = err
-		c.Abort("400")
-	}
-	c.ServeJSON()
 }
 
 // GetOne ...
 // @Title GetOne
-// @Description get TrSubgrupo by id
-// @Param	id		path 	string	true		"The key for staticblock"
-// @Success 200 {object} models.TransaccionCuentasGrupo
+// @Description Consulta las cuentas asignadas a un determinado subgrupo
+// @Param	id		path 	string	true	"subgrupoId del que se consultan las cuentas"
+// @Success 200 {object} []models.CuentasSubgrupo
 // @Failure 403 :id is empty
 // @router /:id [get]
-func (c *TrCuentasSubgrupoController) GetAllById() {
-	idPersonaStr := c.Ctx.Input.Param(":id")
-	id, _ := strconv.Atoi(idPersonaStr)
-	l, err := models.GetTransaccionCuentasGrupo(id)
-	if err != nil {
+func (c *TrCuentasSubgrupoController) GetOne() {
+
+	defer errorctrl.ErrorControlController(c.Controller, "TrCuentasSubgrupoController")
+
+	var id int
+	if v, err := c.GetInt(":id"); err != nil || v <= 0 {
+		if err == nil {
+			err = errors.New("Se debe especificar una subgrupo válido")
+		}
+		panic(errorctrl.Error(`GetOne - c.GetInt(":id")`, err, "400"))
+	} else {
+		id = v
+	}
+
+	if l, err := models.GetCuentasSubgrupoBySubgrupoId(id); err != nil {
 		logs.Error(err)
 		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
 		c.Data["system"] = err
@@ -72,39 +53,35 @@ func (c *TrCuentasSubgrupoController) GetAllById() {
 	c.ServeJSON()
 }
 
-// GetAll ...
-// @Title GetAll
-// @Description get models.TransaccionCuentasGrupo
-// @Param	query	query	string	false	"Filter. e.g. col1:v1,col2:v2 ..."
-// @Param	fields	query	string	false	"Fields returned. e.g. col1,col2 ..."
-// @Param	sortby	query	string	false	"Sorted-by fields. e.g. col1,col2 ..."
-// @Param	order	query	string	false	"Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ..."
-// @Param	limit	query	string	false	"Limit the size of result set. Must be an integer"
-// @Param	offset	query	string	false	"Start position of result set. Must be an integer"
-// @Success 200 {object} models.TrSubgrupo
-// @Failure 403
-// @router / [get]
-/*
-func (c *TrCuentasSubgrupoController) GetAll() {
-
-}
-*/
-
 // Put ...
 // @Title Put
-// @Description update the TrSubgrupo
-// @Param	id		path 	string	true		"The id you want to update"
-// @Param	body		body 	models.TransaccionCuentasGrupo true		"body for TrSubgrupo content"
-// @Success 200 {object} models.TrSubgrupo
+// @Description Actualiza cuentas contables de un subgrupo
+// @Param	id		path 	string	true		"Subgrupo Id al que se le asignan las cuentas"
+// @Param	body	body 	models.CuentasSubgrupo	true	"Lista de cuentas que se asignarán al subgrupo"
+// @Success 200 {object} []models.CuentasSubgrupo
 // @Failure 400 the request contains incorrect syntax
 // @router /:id [put]
 func (c *TrCuentasSubgrupoController) Put() {
-	idPersonaStr := c.Ctx.Input.Param(":id")
-	id, _ := strconv.Atoi(idPersonaStr)
-	var v models.TransaccionCuentasGrupo
+
+	defer errorctrl.ErrorControlController(c.Controller, "TrCuentasSubgrupoController")
+
+	var id int
+	if v, err := c.GetInt(":id"); err != nil || v <= 0 {
+		if err == nil {
+			err = errors.New("Se debe especificar una subgrupo válido")
+		}
+		panic(errorctrl.Error(`Put - c.GetInt(":id")`, err, "400"))
+	} else {
+		id = v
+	}
+
+	var v []*models.CuentasSubgrupo
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if err := models.UpdateCuentas_GrupoById(&v, id); err == nil {
-			c.Data["json"] = v
+		if n, err := models.UpdateCuentasSubgrupo(v, id); err == nil {
+			if n == nil {
+				n = append(n, &models.CuentasSubgrupo{})
+			}
+			c.Data["json"] = n
 		} else {
 			logs.Error(err)
 			//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
@@ -119,16 +96,3 @@ func (c *TrCuentasSubgrupoController) Put() {
 	}
 	c.ServeJSON()
 }
-
-// Delete ...
-// @Title Delete
-// @Description delete the Tr_subgrupo
-// @Param	id		path 	string	true		"The id you want to delete"
-// @Success 200 {string} delete success!
-// @Failure 404 not found resource
-// @router /:id [delete]
-/*
-func (c *TrCuentasSubgrupoController) Delete() {
-
-}
-*/

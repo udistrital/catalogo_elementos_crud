@@ -1884,49 +1884,18 @@
                 }
             }
         },
-        "/tr_cuentas_subgrupo/": {
-            "post": {
-                "tags": [
-                    "tr_cuentas_subgrupo"
-                ],
-                "description": "Create multiple cuentas_grupo records. Please note that the functionality of this controller are included/implemented also within the PUT transaction, so this controller might be DEPRECATED",
-                "operationId": "TrCuentasSubgrupoController.Create",
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "description": "body for TrSubgrupo content",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.TransaccionCuentasGrupo"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/models.TrSubgrupo"
-                        }
-                    },
-                    "403": {
-                        "description": "body is empty"
-                    }
-                }
-            }
-        },
         "/tr_cuentas_subgrupo/{id}": {
             "get": {
                 "tags": [
                     "tr_cuentas_subgrupo"
                 ],
-                "description": "get TrSubgrupo by id",
+                "description": "Consulta las cuentas asignadas a un determinado subgrupo",
                 "operationId": "TrCuentasSubgrupoController.GetOne",
                 "parameters": [
                     {
                         "in": "path",
                         "name": "id",
-                        "description": "The key for staticblock",
+                        "description": "subgrupoId del que se consultan las cuentas",
                         "required": true,
                         "type": "string"
                     }
@@ -1935,7 +1904,10 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/models.TransaccionCuentasGrupo"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.CuentasSubgrupo"
+                            }
                         }
                     },
                     "403": {
@@ -1947,23 +1919,23 @@
                 "tags": [
                     "tr_cuentas_subgrupo"
                 ],
-                "description": "update the TrSubgrupo",
+                "description": "Actualiza cuentas contables de un subgrupo",
                 "operationId": "TrCuentasSubgrupoController.Put",
                 "parameters": [
                     {
                         "in": "path",
                         "name": "id",
-                        "description": "The id you want to update",
+                        "description": "Subgrupo Id al que se le asignan las cuentas",
                         "required": true,
                         "type": "string"
                     },
                     {
                         "in": "body",
                         "name": "body",
-                        "description": "body for TrSubgrupo content",
+                        "description": "Lista de cuentas que se asignarán al subgrupo",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.TransaccionCuentasGrupo"
+                            "$ref": "#/definitions/models.CuentasSubgrupo"
                         }
                     }
                 ],
@@ -1971,7 +1943,10 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/models.TrSubgrupo"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.CuentasSubgrupo"
+                            }
                         }
                     },
                     "400": {
@@ -2144,7 +2119,7 @@
         }
     },
     "definitions": {
-        "36396.0xc00058c9c0.false": {
+        "36396.0xc0007abf20.false": {
             "title": "false",
             "type": "object"
         },
@@ -2297,7 +2272,7 @@
             "type": "object",
             "properties": {
                 "data": {
-                    "$ref": "#/definitions/36396.0xc00058c9c0.false"
+                    "$ref": "#/definitions/36396.0xc0007abf20.false"
                 },
                 "expandible": {
                     "type": "boolean"
@@ -2567,18 +2542,6 @@
                 },
                 "SubgrupoPadre": {
                     "$ref": "#/definitions/models.Subgrupo"
-                }
-            }
-        },
-        "models.TransaccionCuentasGrupo": {
-            "title": "TransaccionCuentasGrupo",
-            "type": "object",
-            "properties": {
-                "Cuentas": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/models.CuentasSubgrupo"
-                    }
                 }
             }
         }

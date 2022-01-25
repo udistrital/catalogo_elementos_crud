@@ -477,16 +477,7 @@ func init() {
 
     beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrCuentasSubgrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrCuentasSubgrupoController"],
         beego.ControllerComments{
-            Method: "Post",
-            Router: "/",
-            AllowHTTPMethods: []string{"post"},
-            MethodParams: param.Make(),
-            Filters: nil,
-            Params: nil})
-
-    beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrCuentasSubgrupoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/catalogo_elementos_crud/controllers:TrCuentasSubgrupoController"],
-        beego.ControllerComments{
-            Method: "GetAllById",
+            Method: "GetOne",
             Router: "/:id",
             AllowHTTPMethods: []string{"get"},
             MethodParams: param.Make(),
