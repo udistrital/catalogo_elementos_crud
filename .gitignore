@@ -1,16 +1,21 @@
-lastupdate.tmp
-.vscode/
+# Binarios y Temporales
+*.tmp
+*.log
+*.exe
+*~
 catalogo_elementos_crud
 main
+
+# IDEs
+.vscode
+
+# Variables de entorno
+*.env
+!develop.env
+!template.env
+
+# Otros
 .scannerwork/
-swagger/*.png
-swagger/*.html
-swagger/*.js
-swagger/*.map
-swagger/*.css
-swagger/*.yml
-swagger/css/
-swagger/fonts/
-swagger/images/
-swagger/lang/
-swagger/lib/
+swagger/**
+!swagger/*.json
+!swagger/*.yml

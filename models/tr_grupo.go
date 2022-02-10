@@ -5,7 +5,6 @@ import (
 
 	"github.com/astaxie/beego/logs"
 	"github.com/astaxie/beego/orm"
-	"github.com/udistrital/utils_oas/time_bogota"
 )
 
 type TrGrupo struct {
@@ -14,10 +13,15 @@ type TrGrupo struct {
 	DetalleSubgrupo *DetalleSubgrupo
 }
 
+type TrGrupo2 struct {
+	Catalogo *Catalogo
+	Subgrupo *Subgrupo
+	Detalle  *DetalleSubgrupo
+}
+
 // AddTransaccionProduccionAcademica Transacción para registrar toda la información de un grupo asociándolo a un catálogo
 func AddTransaccionGrupo(m *TrGrupo) (err error) {
 	o := orm.NewOrm()
-	logs.Info("lo que llega")
 	logs.Info(m)
 	err = o.Begin()
 
@@ -34,9 +38,6 @@ func AddTransaccionGrupo(m *TrGrupo) (err error) {
 		}
 	}()
 
-	m.Subgrupo.Activo = true
-	m.Subgrupo.FechaCreacion = time_bogota.TiempoBogotaFormato()
-	m.Subgrupo.FechaModificacion = time_bogota.TiempoBogotaFormato()
 	if idSubgrupo, err := o.Insert(m.Subgrupo); err == nil {
 		logs.Info(idSubgrupo)
 		logs.Info(m.Catalogo)
@@ -48,58 +49,11 @@ func AddTransaccionGrupo(m *TrGrupo) (err error) {
 		subgrupoCatalogo.Activo = true
 		subgrupoCatalogo.CatalogoId = m.Catalogo
 		subgrupoCatalogo.SubgrupoId = m.Subgrupo
-		subgrupoCatalogo.FechaCreacion = time_bogota.TiempoBogotaFormato()
-		subgrupoCatalogo.FechaModificacion = time_bogota.TiempoBogotaFormato()
 
 		if _, err = o.Insert(&subgrupoCatalogo); err != nil {
 			panic(err.Error())
 		}
 
-      /*          if (m.DetalleSubgrupo != nil) {
-			m.DetalleSubgrupo.SubgrupoId = m.Subgrupo
-			m.DetalleSubgrupo.Activo = true
-			m.DetalleSubgrupo.FechaCreacion = time_bogota.TiempoBogotaFormato()
-			m.DetalleSubgrupo.FechaModificacion = time_bogota.TiempoBogotaFormato()
-			if _, err = o.Insert(m.DetalleSubgrupo); err != nil {
-				panic(err.Error())
-			}
-                }*/
-	} else {
-		panic(err.Error())
-	}
-
-	return
-}
-
-func UpdateTransaccionGrupo(m *TrGrupo) (err error) {
-	o := orm.NewOrm()
-	err = o.Begin()
-
-	if err != nil {
-		return
-	}
-
-	defer func() {
-		if r := recover(); r != nil {
-			o.Rollback()
-			logs.Error(r)
-		} else {
-			o.Commit()
-		}
-	}()
-
-//	var Detalle DetalleSubgrupo
-//	w := m.DetalleSubgrupo
-
-	v := Subgrupo{Id: m.Subgrupo.Id}
-
-	if errTr := o.Read(&v); errTr == nil {
-
-		if _, err = o.Update(m.Subgrupo, "Activo", "Nombre", "Codigo", "Descripcion"); err == nil {
-
-		} else {
-			panic(err.Error())
-		}
 	} else {
 		panic(err.Error())
 	}

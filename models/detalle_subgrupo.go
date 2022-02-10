@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/astaxie/beego/orm"
 )
@@ -14,9 +15,11 @@ type DetalleSubgrupo struct {
 	Depreciacion      bool      `orm:"column(depreciacion)"`
 	Valorizacion      bool      `orm:"column(valorizacion)"`
 	Deterioro         bool      `orm:"column(deterioro)"`
+	VidaUtil          float64   `orm:"column(vida_util);null"`
+	ValorResidual     float64   `orm:"column(valor_residual);null"`
 	Activo            bool      `orm:"column(activo)"`
-	FechaCreacion     string    `orm:"column(fecha_creacion);type(timestamp without time zone)"`
-	FechaModificacion string    `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
+	FechaCreacion     time.Time `orm:"column(fecha_creacion);type(timestamp with time zone)"`
+	FechaModificacion time.Time `orm:"column(fecha_modificacion);type(timestamp with time zone)"`
 	SubgrupoId        *Subgrupo `orm:"column(subgrupo_id);rel(fk)"`
 	TipoBienId        *TipoBien `orm:"column(tipo_bien_id);rel(fk)"`
 }
@@ -60,6 +63,9 @@ func GetAllDetalleSubgrupo(query map[string]string, fields []string, sortby []st
 		k = strings.Replace(k, ".", "__", -1)
 		if strings.Contains(k, "isnull") {
 			qs = qs.Filter(k, (v == "true" || v == "1"))
+		} else if strings.Contains(k, "in") {
+			arr := strings.Split(v, "|")
+			qs = qs.Filter(k, arr)
 		} else {
 			qs = qs.Filter(k, v)
 		}

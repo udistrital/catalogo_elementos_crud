@@ -14,12 +14,11 @@ type Elemento struct {
 	Id                int       `orm:"column(id);pk;auto"`
 	Nombre            string    `orm:"column(nombre)"`
 	Descripcion       string    `orm:"column(descripcion)"`
-	FechaInicio       time.Time `orm:"column(fecha_inicio);type(timestamp without time zone)"`
-	FechaFin          time.Time `orm:"column(fecha_fin);type(timestamp without time zone);null"`
-	FechaCreacion     string    `orm:"column(fecha_creacion);type(timestamp without time zone)"`
-	FechaModificacion string    `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
-	Activo            bool      `orm:"column(activo)"`
+	Codigo            string    `orm:"column(codigo)"`
 	SubgrupoId        *Subgrupo `orm:"column(subgrupo_id);rel(fk)"`
+	Activo            bool      `orm:"column(activo)"`
+	FechaCreacion     time.Time `orm:"column(fecha_creacion);type(timestamp with time zone)"`
+	FechaModificacion time.Time `orm:"column(fecha_modificacion);type(timestamp with time zone)"`
 }
 
 func (t *Elemento) TableName() string {

@@ -5,19 +5,24 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/astaxie/beego/orm"
 )
 
 type TipoBien struct {
-	Id                int     `orm:"column(id);pk;auto"`
-	Nombre            string  `orm:"column(nombre)"`
-	Descripcion       string  `orm:"column(descripcion);null"`
-	CodigoAbreviacion string  `orm:"column(codigo_abreviacion);null"`
-	Orden             float64 `orm:"column(orden);null"`
-	Activo            bool    `orm:"column(activo)"`
-	FechaCreacion     string  `orm:"column(fecha_creacion);type(timestamp without time zone)"`
-	FechaModificacion string  `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
+	Id                int       `orm:"column(id);pk;auto"`
+	Nombre            string    `orm:"column(nombre)"`
+	Descripcion       string    `orm:"column(descripcion);null"`
+	CodigoAbreviacion string    `orm:"column(codigo_abreviacion);null"`
+	Orden             float64   `orm:"column(orden);null"`
+	Activo            bool      `orm:"column(activo)"`
+	FechaCreacion     time.Time `orm:"column(fecha_creacion);type(timestamp with time zone)"`
+	FechaModificacion time.Time `orm:"column(fecha_modificacion);type(timestamp with time zone)"`
+	Tipo_bien_padre   *TipoBien `orm:"column(tipo_bien_padre);rel(fk);null"`
+	Reglas            string    `orm:"column(reglas);type(jsonb);null"`
+	NecesitaPlaca     bool      `orm:"column(necesita_placa)"`
+	NecesitaPoliza    bool      `orm:"column(necesita_poliza)"`
 }
 
 func (t *TipoBien) TableName() string {
@@ -59,6 +64,9 @@ func GetAllTipoBien(query map[string]string, fields []string, sortby []string, o
 		k = strings.Replace(k, ".", "__", -1)
 		if strings.Contains(k, "isnull") {
 			qs = qs.Filter(k, (v == "true" || v == "1"))
+		} else if strings.Contains(k, "in") {
+			arr := strings.Split(v, "|")
+			qs = qs.Filter(k, arr)
 		} else {
 			qs = qs.Filter(k, v)
 		}

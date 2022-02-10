@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/astaxie/beego/orm"
 )
@@ -14,8 +15,8 @@ type CuentasSubgrupo struct {
 	CuentaCreditoId     string    `orm:"column(cuenta_credito_id)"`
 	CuentaDebitoId      string    `orm:"column(cuenta_debito_id)"`
 	SubtipoMovimientoId int       `orm:"column(subtipo_movimiento_id)"`
-	FechaCreacion       string    `orm:"column(fecha_creacion);type(timestamp without time zone)"`
-	FechaModificacion   string    `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
+	FechaCreacion       time.Time `orm:"column(fecha_creacion);type(timestamp with time zone)"`
+	FechaModificacion   time.Time `orm:"column(fecha_modificacion);type(timestamp with time zone)"`
 	Activo              bool      `orm:"column(activo)"`
 	SubgrupoId          *Subgrupo `orm:"column(subgrupo_id);rel(fk)"`
 }
@@ -59,6 +60,9 @@ func GetAllCuentasSubgrupo(query map[string]string, fields []string, sortby []st
 		k = strings.Replace(k, ".", "__", -1)
 		if strings.Contains(k, "isnull") {
 			qs = qs.Filter(k, (v == "true" || v == "1"))
+		} else if strings.Contains(k, "__in") {
+			arr := strings.Split(v, "|")
+			qs = qs.Filter(k, arr)
 		} else {
 			qs = qs.Filter(k, v)
 		}

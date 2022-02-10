@@ -1,0 +1,1754 @@
+swagger: "2.0"
+info:
+  title: beego Test API
+  description: beego has a very cool tools to autogenerate documents for your API
+  version: 1.0.0
+  termsOfService: http://beego.me/
+  contact:
+    email: astaxie@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+basePath: /v1
+paths:
+  /catalogo/:
+    get:
+      tags:
+      - catalogo
+      description: get Catalogo
+      operationId: CatalogoController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/models.Catalogo'
+        "404":
+          description: not found resource
+    post:
+      tags:
+      - catalogo
+      description: create Catalogo
+      operationId: CatalogoController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for Catalogo content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Catalogo'
+      responses:
+        "201":
+          description: '{int} models.Catalogo'
+        "400":
+          description: the request contains incorrect syntax
+  /catalogo/{id}:
+    get:
+      tags:
+      - catalogo
+      description: get Catalogo by id
+      operationId: CatalogoController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Catalogo'
+        "404":
+          description: not found resource
+    put:
+      tags:
+      - catalogo
+      description: update the Catalogo
+      operationId: CatalogoController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for Catalogo content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Catalogo'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Catalogo'
+        "400":
+          description: the request contains incorrect syntax
+    delete:
+      tags:
+      - catalogo
+      description: delete the Catalogo
+      operationId: CatalogoController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "404":
+          description: not found resource
+  /cuentas_subgrupo/:
+    get:
+      tags:
+      - cuentas_subgrupo
+      description: get CuentasSubgrupo
+      operationId: CuentasSubgrupoController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/models.CuentasSubgrupo'
+        "404":
+          description: not found resource
+    post:
+      tags:
+      - cuentas_subgrupo
+      description: create CuentasSubgrupo
+      operationId: CuentasSubgrupoController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for CuentasSubgrupo content
+        required: true
+        schema:
+          $ref: '#/definitions/models.CuentasSubgrupo'
+      responses:
+        "201":
+          description: '{int} models.CuentasSubgrupo'
+        "400":
+          description: the request contains incorrect syntax
+  /cuentas_subgrupo/{id}:
+    get:
+      tags:
+      - cuentas_subgrupo
+      description: get CuentasSubgrupo by id
+      operationId: CuentasSubgrupoController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.CuentasSubgrupo'
+        "404":
+          description: not found resource
+    put:
+      tags:
+      - cuentas_subgrupo
+      description: update the CuentasSubgrupo
+      operationId: CuentasSubgrupoController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for CuentasSubgrupo content
+        required: true
+        schema:
+          $ref: '#/definitions/models.CuentasSubgrupo'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.CuentasSubgrupo'
+        "400":
+          description: the request contains incorrect syntax
+    delete:
+      tags:
+      - cuentas_subgrupo
+      description: delete the CuentasSubgrupo
+      operationId: CuentasSubgrupoController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "404":
+          description: not found resource
+  /detalle_subgrupo/:
+    get:
+      tags:
+      - detalle_subgrupo
+      description: get DetalleSubgrupo
+      operationId: DetalleSubgrupoController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/models.DetalleSubgrupo'
+        "404":
+          description: not found resource
+    post:
+      tags:
+      - detalle_subgrupo
+      description: create DetalleSubgrupo
+      operationId: DetalleSubgrupoController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for DetalleSubgrupo content
+        required: true
+        schema:
+          $ref: '#/definitions/models.DetalleSubgrupo'
+      responses:
+        "201":
+          description: '{int} models.DetalleSubgrupo'
+        "400":
+          description: the request contains incorrect syntax
+  /detalle_subgrupo/{id}:
+    get:
+      tags:
+      - detalle_subgrupo
+      description: get DetalleSubgrupo by id
+      operationId: DetalleSubgrupoController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.DetalleSubgrupo'
+        "404":
+          description: not found resource
+    put:
+      tags:
+      - detalle_subgrupo
+      description: update the DetalleSubgrupo
+      operationId: DetalleSubgrupoController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for DetalleSubgrupo content
+        required: true
+        schema:
+          $ref: '#/definitions/models.DetalleSubgrupo'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.DetalleSubgrupo'
+        "400":
+          description: the request contains incorrect syntax
+    delete:
+      tags:
+      - detalle_subgrupo
+      description: delete the DetalleSubgrupo
+      operationId: DetalleSubgrupoController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "404":
+          description: not found resource
+  /elemento/:
+    get:
+      tags:
+      - elemento
+      description: get Elemento
+      operationId: ElementoController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/models.Elemento'
+        "404":
+          description: not found resource
+    post:
+      tags:
+      - elemento
+      description: create Elemento
+      operationId: ElementoController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for Elemento content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Elemento'
+      responses:
+        "201":
+          description: '{int} models.Elemento'
+        "400":
+          description: the request contains incorrect syntax
+  /elemento/{id}:
+    get:
+      tags:
+      - elemento
+      description: get Elemento by id
+      operationId: ElementoController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Elemento'
+        "404":
+          description: not found resource
+    put:
+      tags:
+      - elemento
+      description: update the Elemento
+      operationId: ElementoController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for Elemento content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Elemento'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Elemento'
+        "400":
+          description: the request contains incorrect syntax
+    delete:
+      tags:
+      - elemento
+      description: delete the Elemento
+      operationId: ElementoController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "404":
+          description: not found resource
+  /relacion_nivel/:
+    get:
+      tags:
+      - relacion_nivel
+      description: get RelacionNivel
+      operationId: RelacionNivelController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/models.RelacionNivel'
+        "404":
+          description: not found resource
+    post:
+      tags:
+      - relacion_nivel
+      description: create RelacionNivel
+      operationId: RelacionNivelController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for RelacionNivel content
+        required: true
+        schema:
+          $ref: '#/definitions/models.RelacionNivel'
+      responses:
+        "201":
+          description: '{int} models.RelacionNivel'
+        "400":
+          description: the request contains incorrect syntax
+  /relacion_nivel/{id}:
+    get:
+      tags:
+      - relacion_nivel
+      description: get RelacionNivel by id
+      operationId: RelacionNivelController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.RelacionNivel'
+        "404":
+          description: not found resource
+    put:
+      tags:
+      - relacion_nivel
+      description: update the RelacionNivel
+      operationId: RelacionNivelController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for RelacionNivel content
+        required: true
+        schema:
+          $ref: '#/definitions/models.RelacionNivel'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.RelacionNivel'
+        "400":
+          description: the request contains incorrect syntax
+  /subgrupo/:
+    get:
+      tags:
+      - subgrupo
+      description: get Subgrupo
+      operationId: SubgrupoController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/models.Subgrupo'
+        "404":
+          description: not found resource
+    post:
+      tags:
+      - subgrupo
+      description: create Subgrupo
+      operationId: SubgrupoController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for Subgrupo content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Subgrupo'
+      responses:
+        "201":
+          description: '{int} models.Subgrupo'
+        "400":
+          description: the request contains incorrect syntax
+  /subgrupo/{id}:
+    get:
+      tags:
+      - subgrupo
+      description: get Subgrupo by id
+      operationId: SubgrupoController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Subgrupo'
+        "404":
+          description: not found resource
+    put:
+      tags:
+      - subgrupo
+      description: update the Subgrupo
+      operationId: SubgrupoController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for Subgrupo content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Subgrupo'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Subgrupo'
+        "400":
+          description: the request contains incorrect syntax
+    delete:
+      tags:
+      - subgrupo
+      description: delete the Subgrupo
+      operationId: SubgrupoController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "404":
+          description: not found resource
+  /subgrupo_catalogo/:
+    get:
+      tags:
+      - subgrupo_catalogo
+      description: get SubgrupoCatalogo
+      operationId: SubgrupoCatalogoController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/models.SubgrupoCatalogo'
+        "404":
+          description: not found resource
+    post:
+      tags:
+      - subgrupo_catalogo
+      description: create SubgrupoCatalogo
+      operationId: SubgrupoCatalogoController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for SubgrupoCatalogo content
+        required: true
+        schema:
+          $ref: '#/definitions/models.SubgrupoCatalogo'
+      responses:
+        "201":
+          description: '{int} models.SubgrupoCatalogo'
+        "400":
+          description: the request contains incorrect syntax
+  /subgrupo_catalogo/{id}:
+    get:
+      tags:
+      - subgrupo_catalogo
+      description: get SubgrupoCatalogo by id
+      operationId: SubgrupoCatalogoController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.SubgrupoCatalogo'
+        "404":
+          description: not found resource
+    put:
+      tags:
+      - subgrupo_catalogo
+      description: update the SubgrupoCatalogo
+      operationId: SubgrupoCatalogoController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for SubgrupoCatalogo content
+        required: true
+        schema:
+          $ref: '#/definitions/models.SubgrupoCatalogo'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.SubgrupoCatalogo'
+        "400":
+          description: the request contains incorrect syntax
+    delete:
+      tags:
+      - subgrupo_catalogo
+      description: delete the SubgrupoCatalogo
+      operationId: SubgrupoCatalogoController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "404":
+          description: not found resource
+  /subgrupo_subgrupo/:
+    get:
+      tags:
+      - subgrupo_subgrupo
+      description: get SubgrupoSubgrupo
+      operationId: SubgrupoSubgrupoController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/models.SubgrupoSubgrupo'
+        "404":
+          description: not found resource
+    post:
+      tags:
+      - subgrupo_subgrupo
+      description: create SubgrupoSubgrupo
+      operationId: SubgrupoSubgrupoController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for SubgrupoSubgrupo content
+        required: true
+        schema:
+          $ref: '#/definitions/models.SubgrupoSubgrupo'
+      responses:
+        "201":
+          description: '{int} models.SubgrupoSubgrupo'
+        "400":
+          description: the request contains incorrect syntax
+  /subgrupo_subgrupo/{id}:
+    get:
+      tags:
+      - subgrupo_subgrupo
+      description: get SubgrupoSubgrupo by id
+      operationId: SubgrupoSubgrupoController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.SubgrupoSubgrupo'
+        "404":
+          description: not found resource
+    put:
+      tags:
+      - subgrupo_subgrupo
+      description: update the SubgrupoSubgrupo
+      operationId: SubgrupoSubgrupoController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for SubgrupoSubgrupo content
+        required: true
+        schema:
+          $ref: '#/definitions/models.SubgrupoSubgrupo'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.SubgrupoSubgrupo'
+        "400":
+          description: the request contains incorrect syntax
+    delete:
+      tags:
+      - subgrupo_subgrupo
+      description: delete the SubgrupoSubgrupo
+      operationId: SubgrupoSubgrupoController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "404":
+          description: not found resource
+  /tipo_bien/:
+    get:
+      tags:
+      - tipo_bien
+      description: get TipoBien
+      operationId: TipoBienController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/models.TipoBien'
+        "404":
+          description: not found resource
+    post:
+      tags:
+      - tipo_bien
+      description: create TipoBien
+      operationId: TipoBienController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for TipoBien content
+        required: true
+        schema:
+          $ref: '#/definitions/models.TipoBien'
+      responses:
+        "201":
+          description: '{int} models.TipoBien'
+        "400":
+          description: the request contains incorrect syntax
+  /tipo_bien/{id}:
+    get:
+      tags:
+      - tipo_bien
+      description: get TipoBien by id
+      operationId: TipoBienController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.TipoBien'
+        "404":
+          description: not found resource
+    put:
+      tags:
+      - tipo_bien
+      description: update the TipoBien
+      operationId: TipoBienController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for TipoBien content
+        required: true
+        schema:
+          $ref: '#/definitions/models.TipoBien'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.TipoBien'
+        "400":
+          description: the request contains incorrect syntax
+    delete:
+      tags:
+      - tipo_bien
+      description: delete the TipoBien
+      operationId: TipoBienController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "404":
+          description: not found resource
+  /tipo_nivel/:
+    get:
+      tags:
+      - tipo_nivel
+      description: get TipoNivel
+      operationId: TipoNivelController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/models.TipoNivel'
+        "404":
+          description: not found resource
+    post:
+      tags:
+      - tipo_nivel
+      description: create TipoNivel
+      operationId: TipoNivelController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for TipoNivel content
+        required: true
+        schema:
+          $ref: '#/definitions/models.TipoNivel'
+      responses:
+        "201":
+          description: '{int} models.TipoNivel'
+        "400":
+          description: the request contains incorrect syntax
+  /tipo_nivel/{id}:
+    get:
+      tags:
+      - tipo_nivel
+      description: get TipoNivel by id
+      operationId: TipoNivelController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.TipoNivel'
+        "404":
+          description: not found resource
+    put:
+      tags:
+      - tipo_nivel
+      description: update the TipoNivel
+      operationId: TipoNivelController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for TipoNivel content
+        required: true
+        schema:
+          $ref: '#/definitions/models.TipoNivel'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.TipoNivel'
+        "400":
+          description: the request contains incorrect syntax
+    delete:
+      tags:
+      - tipo_nivel
+      description: delete the TipoNivel
+      operationId: TipoNivelController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "404":
+          description: not found resource
+  /tr_catalogo/{id}:
+    get:
+      tags:
+      - tr_catalogo
+      description: get TrCatalogo by id
+      operationId: TrCatalogoController.GetOne
+      parameters:
+      - in: path
+        name: id
+        description: ID del catalogo
+        required: true
+        type: string
+      - in: query
+        name: elementos
+        description: traer arbol hasta el nivel elementos
+        type: boolean
+      - in: query
+        name: subgruposInactivos
+        description: traer arbol con subgrupos inactivos
+        type: boolean
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/models.RamaArbolSubgrupo'
+        "403":
+          description: :id is empty
+  /tr_catalogo/arbol:
+    get:
+      tags:
+      - tr_catalogo
+      description: Consulta del arbol de un catalogo de forma progresiva, es decir,
+        retorna un nivel a la vez. Permite construir el arbol completo o desde una
+        rama en particular
+      operationId: TrCatalogoController.GetOne
+      parameters:
+      - in: query
+        name: primer_nivel
+        description: "false"
+        type: boolean
+        default: "false"
+      - in: query
+        name: catalogo_id
+        description: Catalogo del que se desea obtener el primer nivel. Se ignora
+          si no se desea el primer nivel. En caso contrario, tiene prioridad sobre
+          el subgrupo_id
+        type: integer
+        format: int64
+      - in: query
+        name: subgrupo_id
+        description: SubgrupoId del que se desean los detalles. Ya sea este o no el
+          primer nivel
+        type: integer
+        format: int64
+      - in: query
+        name: get_inactivos
+        description: "false"
+        type: boolean
+        default: "false"
+      - in: query
+        name: get_elementos
+        description: "false"
+        type: boolean
+        default: "false"
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/models.NodoGenerico'
+  /tr_catalogo/tipo_de_bien/{id}:
+    get:
+      tags:
+      - tr_catalogo
+      description: get TrCatalogo by id
+      operationId: TrCatalogoController.GetSubgruposTipo_Bien
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/models.Subgrupo'
+        "403":
+          description: :id is empty
+  /tr_cuentas_subgrupo/{id}:
+    get:
+      tags:
+      - tr_cuentas_subgrupo
+      description: Consulta las cuentas asignadas a un determinado subgrupo
+      operationId: TrCuentasSubgrupoController.GetOne
+      parameters:
+      - in: path
+        name: id
+        description: subgrupoId del que se consultan las cuentas
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/models.CuentasSubgrupo'
+        "403":
+          description: :id is empty
+    put:
+      tags:
+      - tr_cuentas_subgrupo
+      description: Actualiza cuentas contables de un subgrupo
+      operationId: TrCuentasSubgrupoController.Put
+      parameters:
+      - in: path
+        name: id
+        description: Subgrupo Id al que se le asignan las cuentas
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: Lista de cuentas que se asignarán al subgrupo
+        required: true
+        schema:
+          $ref: '#/definitions/models.CuentasSubgrupo'
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/models.CuentasSubgrupo'
+        "400":
+          description: the request contains incorrect syntax
+  /tr_grupo/:
+    post:
+      tags:
+      - tr_grupo
+      description: create TrGrupoController
+      operationId: TrGrupoController.Create
+      parameters:
+      - in: body
+        name: body
+        description: body for TrGrupoController content
+        required: true
+        schema:
+          $ref: '#/definitions/models.TrGrupo'
+      responses:
+        "201":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.TrGrupo'
+        "403":
+          description: body is empty
+  /tr_grupo/{id}:
+    get:
+      tags:
+      - tr_grupo
+      description: get TrGrupoController by id
+      operationId: TrGrupoController.GetOne
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/models.TrGrupo2'
+        "403":
+          description: :id is empty
+  /tr_subgrupo/:
+    post:
+      tags:
+      - tr_subgrupo
+      description: create TrSubgrupo
+      operationId: TrSubgrupoController.Create
+      parameters:
+      - in: body
+        name: body
+        description: body for TrSubgrupo content
+        required: true
+        schema:
+          $ref: '#/definitions/models.TrSubgrupo'
+      responses:
+        "201":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.TrSubgrupo'
+        "403":
+          description: body is empty
+  /tr_subgrupo/{id}:
+    get:
+      tags:
+      - tr_subgrupo
+      description: get TrSubgrupo by id
+      operationId: TrSubgrupoController.GetOne
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/models.SubgrupoDetalle1'
+        "403":
+          description: :id is empty
+    put:
+      tags:
+      - tr_subgrupo
+      description: update the TrSubgrupo
+      operationId: TrSubgrupoController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for TrSubgrupo content
+        required: true
+        schema:
+          $ref: '#/definitions/models.TrSubgrupo'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.TrSubgrupo'
+        "400":
+          description: the request contains incorrect syntax
+definitions:
+  36592.0xc00075d3b0.false:
+    title: "false"
+    type: object
+  models.Catalogo:
+    title: Catalogo
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      Descripcion:
+        type: string
+      FechaCreacion:
+        type: string
+        format: datetime
+      FechaFin:
+        type: string
+      FechaInicio:
+        type: string
+      FechaModificacion:
+        type: string
+        format: datetime
+      Id:
+        type: integer
+        format: int64
+      Nombre:
+        type: string
+  models.CuentasSubgrupo:
+    title: CuentasSubgrupo
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      CuentaCreditoId:
+        type: string
+      CuentaDebitoId:
+        type: string
+      FechaCreacion:
+        type: string
+        format: datetime
+      FechaModificacion:
+        type: string
+        format: datetime
+      Id:
+        type: integer
+        format: int64
+      SubgrupoId:
+        $ref: '#/definitions/models.Subgrupo'
+      SubtipoMovimientoId:
+        type: integer
+        format: int64
+  models.DetalleSubgrupo:
+    title: DetalleSubgrupo
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      Depreciacion:
+        type: boolean
+      Deterioro:
+        type: boolean
+      FechaCreacion:
+        type: string
+        format: datetime
+      FechaModificacion:
+        type: string
+        format: datetime
+      Id:
+        type: integer
+        format: int64
+      SubgrupoId:
+        $ref: '#/definitions/models.Subgrupo'
+      TipoBienId:
+        $ref: '#/definitions/models.TipoBien'
+      ValorResidual:
+        type: number
+        format: double
+      Valorizacion:
+        type: boolean
+      VidaUtil:
+        type: number
+        format: double
+  models.Elemento:
+    title: Elemento
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      Codigo:
+        type: string
+      Descripcion:
+        type: string
+      FechaCreacion:
+        type: string
+        format: datetime
+      FechaModificacion:
+        type: string
+        format: datetime
+      Id:
+        type: integer
+        format: int64
+      Nombre:
+        type: string
+      SubgrupoId:
+        $ref: '#/definitions/models.Subgrupo'
+  models.NodoGenerico:
+    title: NodoGenerico
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/36592.0xc00075d3b0.false'
+      expandible:
+        type: boolean
+  models.RamaArbolSubgrupo:
+    title: RamaArbolSubgrupo
+    type: object
+    properties:
+      children:
+        type: array
+        items:
+          $ref: '#/definitions/models.RamaArbolSubgrupo'
+      data:
+        $ref: '#/definitions/models.Subgrupo'
+  models.RelacionNivel:
+    title: RelacionNivel
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      FechaCreacion:
+        type: string
+        format: datetime
+      FechaModificacion:
+        type: string
+        format: datetime
+      Id:
+        type: integer
+        format: int64
+      NivelHijoId:
+        $ref: '#/definitions/models.RelacionNivel'
+      NivelPadreId:
+        $ref: '#/definitions/models.RelacionNivel'
+  models.Subgrupo:
+    title: Subgrupo
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      Codigo:
+        type: string
+      Descripcion:
+        type: string
+      FechaCreacion:
+        type: string
+        format: datetime
+      FechaModificacion:
+        type: string
+        format: datetime
+      Id:
+        type: integer
+        format: int64
+      Nombre:
+        type: string
+      TipoNivelId:
+        $ref: '#/definitions/models.TipoNivel'
+  models.SubgrupoCatalogo:
+    title: SubgrupoCatalogo
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      CatalogoId:
+        $ref: '#/definitions/models.Catalogo'
+      FechaCreacion:
+        type: string
+        format: datetime
+      FechaModificacion:
+        type: string
+        format: datetime
+      Id:
+        type: integer
+        format: int64
+      SubgrupoId:
+        $ref: '#/definitions/models.Subgrupo'
+  models.SubgrupoDetalle1:
+    title: SubgrupoDetalle1
+    type: object
+    properties:
+      Detalle:
+        $ref: '#/definitions/models.DetalleSubgrupo'
+      Subgrupo:
+        $ref: '#/definitions/models.Subgrupo'
+  models.SubgrupoSubgrupo:
+    title: SubgrupoSubgrupo
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      FechaCreacion:
+        type: string
+        format: datetime
+      FechaModificacion:
+        type: string
+        format: datetime
+      Id:
+        type: integer
+        format: int64
+      SubgrupoHijoId:
+        $ref: '#/definitions/models.Subgrupo'
+      SubgrupoPadreId:
+        $ref: '#/definitions/models.Subgrupo'
+  models.TipoBien:
+    title: TipoBien
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      CodigoAbreviacion:
+        type: string
+      Descripcion:
+        type: string
+      FechaCreacion:
+        type: string
+        format: datetime
+      FechaModificacion:
+        type: string
+        format: datetime
+      Id:
+        type: integer
+        format: int64
+      NecesitaPlaca:
+        type: boolean
+      NecesitaPoliza:
+        type: boolean
+      Nombre:
+        type: string
+      Orden:
+        type: number
+        format: double
+      Reglas:
+        type: string
+      Tipo_bien_padre:
+        $ref: '#/definitions/models.TipoBien'
+  models.TipoNivel:
+    title: TipoNivel
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      CodigoAbreviacion:
+        type: string
+      Descripcion:
+        type: string
+      FechaCreacion:
+        type: string
+        format: datetime
+      FechaModificacion:
+        type: string
+        format: datetime
+      Id:
+        type: integer
+        format: int64
+      Nombre:
+        type: string
+      Orden:
+        type: number
+        format: double
+  models.TrGrupo:
+    title: TrGrupo
+    type: object
+    properties:
+      Catalogo:
+        $ref: '#/definitions/models.Catalogo'
+      DetalleSubgrupo:
+        $ref: '#/definitions/models.DetalleSubgrupo'
+      Subgrupo:
+        $ref: '#/definitions/models.Subgrupo'
+  models.TrGrupo2:
+    title: TrGrupo2
+    type: object
+    properties:
+      Catalogo:
+        $ref: '#/definitions/models.Catalogo'
+      Detalle:
+        $ref: '#/definitions/models.DetalleSubgrupo'
+      Subgrupo:
+        $ref: '#/definitions/models.Subgrupo'
+  models.TrSubgrupo:
+    title: TrSubgrupo
+    type: object
+    properties:
+      DetalleSubgrupo:
+        $ref: '#/definitions/models.DetalleSubgrupo'
+      SubgrupoHijo:
+        $ref: '#/definitions/models.Subgrupo'
+      SubgrupoPadre:
+        $ref: '#/definitions/models.Subgrupo'
+tags:
+- name: catalogo
+  description: |
+    CatalogoController operations for Catalogo
+- name: subgrupo_catalogo
+  description: |
+    SubgrupoCatalogoController operations for SubgrupoCatalogo
+- name: elemento
+  description: |
+    ElementoController operations for Elemento
+- name: cuentas_subgrupo
+  description: |
+    CuentasSubgrupoController operations for CuentasSubgrupo
+- name: subgrupo
+  description: |
+    SubgrupoController operations for Subgrupo
+- name: subgrupo_subgrupo
+  description: |
+    SubgrupoSubgrupoController operations for SubgrupoSubgrupo
+- name: detalle_subgrupo
+  description: |
+    DetalleSubgrupoController operations for DetalleSubgrupo
+- name: tipo_nivel
+  description: |
+    TipoNivelController operations for TipoNivel
+- name: relacion_nivel
+  description: |
+    RelacionNivelController operations for RelacionNivel
+- name: tipo_bien
+  description: |
+    TipoBienController operations for TipoBien
+- name: tr_grupo
+  description: |
+    TrGrupoController operations for TrGrupoController
+- name: tr_subgrupo
+  description: |
+    TrSubgrupoController operations for Tr_subgrupo
+- name: tr_catalogo
+  description: |
+    TrCatalogoController operations for TrCatalogo
+- name: tr_cuentas_subgrupo
+  description: |
+    TrCuentasSubgrupoController operations for Tr_subgrupo

@@ -7,7 +7,6 @@ import (
 	"strings"
 
 	"github.com/udistrital/catalogo_elementos_crud/models"
-	"github.com/udistrital/utils_oas/time_bogota"
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
@@ -37,8 +36,6 @@ func (c *SubgrupoController) URLMapping() {
 func (c *SubgrupoController) Post() {
 	var v models.Subgrupo
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		v.FechaCreacion = time_bogota.TiempoBogotaFormato()
-		v.FechaModificacion = time_bogota.TiempoBogotaFormato()
 		if _, err := models.AddSubgrupo(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = v
@@ -88,7 +85,7 @@ func (c *SubgrupoController) GetOne() {
 // @Param	order	query	string	false	"Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ..."
 // @Param	limit	query	string	false	"Limit the size of result set. Must be an integer"
 // @Param	offset	query	string	false	"Start position of result set. Must be an integer"
-// @Success 200 {object} models.Subgrupo
+// @Success 200 {object} []models.Subgrupo
 // @Failure 404 not found resource
 // @router / [get]
 func (c *SubgrupoController) GetAll() {
@@ -141,7 +138,7 @@ func (c *SubgrupoController) GetAll() {
 		c.Abort("404")
 	} else {
 		if l == nil {
-			l = append(l, map[string]interface{}{})
+			l = []interface{}{}
 		}
 		c.Data["json"] = l
 	}
@@ -161,8 +158,6 @@ func (c *SubgrupoController) Put() {
 	id, _ := strconv.Atoi(idStr)
 	v := models.Subgrupo{Id: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		v.FechaCreacion = time_bogota.TiempoCorreccionFormato(v.FechaCreacion)
-		v.FechaModificacion = time_bogota.TiempoBogotaFormato()
 		if err := models.UpdateSubgrupoById(&v); err == nil {
 			c.Data["json"] = v
 		} else {

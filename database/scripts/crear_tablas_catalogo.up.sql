@@ -253,8 +253,3 @@ ALTER TABLE catalogo.elemento ADD CONSTRAINT fk_elemento_subgrupo_catalogo FOREI
 REFERENCES catalogo.subgrupo_catalogo (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
-
--- Permisos de usuario
-GRANT USAGE ON SCHEMA catalogo TO desarrollooas;
-GRANT SELECT, INSERT, UPDATE, DELETE, ALTER ON ALL TABLES IN SCHEMA catalogo TO desarrollooas;
-GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA catalogo TO desarrollooas;
