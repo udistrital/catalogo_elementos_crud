@@ -14,7 +14,7 @@ type DetalleSubgrupo struct {
 	Id                int       `orm:"column(id);pk;auto"`
 	Depreciacion      bool      `orm:"column(depreciacion)"`
 	Valorizacion      bool      `orm:"column(valorizacion)"`
-	Deterioro         bool      `orm:"column(deterioro)"`
+	Amortizacion      bool      `orm:"column(amortizacion)"`
 	VidaUtil          float64   `orm:"column(vida_util);null"`
 	ValorResidual     float64   `orm:"column(valor_residual);null"`
 	Activo            bool      `orm:"column(activo)"`
