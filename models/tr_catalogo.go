@@ -321,7 +321,8 @@ func getElementosChildren(subgrupoId int, getInactivos bool) (elementos []Elemen
 
 func checkSubgrupos(subgrupoId int, getInactivos bool) (hasSubgrupos bool) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(SubgrupoSubgrupo)).RelatedSel().Filter("SubgrupoPadreId__Id", subgrupoId)
+	qs := o.QueryTable(new(SubgrupoSubgrupo)).RelatedSel().Filter("SubgrupoPadreId__Id", subgrupoId).
+		Filter("SubgrupoPadreId__TipoNivelId__Orden__lt", 4)
 	if !getInactivos {
 		qs = qs.Filter("SubgrupoHijoId__Activo", true)
 	}
