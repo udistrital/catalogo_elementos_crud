@@ -2119,7 +2119,7 @@
         }
     },
     "definitions": {
-        "36592.0xc00075d3b0.false": {
+        "36595.0xc00085e2a0.false": {
             "title": "false",
             "type": "object"
         },
@@ -2197,10 +2197,10 @@
                 "Activo": {
                     "type": "boolean"
                 },
-                "Depreciacion": {
+                "Amortizacion": {
                     "type": "boolean"
                 },
-                "Deterioro": {
+                "Depreciacion": {
                     "type": "boolean"
                 },
                 "FechaCreacion": {
@@ -2272,7 +2272,7 @@
             "type": "object",
             "properties": {
                 "data": {
-                    "$ref": "#/definitions/36592.0xc00075d3b0.false"
+                    "$ref": "#/definitions/36595.0xc00085e2a0.false"
                 },
                 "expandible": {
                     "type": "boolean"

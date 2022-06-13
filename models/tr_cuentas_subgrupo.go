@@ -65,8 +65,9 @@ func UpdateCuentasSubgrupo(m []*CuentasSubgrupo, id int) (n []*CuentasSubgrupo, 
 				panic(err.Error())
 			}
 
-			if v.CuentaCreditoId != q.CuentaCreditoId ||
-				v.CuentaDebitoId != q.CuentaDebitoId || v.SubtipoMovimientoId != q.SubtipoMovimientoId {
+			if (v.CuentaCreditoId != "" && v.CuentaCreditoId != q.CuentaCreditoId) ||
+				(v.CuentaDebitoId != "" && v.CuentaDebitoId != q.CuentaDebitoId) ||
+				v.SubtipoMovimientoId != q.SubtipoMovimientoId {
 
 				q.Activo = false
 				if _, err := o.Update(&q, "Activo"); err == nil {
