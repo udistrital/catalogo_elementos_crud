@@ -1463,6 +1463,8 @@ definitions:
       SubtipoMovimientoId:
         type: integer
         format: int64
+      TipoBienId:
+        $ref: '#/definitions/models.TipoBien'
   models.DetalleSubgrupo:
     title: DetalleSubgrupo
     type: object
@@ -1484,8 +1486,6 @@ definitions:
         format: int64
       SubgrupoId:
         $ref: '#/definitions/models.Subgrupo'
-      TipoBienId:
-        $ref: '#/definitions/models.TipoBien'
       ValorResidual:
         type: number
         format: double
@@ -1642,19 +1642,22 @@ definitions:
       Id:
         type: integer
         format: int64
+      LimiteInferior:
+        type: integer
+        format: int64
+      LimiteSuperior:
+        type: integer
+        format: int64
       NecesitaPlaca:
         type: boolean
       NecesitaPoliza:
         type: boolean
       Nombre:
         type: string
-      Orden:
-        type: number
-        format: double
       Reglas:
         type: string
-      Tipo_bien_padre:
-        $ref: '#/definitions/models.TipoBien'
+      RequiereRango:
+        type: boolean
   models.TipoNivel:
     title: TipoNivel
     type: object

@@ -2187,6 +2187,9 @@
                 "SubtipoMovimientoId": {
                     "type": "integer",
                     "format": "int64"
+                },
+                "TipoBienId": {
+                    "$ref": "#/definitions/models.TipoBien"
                 }
             }
         },
@@ -2217,9 +2220,6 @@
                 },
                 "SubgrupoId": {
                     "$ref": "#/definitions/models.Subgrupo"
-                },
-                "TipoBienId": {
-                    "$ref": "#/definitions/models.TipoBien"
                 },
                 "ValorResidual": {
                     "type": "number",
@@ -2445,6 +2445,14 @@
                     "type": "integer",
                     "format": "int64"
                 },
+                "LimiteInferior": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "LimiteSuperior": {
+                    "type": "integer",
+                    "format": "int64"
+                },
                 "NecesitaPlaca": {
                     "type": "boolean"
                 },
@@ -2454,15 +2462,11 @@
                 "Nombre": {
                     "type": "string"
                 },
-                "Orden": {
-                    "type": "number",
-                    "format": "double"
-                },
                 "Reglas": {
                     "type": "string"
                 },
-                "Tipo_bien_padre": {
-                    "$ref": "#/definitions/models.TipoBien"
+                "RequiereRango": {
+                    "type": "boolean"
                 }
             }
         },

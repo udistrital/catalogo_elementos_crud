@@ -15,14 +15,15 @@ type TipoBien struct {
 	Nombre            string    `orm:"column(nombre)"`
 	Descripcion       string    `orm:"column(descripcion);null"`
 	CodigoAbreviacion string    `orm:"column(codigo_abreviacion);null"`
-	Orden             float64   `orm:"column(orden);null"`
 	Activo            bool      `orm:"column(activo)"`
 	FechaCreacion     time.Time `orm:"column(fecha_creacion);type(timestamp with time zone)"`
 	FechaModificacion time.Time `orm:"column(fecha_modificacion);type(timestamp with time zone)"`
-	Tipo_bien_padre   *TipoBien `orm:"column(tipo_bien_padre);rel(fk);null"`
 	Reglas            string    `orm:"column(reglas);type(jsonb);null"`
 	NecesitaPlaca     bool      `orm:"column(necesita_placa)"`
 	NecesitaPoliza    bool      `orm:"column(necesita_poliza)"`
+	LimiteInferior    int       `orm:"column(limite_inferior)"`
+	LimiteSuperior    int       `orm:"column(limite_superior)"`
+	RequiereRango     bool      `orm:"column(requiere_rango)"`
 }
 
 func (t *TipoBien) TableName() string {
