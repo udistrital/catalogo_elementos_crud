@@ -38,7 +38,20 @@ func init() {
 // last inserted Id on success.
 func AddTipoBien(m *TipoBien) (id int64, err error) {
 	o := orm.NewOrm()
-	id, err = o.Insert(m)
+
+	if m.RequiereRango && m.LimiteSuperior > m.LimiteInferior && m.LimiteInferior >= 0 {
+		var overlapped []*TipoBien
+		if overlapped, err = CheckRangoTipoBien(0, m.LimiteInferior, m.LimiteSuperior); err != nil || len(overlapped) > 0 {
+			if len(overlapped) > 0 {
+				err = errors.New("overlapped")
+			}
+		} else {
+			id, err = o.Insert(m)
+		}
+	} else if !m.RequiereRango && m.LimiteSuperior > m.LimiteInferior && m.LimiteInferior >= 0 {
+		id, err = o.Insert(m)
+	}
+
 	return
 }
 
@@ -142,9 +155,23 @@ func UpdateTipoBienById(m *TipoBien) (err error) {
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Update(m); err == nil {
-			fmt.Println("Number of records updated in database:", num)
+		if m.RequiereRango && m.LimiteSuperior > m.LimiteInferior && m.LimiteInferior >= 0 {
+			var overlapped []*TipoBien
+			if overlapped, err = CheckRangoTipoBien(m.Id, m.LimiteInferior, m.LimiteSuperior); err != nil || len(overlapped) > 0 {
+				if len(overlapped) > 0 {
+					err = errors.New("overlapped")
+				}
+			} else {
+				if num, err = o.Update(m); err == nil {
+					fmt.Println("Number of records updated in database:", num)
+				}
+			}
+		} else if !m.RequiereRango && m.LimiteSuperior > m.LimiteInferior && m.LimiteInferior >= 0 {
+			if num, err = o.Update(m); err == nil {
+				fmt.Println("Number of records updated in database:", num)
+			}
 		}
+
 	}
 	return
 }
@@ -161,5 +188,29 @@ func DeleteTipoBien(id int) (err error) {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}
+	return
+}
+
+func CheckRangoTipoBien(id, min, max int) (t []*TipoBien, err error) {
+
+	o := orm.NewOrm()
+	qs := o.QueryTable(new(TipoBien)).RelatedSel()
+
+	cond := orm.NewCondition()
+	cond1 := orm.NewCondition()
+	cond2 := orm.NewCondition()
+	cond3 := orm.NewCondition()
+
+	cond = cond.And("activo", true)
+	if id > 0 {
+		cond = cond.AndNot("id", id)
+	}
+
+	cond1 = cond1.And("limite_inferior__lte", min).And("limite_superior__gt", min)
+	cond2 = cond2.And("limite_inferior__lt", max).And("limite_superior__gte", max)
+	cond3 = cond3.And("limite_inferior__gt", min).And("limite_superior__lt", max)
+
+	cond = cond.AndCond(cond1.OrCond(cond2).OrCond(cond3))
+	_, err = qs.SetCond(cond).All(&t)
 	return
 }
