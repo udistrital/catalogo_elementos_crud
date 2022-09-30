@@ -1409,6 +1409,24 @@
                 "parameters": [
                     {
                         "in": "query",
+                        "name": "min",
+                        "description": "Límite minimo a verificar",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "max",
+                        "description": "Limite maximo a verificar",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "id",
+                        "description": "Tipo de bien a verificar",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
                         "name": "query",
                         "description": "Filter. e.g. col1:v1,col2:v2 ...",
                         "type": "string"
