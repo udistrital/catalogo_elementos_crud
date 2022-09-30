@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.1" last-position="0,0" last-zoom="0.75"
+<dbmodel pgmodeler-ver="0.9.1" last-position="134,48" last-zoom="1"
 	 default-schema="public" default-owner="postgres">
 <role name="desarrollooas"
       superuser="true"
@@ -24,7 +24,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <schema name="public" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
 </schema>
 
-<schema name="catalogo" rect-visible="true" fill-color="#888a85">
+<schema name="catalogo" rect-visible="true" fill-color="#99ab76">
 	<role name="postgres"/>
 </schema>
 
@@ -40,7 +40,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="catalogo"/>
 	<role name="postgres"/>
 	<comment><![CDATA[Tabla que almacena los subgrupos de catálogos disponibles en ARKA II en caso de existir más de uno.]]></comment>
-	<position x="880" y="920"/>
+	<position x="700" y="60"/>
 	<column name="id" not-null="true" sequence="catalogo.subgrupo_catalogo_id_seq">
 		<type name="integer" length="0"/>
 		<comment><![CDATA[Identificador único]]></comment>
@@ -80,7 +80,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="catalogo"/>
 	<role name="postgres"/>
 	<comment><![CDATA[Tabla que almacena los catálogos disponibles en ARKA II]]></comment>
-	<position x="200" y="980"/>
+	<position x="100" y="80"/>
 	<column name="id" not-null="true" sequence="catalogo.catalogo_id_seq">
 		<type name="integer" length="0"/>
 		<comment><![CDATA[Identificador único]]></comment>
@@ -130,7 +130,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="catalogo"/>
 	<role name="postgres"/>
 	<comment><![CDATA[Tabla que almacena los subgrupos disponibles en ARKA II]]></comment>
-	<position x="880" y="620"/>
+	<position x="980" y="500"/>
 	<column name="id" not-null="true" sequence="catalogo.subgrupo_id_seq">
 		<type name="integer" length="0"/>
 		<comment><![CDATA[Identificador único]]></comment>
@@ -177,7 +177,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="catalogo"/>
 	<role name="postgres"/>
 	<comment><![CDATA[Tabla que almacena los subgrupos de los subgrupos disponibles en ARKA II en caso de que se pueda desagregar más un subgrupo.]]></comment>
-	<position x="1640" y="40"/>
+	<position x="320" y="360"/>
 	<column name="id" not-null="true" sequence="catalogo.subgrupo_subgrupo_id_seq">
 		<type name="integer" length="0"/>
 		<comment><![CDATA[Identificador único]]></comment>
@@ -220,17 +220,17 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="catalogo"/>
 	<role name="postgres"/>
 	<comment><![CDATA[Tabla de rompimiento para asociar múltiples cuentas a un subgrupo de un catálogo dependiento el tipo de movimiento. Por ejemplo, donación pertenece a un tipo de movimiento entrada, pero no tiene las mismas cuentas que el tipo de movimiento.]]></comment>
-	<position x="880" y="180"/>
+	<position x="1480" y="60"/>
 	<column name="id" not-null="true" sequence="catalogo.cuentas_grupo_id_seq">
 		<type name="integer" length="0"/>
 		<comment><![CDATA[Identificador único]]></comment>
 	</column>
 	<column name="cuenta_credito_id" not-null="true">
-		<type name="character varying" length="20"/>
+		<type name="character varying" length="30"/>
 		<comment><![CDATA[Campo para almacenar el número de la cuenta de crédito asociada a un movimiento. Proviene de KRONOS.]]></comment>
 	</column>
 	<column name="cuenta_debito_id" not-null="true">
-		<type name="character varying" length="20"/>
+		<type name="character varying" length="30"/>
 		<comment><![CDATA[Campo para almacenar el número de la cuenta de débito asociada a un movimiento. Proviene de KRONOS.]]></comment>
 	</column>
 	<column name="subtipo_movimiento_id" not-null="true">
@@ -252,6 +252,9 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="subgrupo_id" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
+	<column name="tipo_bien_id" not-null="true" default-value="1">
+		<type name="integer" length="0"/>
+	</column>
 	<constraint name="pk_movimiento_cuenta" type="pk-constr" table="catalogo.cuentas_subgrupo">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
@@ -269,7 +272,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="catalogo"/>
 	<role name="postgres"/>
 	<comment><![CDATA[Tabla que almacena los catálogos disponibles en ARKA II]]></comment>
-	<position x="1660" y="320"/>
+	<position x="360" y="640"/>
 	<column name="id" not-null="true" sequence="catalogo.elemento_id_seq">
 		<type name="integer" length="0"/>
 		<comment><![CDATA[Identificador único]]></comment>
@@ -316,7 +319,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="tipo_bien">
 	<schema name="catalogo"/>
 	<role name="postgres"/>
-	<position x="200" y="120"/>
+	<position x="2120" y="60"/>
 	<column name="id" not-null="true" sequence="catalogo.tipo_bien_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -328,9 +331,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</column>
 	<column name="codigo_abreviacion">
 		<type name="character varying" length="20"/>
-	</column>
-	<column name="orden">
-		<type name="numeric" length="5" precision="2"/>
 	</column>
 	<column name="activo" not-null="true">
 		<type name="boolean" length="0"/>
@@ -344,14 +344,32 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="reglas">
 		<type name="jsonb" length="0"/>
 	</column>
-	<column name="tipo_bien_padre">
+	<column name="necesita_placa" not-null="true">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="necesita_poliza" not-null="true">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="limite_inferior">
 		<type name="integer" length="0"/>
 	</column>
-	<column name="necesita_placa" not-null="true">
+	<column name="limite_superior">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="requiere_rango" not-null="true" default-value="false">
 		<type name="boolean" length="0"/>
 	</column>
 	<constraint name="tipo_bien_pk" type="pk-constr" table="catalogo.tipo_bien">
 		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="uq_codigo_abreviacion" type="uq-constr" table="catalogo.tipo_bien">
+		<columns names="codigo_abreviacion" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="ck_limite_superior_tipo_bien" type="ck-constr" table="catalogo.tipo_bien">
+			<expression><![CDATA[(limite_superior > limite_inferior)]]></expression>
+	</constraint>
+	<constraint name="ck_limite_inferior_tipo_bien" type="ck-constr" table="catalogo.tipo_bien">
+			<expression><![CDATA[(limite_inferior >= 0)]]></expression>
 	</constraint>
 </table>
 
@@ -366,7 +384,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="detalle_subgrupo">
 	<schema name="catalogo"/>
 	<role name="postgres"/>
-	<position x="160" y="480"/>
+	<position x="320" y="900"/>
 	<column name="id" not-null="true" sequence="catalogo.detalle_subgrupo_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -378,17 +396,9 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="boolean" length="0"/>
 		<comment><![CDATA[Campo que determina si un Grupo (subgrupo) se valoriza o no.]]></comment>
 	</column>
-	<column name="deterioro" not-null="true">
+	<column name="amortizacion" not-null="true">
 		<type name="boolean" length="0"/>
-		<comment><![CDATA[Campo que determina si un Grupo (subgrupo) se deteriora o no.]]></comment>
-	</column>
-	<column name="vida_util">
-		<type name="numeric" length="10" precision="5"/>
-		<comment><![CDATA[Valor de la vida útil sugerida para un tipo de bien en años]]></comment>
-	</column>
-	<column name="valor_residual">
-		<type name="numeric" length="5" precision="4"/>
-		<comment><![CDATA[Porcentaje del valor residual sugerido para un tipo de bien (0-1)]]></comment>
+		<comment><![CDATA[Indica si al subgrupo le aplica amortización]]></comment>
 	</column>
 	<column name="activo" not-null="true">
 		<type name="boolean" length="0"/>
@@ -402,8 +412,13 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="subgrupo_id">
 		<type name="integer" length="0"/>
 	</column>
-	<column name="tipo_bien_id" not-null="true">
-		<type name="integer" length="0"/>
+	<column name="vida_util">
+		<type name="numeric" length="10" precision="5"/>
+		<comment><![CDATA[Valor de la vida útil sugerida para un tipo de bien en años]]></comment>
+	</column>
+	<column name="valor_residual">
+		<type name="numeric" length="5" precision="4"/>
+		<comment><![CDATA[Porcentaje del valor residual sugerido para un tipo de bien (0-1)]]></comment>
 	</column>
 	<constraint name="detalle_subgrupo_pk" type="pk-constr" table="catalogo.detalle_subgrupo">
 		<columns names="id" ref-type="src-columns"/>
@@ -421,7 +436,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="tipo_nivel">
 	<schema name="catalogo"/>
 	<role name="postgres"/>
-	<position x="1680" y="920"/>
+	<position x="1420" y="840"/>
 	<column name="id" not-null="true" sequence="catalogo.tipo_nivel_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -462,7 +477,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="relacion_nivel">
 	<schema name="catalogo"/>
 	<role name="postgres"/>
-	<position x="1680" y="600"/>
+	<position x="1980" y="780"/>
 	<column name="id" not-null="true" sequence="catalogo.relacion_nivel_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -691,21 +706,15 @@ END;
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
+<constraint name="fk_cuentas_subgrupo_tipo_bien" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="catalogo.tipo_bien" table="catalogo.cuentas_subgrupo">
+	<columns names="tipo_bien_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
 <constraint name="fk_elemento_subgrupo" type="fk-constr" comparison-type="MATCH FULL"
 	 upd-action="CASCADE" del-action="RESTRICT" ref-table="catalogo.subgrupo" table="catalogo.elemento">
 	<columns names="subgrupo_id" ref-type="src-columns"/>
-	<columns names="id" ref-type="dst-columns"/>
-</constraint>
-
-<constraint name="fk_tipo_bien_tipo_bien_padre" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="CASCADE" del-action="RESTRICT" ref-table="catalogo.tipo_bien" table="catalogo.tipo_bien">
-	<columns names="tipo_bien_padre" ref-type="src-columns"/>
-	<columns names="id" ref-type="dst-columns"/>
-</constraint>
-
-<constraint name="fk_detalle_subgrupo_tipo_bien" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="CASCADE" del-action="RESTRICT" ref-table="catalogo.tipo_bien" table="catalogo.detalle_subgrupo">
-	<columns names="tipo_bien_id" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
@@ -728,141 +737,69 @@ END;
 </constraint>
 
 <relationship name="rel_subgrupo_catalogo_subgrupo" type="relfk"
-	 custom-color="#4f3c0e"
+	 custom-color="#39cd02"
 	 src-table="catalogo.subgrupo_catalogo"
 	 dst-table="catalogo.subgrupo" reference-fk="fk_subgrupo_catalogo_subgrupo"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_subgrupo_catalogo_catalogo" type="relfk"
-	 custom-color="#c068f8"
+	 custom-color="#d50884"
 	 src-table="catalogo.subgrupo_catalogo"
 	 dst-table="catalogo.catalogo" reference-fk="fk_subgrupo_catalogo_catalogo"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_subgrupo_tipo_nivel" type="relfk"
-	 custom-color="#61f021"
+	 custom-color="#8edbc0"
 	 src-table="catalogo.subgrupo"
 	 dst-table="catalogo.tipo_nivel" reference-fk="fk_subgrupo_tipo_nivel"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_subgrupo_subgrupo_subgrupo" type="relfk"
-	 custom-color="#458c7d"
+	 custom-color="#10f428"
 	 src-table="catalogo.subgrupo_subgrupo"
 	 dst-table="catalogo.subgrupo" reference-fk="fk_subgrupo_subgrupo_subgrupo_padre"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_subgrupo_subgrupo_subgrupo1" type="relfk"
-	 custom-color="#73c481"
+	 custom-color="#43ab37"
 	 src-table="catalogo.subgrupo_subgrupo"
 	 dst-table="catalogo.subgrupo" reference-fk="fk_subgrupo_subgrupo_subgrupo_hijo"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_cuentas_subgrupo_subgrupo" type="relfk"
-	 custom-color="#363d7e"
+	 custom-color="#2a7db9"
 	 src-table="catalogo.cuentas_subgrupo"
 	 dst-table="catalogo.subgrupo" reference-fk="fk_cuentas_grupo_subgrupo"
 	 src-required="false" dst-required="false"/>
 
+<relationship name="rel_cuentas_subgrupo_tipo_bien" type="relfk"
+	 custom-color="#535116"
+	 src-table="catalogo.cuentas_subgrupo"
+	 dst-table="catalogo.tipo_bien" reference-fk="fk_cuentas_subgrupo_tipo_bien"
+	 src-required="false" dst-required="false"/>
+
 <relationship name="rel_elemento_subgrupo" type="relfk"
-	 custom-color="#dc0e13"
+	 custom-color="#0471ba"
 	 src-table="catalogo.elemento"
 	 dst-table="catalogo.subgrupo" reference-fk="fk_elemento_subgrupo"
 	 src-required="false" dst-required="false"/>
 
-<relationship name="rel_tipo_bien_tipo_bien" type="relfk"
-	 custom-color="#b52338"
-	 src-table="catalogo.tipo_bien"
-	 dst-table="catalogo.tipo_bien" reference-fk="fk_tipo_bien_tipo_bien_padre"
-	 src-required="false" dst-required="false">
-	<line>
-		<position x="588.36" y="208.417"/>
-	<position x="588.36" y="109"/>
-	<position x="451.573" y="109"/>
-	</line>
-</relationship>
-
-<relationship name="rel_detalle_subgrupo_tipo_bien" type="relfk"
-	 custom-color="#85ba0e"
-	 src-table="catalogo.detalle_subgrupo"
-	 dst-table="catalogo.tipo_bien" reference-fk="fk_detalle_subgrupo_tipo_bien"
-	 src-required="false" dst-required="false"/>
-
 <relationship name="rel_detalle_subgrupo_subgrupo" type="relfk"
-	 custom-color="#bd8e0b"
+	 custom-color="#34dbbe"
 	 src-table="catalogo.detalle_subgrupo"
 	 dst-table="catalogo.subgrupo" reference-fk="fk_detalle_subgrupo_subgrupo"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_relacion_nivel_tipo_nivel" type="relfk"
-	 custom-color="#9430b1"
+	 custom-color="#441865"
 	 src-table="catalogo.relacion_nivel"
 	 dst-table="catalogo.tipo_nivel" reference-fk="fk_tipo_nivel_nivel_padre"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_relacion_nivel_tipo_nivel1" type="relfk"
-	 custom-color="#91c68e"
+	 custom-color="#56ac49"
 	 src-table="catalogo.relacion_nivel"
 	 dst-table="catalogo.tipo_nivel" reference-fk="fk_tipo_nivel_nivel_hijo"
 	 src-required="false" dst-required="false"/>
 
-<permission>
-	<object name="catalogo" type="schema"/>
-	<roles names="postgres"/>
-	<privileges create="true" usage="true"/>
-</permission>
-<permission>
-	<object name="catalogo" type="schema"/>
-	<roles names="desarrollooas"/>
-	<privileges usage="true"/>
-</permission>
-<permission>
-	<object name="catalogo.subgrupo_catalogo" type="table"/>
-	<roles names="postgres"/>
-	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
-</permission>
-<permission>
-	<object name="catalogo.subgrupo_catalogo" type="table"/>
-	<roles names="desarrollooas"/>
-	<privileges select="true" delete="true" insert="true" update="true"/>
-</permission>
-<permission>
-	<object name="catalogo.catalogo" type="table"/>
-	<roles names="postgres"/>
-	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
-</permission>
-<permission>
-	<object name="catalogo.catalogo" type="table"/>
-	<roles names="desarrollooas"/>
-	<privileges select="true" delete="true" insert="true" update="true"/>
-</permission>
-<permission>
-	<object name="catalogo.subgrupo" type="table"/>
-	<roles names="postgres"/>
-	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
-</permission>
-<permission>
-	<object name="catalogo.subgrupo" type="table"/>
-	<roles names="desarrollooas"/>
-	<privileges select="true" delete="true" insert="true" update="true"/>
-</permission>
-<permission>
-	<object name="catalogo.subgrupo_subgrupo" type="table"/>
-	<roles names="postgres"/>
-	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
-</permission>
-<permission>
-	<object name="catalogo.subgrupo_subgrupo" type="table"/>
-	<roles names="desarrollooas"/>
-	<privileges select="true" delete="true" insert="true" update="true"/>
-</permission>
-<permission>
-	<object name="catalogo.cuentas_subgrupo" type="table"/>
-	<roles names="postgres"/>
-	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
-</permission>
-<permission>
-	<object name="catalogo.cuentas_subgrupo" type="table"/>
-	<roles names="desarrollooas"/>
-	<privileges select="true" delete="true" insert="true" update="true"/>
-</permission>
 </dbmodel>

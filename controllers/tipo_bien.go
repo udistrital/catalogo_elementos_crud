@@ -79,6 +79,9 @@ func (c *TipoBienController) GetOne() {
 // GetAll ...
 // @Title Get All
 // @Description get TipoBien
+// @Param	min	query	string	false	"Límite minimo a verificar"
+// @Param	max	query	string	false	"Limite maximo a verificar"
+// @Param	id	query	string	false	"Tipo de bien a verificar"
 // @Param	query	query	string	false	"Filter. e.g. col1:v1,col2:v2 ..."
 // @Param	fields	query	string	false	"Fields returned. e.g. col1,col2 ..."
 // @Param	sortby	query	string	false	"Sorted-by fields. e.g. col1,col2 ..."
@@ -89,6 +92,40 @@ func (c *TipoBienController) GetOne() {
 // @Failure 404 not found resource
 // @router / [get]
 func (c *TipoBienController) GetAll() {
+
+	var min int
+	var max int
+	if v, err := c.GetInt("min"); err == nil {
+		min = v
+	}
+	if v, err := c.GetInt("max"); err == nil {
+		max = v
+	}
+
+	if max > 0 && min > 0 {
+		l := make([]*models.TipoBien, 0)
+		if max > min {
+
+			var id int
+			if v, err := c.GetInt("id"); err == nil {
+				id = v
+			}
+
+			if l_, err := models.CheckRangoTipoBien(id, min, max); err != nil {
+				logs.Error(err)
+				//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
+				c.Data["system"] = err
+				c.Abort("404")
+			} else {
+				l = l_
+			}
+		}
+
+		c.Data["json"] = l
+		c.ServeJSON()
+		return
+	}
+
 	var fields []string
 	var sortby []string
 	var order []string

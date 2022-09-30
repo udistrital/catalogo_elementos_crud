@@ -6,11 +6,10 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-
 type TrSubgrupo struct {
-	SubgrupoPadre *Subgrupo
-	SubgrupoHijo  *Subgrupo
-        DetalleSubgrupo *DetalleSubgrupo
+	SubgrupoPadre   *Subgrupo
+	SubgrupoHijo    *Subgrupo
+	DetalleSubgrupo *DetalleSubgrupo
 }
 
 // AddTransaccionSubgrupo Transacción para registrar toda la información de un subgrupo asociándolo a un catálogo
@@ -112,7 +111,7 @@ func UpdateTransaccionSubgrupo(m *TrSubgrupo) (err error) {
 				panic(err.Error())
 			}
 		} else {
-			if _, err = o.Update(m.DetalleSubgrupo, "Depreciacion", "Amortizacion", "TipoBienId", "ValorResidual", "VidaUtil"); err != nil {
+			if _, err = o.Update(m.DetalleSubgrupo, "Depreciacion", "Amortizacion", "ValorResidual", "VidaUtil"); err != nil {
 				panic(err.Error())
 			}
 		}

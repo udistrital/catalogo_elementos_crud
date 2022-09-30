@@ -19,6 +19,7 @@ type CuentasSubgrupo struct {
 	FechaModificacion   time.Time `orm:"column(fecha_modificacion);type(timestamp with time zone)"`
 	Activo              bool      `orm:"column(activo)"`
 	SubgrupoId          *Subgrupo `orm:"column(subgrupo_id);rel(fk)"`
+	TipoBienId          *TipoBien `orm:"column(tipo_bien_id);rel(fk)"`
 }
 
 func (t *CuentasSubgrupo) TableName() string {

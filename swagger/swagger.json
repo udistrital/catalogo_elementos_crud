@@ -1409,6 +1409,24 @@
                 "parameters": [
                     {
                         "in": "query",
+                        "name": "min",
+                        "description": "Límite minimo a verificar",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "max",
+                        "description": "Limite maximo a verificar",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "id",
+                        "description": "Tipo de bien a verificar",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
                         "name": "query",
                         "description": "Filter. e.g. col1:v1,col2:v2 ...",
                         "type": "string"
@@ -2187,6 +2205,9 @@
                 "SubtipoMovimientoId": {
                     "type": "integer",
                     "format": "int64"
+                },
+                "TipoBienId": {
+                    "$ref": "#/definitions/models.TipoBien"
                 }
             }
         },
@@ -2217,9 +2238,6 @@
                 },
                 "SubgrupoId": {
                     "$ref": "#/definitions/models.Subgrupo"
-                },
-                "TipoBienId": {
-                    "$ref": "#/definitions/models.TipoBien"
                 },
                 "ValorResidual": {
                     "type": "number",
@@ -2445,6 +2463,14 @@
                     "type": "integer",
                     "format": "int64"
                 },
+                "LimiteInferior": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "LimiteSuperior": {
+                    "type": "integer",
+                    "format": "int64"
+                },
                 "NecesitaPlaca": {
                     "type": "boolean"
                 },
@@ -2454,15 +2480,11 @@
                 "Nombre": {
                     "type": "string"
                 },
-                "Orden": {
-                    "type": "number",
-                    "format": "double"
-                },
                 "Reglas": {
                     "type": "string"
                 },
-                "Tipo_bien_padre": {
-                    "$ref": "#/definitions/models.TipoBien"
+                "RequiereRango": {
+                    "type": "boolean"
                 }
             }
         },
