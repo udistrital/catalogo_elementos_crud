@@ -941,15 +941,23 @@ paths:
       - in: query
         name: min
         description: Límite minimo a verificar
-        type: string
+        type: integer
+        format: int64
       - in: query
         name: max
         description: Limite maximo a verificar
-        type: string
+        type: integer
+        format: int64
       - in: query
         name: id
         description: Tipo de bien a verificar
-        type: string
+        type: integer
+        format: int64
+      - in: query
+        name: padre_id
+        description: Tipo bien padre a verificar
+        type: integer
+        format: int64
       - in: query
         name: query
         description: Filter. e.g. col1:v1,col2:v2 ...
@@ -1498,6 +1506,8 @@ definitions:
         format: int64
       SubgrupoId:
         $ref: '#/definitions/models.Subgrupo'
+      TipoBienId:
+        $ref: '#/definitions/models.TipoBien'
       ValorResidual:
         type: number
         format: double
@@ -1641,8 +1651,8 @@ definitions:
     properties:
       Activo:
         type: boolean
-      CodigoAbreviacion:
-        type: string
+      BodegaConsumo:
+        type: boolean
       Descripcion:
         type: string
       FechaCreacion:
@@ -1668,8 +1678,8 @@ definitions:
         type: string
       Reglas:
         type: string
-      RequiereRango:
-        type: boolean
+      TipoBienPadreId:
+        $ref: '#/definitions/models.TipoBien'
   models.TipoNivel:
     title: TipoNivel
     type: object

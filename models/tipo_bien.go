@@ -14,7 +14,6 @@ type TipoBien struct {
 	Id                int       `orm:"column(id);pk;auto"`
 	Nombre            string    `orm:"column(nombre)"`
 	Descripcion       string    `orm:"column(descripcion);null"`
-	CodigoAbreviacion string    `orm:"column(codigo_abreviacion);null"`
 	Activo            bool      `orm:"column(activo)"`
 	FechaCreacion     time.Time `orm:"column(fecha_creacion);type(timestamp with time zone)"`
 	FechaModificacion time.Time `orm:"column(fecha_modificacion);type(timestamp with time zone)"`
@@ -23,7 +22,8 @@ type TipoBien struct {
 	NecesitaPoliza    bool      `orm:"column(necesita_poliza)"`
 	LimiteInferior    int       `orm:"column(limite_inferior)"`
 	LimiteSuperior    int       `orm:"column(limite_superior)"`
-	RequiereRango     bool      `orm:"column(requiere_rango)"`
+	BodegaConsumo     bool      `orm:"column(bodega_consumo)"`
+	TipoBienPadreId   *TipoBien `orm:"column(tipo_bien_padre_id);rel(fk);null"`
 }
 
 func (t *TipoBien) TableName() string {
@@ -39,16 +39,16 @@ func init() {
 func AddTipoBien(m *TipoBien) (id int64, err error) {
 	o := orm.NewOrm()
 
-	if m.RequiereRango && m.LimiteSuperior > m.LimiteInferior && m.LimiteInferior >= 0 {
+	if m.TipoBienPadreId != nil && m.TipoBienPadreId.Id > 0 && m.Activo && m.LimiteSuperior > m.LimiteInferior && m.LimiteInferior >= 0 {
 		var overlapped []*TipoBien
-		if overlapped, err = CheckRangoTipoBien(0, m.LimiteInferior, m.LimiteSuperior); err != nil || len(overlapped) > 0 {
+		if overlapped, err = CheckRangoTipoBien(0, m.TipoBienPadreId.Id, m.LimiteInferior, m.LimiteSuperior); err != nil || len(overlapped) > 0 {
 			if len(overlapped) > 0 {
 				err = errors.New("overlapped")
 			}
 		} else {
 			id, err = o.Insert(m)
 		}
-	} else if !m.RequiereRango && m.LimiteSuperior > m.LimiteInferior && m.LimiteInferior >= 0 {
+	} else if (m.TipoBienPadreId == nil || m.TipoBienPadreId.Id == 0 || !m.Activo) && m.LimiteSuperior >= m.LimiteInferior && m.LimiteInferior >= 0 {
 		id, err = o.Insert(m)
 	}
 
@@ -155,9 +155,9 @@ func UpdateTipoBienById(m *TipoBien) (err error) {
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if m.RequiereRango && m.LimiteSuperior > m.LimiteInferior && m.LimiteInferior >= 0 {
+		if m.TipoBienPadreId != nil && m.TipoBienPadreId.Id > 0 && m.Activo && m.LimiteSuperior > m.LimiteInferior && m.LimiteInferior >= 0 {
 			var overlapped []*TipoBien
-			if overlapped, err = CheckRangoTipoBien(m.Id, m.LimiteInferior, m.LimiteSuperior); err != nil || len(overlapped) > 0 {
+			if overlapped, err = CheckRangoTipoBien(m.Id, m.TipoBienPadreId.Id, m.LimiteInferior, m.LimiteSuperior); err != nil || len(overlapped) > 0 {
 				if len(overlapped) > 0 {
 					err = errors.New("overlapped")
 				}
@@ -166,7 +166,7 @@ func UpdateTipoBienById(m *TipoBien) (err error) {
 					fmt.Println("Number of records updated in database:", num)
 				}
 			}
-		} else if !m.RequiereRango && m.LimiteSuperior > m.LimiteInferior && m.LimiteInferior >= 0 {
+		} else if (m.TipoBienPadreId == nil || m.TipoBienPadreId.Id == 0 || !m.Activo) && m.LimiteSuperior >= m.LimiteInferior && m.LimiteInferior >= 0 {
 			if num, err = o.Update(m); err == nil {
 				fmt.Println("Number of records updated in database:", num)
 			}
@@ -191,7 +191,11 @@ func DeleteTipoBien(id int) (err error) {
 	return
 }
 
-func CheckRangoTipoBien(id, min, max int) (t []*TipoBien, err error) {
+func CheckRangoTipoBien(id, padreId, min, max int) (t []*TipoBien, err error) {
+
+	if padreId == 0 {
+		return
+	}
 
 	o := orm.NewOrm()
 	qs := o.QueryTable(new(TipoBien)).RelatedSel()
@@ -201,7 +205,7 @@ func CheckRangoTipoBien(id, min, max int) (t []*TipoBien, err error) {
 	cond2 := orm.NewCondition()
 	cond3 := orm.NewCondition()
 
-	cond = cond.And("activo", true)
+	cond = cond.And("activo", true).And("tipo_bien_padre_id", padreId)
 	if id > 0 {
 		cond = cond.AndNot("id", id)
 	}

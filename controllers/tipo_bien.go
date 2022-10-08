@@ -79,9 +79,10 @@ func (c *TipoBienController) GetOne() {
 // GetAll ...
 // @Title Get All
 // @Description get TipoBien
-// @Param	min	query	string	false	"Límite minimo a verificar"
-// @Param	max	query	string	false	"Limite maximo a verificar"
-// @Param	id	query	string	false	"Tipo de bien a verificar"
+// @Param	min	query	int	false	"Límite minimo a verificar"
+// @Param	max	query	int	false	"Limite maximo a verificar"
+// @Param	id	query	int	false	"Tipo de bien a verificar"
+// @Param	padre_id	query	int	false	"Tipo bien padre a verificar"
 // @Param	query	query	string	false	"Filter. e.g. col1:v1,col2:v2 ..."
 // @Param	fields	query	string	false	"Fields returned. e.g. col1,col2 ..."
 // @Param	sortby	query	string	false	"Sorted-by fields. e.g. col1,col2 ..."
@@ -95,14 +96,18 @@ func (c *TipoBienController) GetAll() {
 
 	var min int
 	var max int
+	var padreId int
 	if v, err := c.GetInt("min"); err == nil {
 		min = v
 	}
 	if v, err := c.GetInt("max"); err == nil {
 		max = v
 	}
+	if v, err := c.GetInt("padre_id"); err == nil {
+		padreId = v
+	}
 
-	if max > 0 && min > 0 {
+	if padreId > 0 && max > 0 && min >= 0 {
 		l := make([]*models.TipoBien, 0)
 		if max > min {
 
@@ -111,7 +116,7 @@ func (c *TipoBienController) GetAll() {
 				id = v
 			}
 
-			if l_, err := models.CheckRangoTipoBien(id, min, max); err != nil {
+			if l_, err := models.CheckRangoTipoBien(id, padreId, min, max); err != nil {
 				logs.Error(err)
 				//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
 				c.Data["system"] = err
