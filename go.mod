@@ -11,6 +11,7 @@ require (
 require (
 	github.com/prometheus/client_golang v1.12.2 // indirect
 	github.com/prometheus/common v0.34.0 // indirect
+	github.com/udistrital/auditoria v0.0.0-20200115201815-9680ae9c2515
 	golang.org/x/crypto v0.0.0-20220525230936-793ad666bf5e // indirect
 	golang.org/x/net v0.0.0-20220526153639-5463443f8c37 // indirect
 	google.golang.org/protobuf v1.28.0 // indirect

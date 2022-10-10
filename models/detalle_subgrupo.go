@@ -20,6 +20,7 @@ type DetalleSubgrupo struct {
 	Activo            bool      `orm:"column(activo)"`
 	FechaCreacion     time.Time `orm:"column(fecha_creacion);type(timestamp with time zone)"`
 	FechaModificacion time.Time `orm:"column(fecha_modificacion);type(timestamp with time zone)"`
+	TipoBienId        *TipoBien `orm:"column(tipo_bien_id);rel(fk)"`
 	SubgrupoId        *Subgrupo `orm:"column(subgrupo_id);rel(fk)"`
 }
 
