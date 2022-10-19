@@ -20,8 +20,8 @@ type DetalleSubgrupo struct {
 	Activo            bool      `orm:"column(activo)"`
 	FechaCreacion     time.Time `orm:"column(fecha_creacion);type(timestamp with time zone)"`
 	FechaModificacion time.Time `orm:"column(fecha_modificacion);type(timestamp with time zone)"`
-	SubgrupoId        *Subgrupo `orm:"column(subgrupo_id);rel(fk)"`
 	TipoBienId        *TipoBien `orm:"column(tipo_bien_id);rel(fk)"`
+	SubgrupoId        *Subgrupo `orm:"column(subgrupo_id);rel(fk)"`
 }
 
 func (t *DetalleSubgrupo) TableName() string {
@@ -130,6 +130,33 @@ func GetAllDetalleSubgrupo(query map[string]string, fields []string, sortby []st
 		return ml, nil
 	}
 	return nil, err
+}
+
+func GetAllDetalleSubgrupoByCompuesto(compuesto string) (ml []int, err error) {
+
+	o := orm.NewOrm()
+	compuesto = "%" + compuesto + "%"
+	query :=
+		`
+	SELECT ds.id
+	FROM
+		detalle_subgrupo ds,
+		subgrupo s
+	WHERE
+		ds.subgrupo_id = s.id
+		AND ds.activo = TRUE
+		AND s.activo = TRUE
+		AND UPPER(s.codigo::text || ' - ' || s.nombre::text) LIKE UPPER($1);`
+
+	if _, err := o.Raw(query, compuesto).QueryRows(&ml); err != nil {
+		return nil, err
+	}
+
+	return
+}
+
+func ArrayToString(a []int, delim string) string {
+	return strings.Trim(strings.Replace(fmt.Sprint(a), " ", delim, -1), "[]")
 }
 
 // UpdateDetalleSubgrupo updates DetalleSubgrupo by Id and returns error if

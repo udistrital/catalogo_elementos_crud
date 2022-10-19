@@ -377,6 +377,12 @@
                 "parameters": [
                     {
                         "in": "query",
+                        "name": "compuesto",
+                        "description": "Codigo - Nombre",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
                         "name": "query",
                         "description": "Filter. e.g. col1:v1,col2:v2 ...",
                         "type": "string"
@@ -1409,6 +1415,34 @@
                 "parameters": [
                     {
                         "in": "query",
+                        "name": "min",
+                        "description": "Límite minimo a verificar",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "query",
+                        "name": "max",
+                        "description": "Limite maximo a verificar",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "query",
+                        "name": "id",
+                        "description": "Tipo de bien a verificar",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "query",
+                        "name": "padre_id",
+                        "description": "Tipo bien padre a verificar",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "query",
                         "name": "query",
                         "description": "Filter. e.g. col1:v1,col2:v2 ...",
                         "type": "string"
@@ -2187,6 +2221,9 @@
                 "SubtipoMovimientoId": {
                     "type": "integer",
                     "format": "int64"
+                },
+                "TipoBienId": {
+                    "$ref": "#/definitions/models.TipoBien"
                 }
             }
         },
@@ -2427,8 +2464,8 @@
                 "Activo": {
                     "type": "boolean"
                 },
-                "CodigoAbreviacion": {
-                    "type": "string"
+                "BodegaConsumo": {
+                    "type": "boolean"
                 },
                 "Descripcion": {
                     "type": "string"
@@ -2445,6 +2482,14 @@
                     "type": "integer",
                     "format": "int64"
                 },
+                "LimiteInferior": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "LimiteSuperior": {
+                    "type": "integer",
+                    "format": "int64"
+                },
                 "NecesitaPlaca": {
                     "type": "boolean"
                 },
@@ -2454,14 +2499,10 @@
                 "Nombre": {
                     "type": "string"
                 },
-                "Orden": {
-                    "type": "number",
-                    "format": "double"
-                },
                 "Reglas": {
                     "type": "string"
                 },
-                "Tipo_bien_padre": {
+                "TipoBienPadreId": {
                     "$ref": "#/definitions/models.TipoBien"
                 }
             }

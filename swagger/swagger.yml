@@ -253,6 +253,10 @@ paths:
       operationId: DetalleSubgrupoController.Get All
       parameters:
       - in: query
+        name: compuesto
+        description: Codigo - Nombre
+        type: string
+      - in: query
         name: query
         description: Filter. e.g. col1:v1,col2:v2 ...
         type: string
@@ -939,6 +943,26 @@ paths:
       operationId: TipoBienController.Get All
       parameters:
       - in: query
+        name: min
+        description: Límite minimo a verificar
+        type: integer
+        format: int64
+      - in: query
+        name: max
+        description: Limite maximo a verificar
+        type: integer
+        format: int64
+      - in: query
+        name: id
+        description: Tipo de bien a verificar
+        type: integer
+        format: int64
+      - in: query
+        name: padre_id
+        description: Tipo bien padre a verificar
+        type: integer
+        format: int64
+      - in: query
         name: query
         description: Filter. e.g. col1:v1,col2:v2 ...
         type: string
@@ -1463,6 +1487,8 @@ definitions:
       SubtipoMovimientoId:
         type: integer
         format: int64
+      TipoBienId:
+        $ref: '#/definitions/models.TipoBien'
   models.DetalleSubgrupo:
     title: DetalleSubgrupo
     type: object
@@ -1629,8 +1655,8 @@ definitions:
     properties:
       Activo:
         type: boolean
-      CodigoAbreviacion:
-        type: string
+      BodegaConsumo:
+        type: boolean
       Descripcion:
         type: string
       FechaCreacion:
@@ -1642,18 +1668,21 @@ definitions:
       Id:
         type: integer
         format: int64
+      LimiteInferior:
+        type: integer
+        format: int64
+      LimiteSuperior:
+        type: integer
+        format: int64
       NecesitaPlaca:
         type: boolean
       NecesitaPoliza:
         type: boolean
       Nombre:
         type: string
-      Orden:
-        type: number
-        format: double
       Reglas:
         type: string
-      Tipo_bien_padre:
+      TipoBienPadreId:
         $ref: '#/definitions/models.TipoBien'
   models.TipoNivel:
     title: TipoNivel

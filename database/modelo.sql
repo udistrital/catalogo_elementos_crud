@@ -236,13 +236,14 @@ ALTER SEQUENCE catalogo.cuentas_grupo_id_seq OWNER TO postgres;
 -- DROP TABLE IF EXISTS catalogo.cuentas_subgrupo CASCADE;
 CREATE TABLE catalogo.cuentas_subgrupo(
 	id integer NOT NULL DEFAULT nextval('catalogo.cuentas_grupo_id_seq'::regclass),
-	cuenta_credito_id character varying(20) NOT NULL,
-	cuenta_debito_id character varying(20) NOT NULL,
+	cuenta_credito_id character varying(30) NOT NULL,
+	cuenta_debito_id character varying(30) NOT NULL,
 	subtipo_movimiento_id integer NOT NULL,
 	fecha_creacion timestamp with time zone NOT NULL,
 	fecha_modificacion timestamp with time zone NOT NULL,
 	activo boolean NOT NULL,
 	subgrupo_id integer NOT NULL,
+	tipo_bien_id integer NOT NULL,
 	CONSTRAINT pk_movimiento_cuenta PRIMARY KEY (id)
 
 );
@@ -332,15 +333,20 @@ CREATE TABLE catalogo.tipo_bien(
 	id integer NOT NULL DEFAULT nextval('catalogo.tipo_bien_id_seq'::regclass),
 	nombre character varying(20) NOT NULL,
 	descripcion character varying(250),
-	codigo_abreviacion character varying(20),
-	orden numeric(5,2),
 	activo boolean NOT NULL,
 	fecha_creacion timestamp with time zone NOT NULL,
 	fecha_modificacion timestamp with time zone NOT NULL,
 	reglas jsonb,
-	tipo_bien_padre integer,
+	tipo_bien_padre_id integer,
 	necesita_placa boolean NOT NULL,
-	CONSTRAINT tipo_bien_pk PRIMARY KEY (id)
+	necesita_poliza boolean NOT NULL,
+	limite_inferior integer,
+	limite_superior integer,
+	bodega_consumo boolean,
+	CONSTRAINT tipo_bien_pk PRIMARY KEY (id),
+	CONSTRAINT ck_tipo_bien_padre_id_tipo_bien CHECK ((id <> tipo_bien_padre_id)),
+	CONSTRAINT ck_limite_superior_tipo_bien CHECK ((limite_superior >= limite_inferior)),
+	CONSTRAINT ck_limite_inferior_tipo_bien CHECK ((limite_inferior >= 0))
 
 );
 -- ddl-end --
@@ -367,14 +373,14 @@ CREATE TABLE catalogo.detalle_subgrupo(
 	id integer NOT NULL DEFAULT nextval('catalogo.detalle_subgrupo_id_seq'::regclass),
 	depreciacion boolean NOT NULL,
 	valorizacion boolean NOT NULL,
-	deterioro boolean NOT NULL,
-	vida_util numeric(10,5),
-	valor_residual numeric(5,4),
+	amortizacion boolean NOT NULL,
 	activo boolean NOT NULL,
 	fecha_creacion timestamp with time zone NOT NULL,
 	fecha_modificacion timestamp with time zone NOT NULL,
 	subgrupo_id integer,
 	tipo_bien_id integer NOT NULL,
+	vida_util numeric(10,5),
+	valor_residual numeric(5,4),
 	CONSTRAINT detalle_subgrupo_pk PRIMARY KEY (id)
 
 );
@@ -383,7 +389,7 @@ COMMENT ON COLUMN catalogo.detalle_subgrupo.depreciacion IS 'Campo que determina
 -- ddl-end --
 COMMENT ON COLUMN catalogo.detalle_subgrupo.valorizacion IS 'Campo que determina si un Grupo (subgrupo) se valoriza o no.';
 -- ddl-end --
-COMMENT ON COLUMN catalogo.detalle_subgrupo.deterioro IS 'Campo que determina si un Grupo (subgrupo) se deteriora o no.';
+COMMENT ON COLUMN catalogo.detalle_subgrupo.amortizacion IS 'Indica si al subgrupo le aplica amortización';
 -- ddl-end --
 COMMENT ON COLUMN catalogo.detalle_subgrupo.vida_util IS 'Valor de la vida útil sugerida para un tipo de bien en años';
 -- ddl-end --
@@ -721,6 +727,13 @@ REFERENCES catalogo.subgrupo (id) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;
 -- ddl-end --
 
+-- object: fk_cuentas_subgrupo_tipo_bien | type: CONSTRAINT --
+-- ALTER TABLE catalogo.cuentas_subgrupo DROP CONSTRAINT IF EXISTS fk_cuentas_subgrupo_tipo_bien CASCADE;
+ALTER TABLE catalogo.cuentas_subgrupo ADD CONSTRAINT fk_cuentas_subgrupo_tipo_bien FOREIGN KEY (tipo_bien_id)
+REFERENCES catalogo.tipo_bien (id) MATCH FULL
+ON DELETE RESTRICT ON UPDATE CASCADE;
+-- ddl-end --
+
 -- object: fk_elemento_subgrupo | type: CONSTRAINT --
 -- ALTER TABLE catalogo.elemento DROP CONSTRAINT IF EXISTS fk_elemento_subgrupo CASCADE;
 ALTER TABLE catalogo.elemento ADD CONSTRAINT fk_elemento_subgrupo FOREIGN KEY (subgrupo_id)
@@ -730,7 +743,7 @@ ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- object: fk_tipo_bien_tipo_bien_padre | type: CONSTRAINT --
 -- ALTER TABLE catalogo.tipo_bien DROP CONSTRAINT IF EXISTS fk_tipo_bien_tipo_bien_padre CASCADE;
-ALTER TABLE catalogo.tipo_bien ADD CONSTRAINT fk_tipo_bien_tipo_bien_padre FOREIGN KEY (tipo_bien_padre)
+ALTER TABLE catalogo.tipo_bien ADD CONSTRAINT fk_tipo_bien_tipo_bien_padre FOREIGN KEY (tipo_bien_padre_id)
 REFERENCES catalogo.tipo_bien (id) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;
 -- ddl-end --
@@ -761,78 +774,6 @@ ON DELETE RESTRICT ON UPDATE CASCADE;
 ALTER TABLE catalogo.relacion_nivel ADD CONSTRAINT fk_tipo_nivel_nivel_hijo FOREIGN KEY (nivel_hijo_id)
 REFERENCES catalogo.tipo_nivel (id) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;
--- ddl-end --
-
--- object: grant_9ad857ec28 | type: PERMISSION --
-GRANT CREATE,USAGE
-   ON SCHEMA catalogo
-   TO postgres;
--- ddl-end --
-
--- object: grant_26bb822c85 | type: PERMISSION --
-GRANT USAGE
-   ON SCHEMA catalogo
-   TO desarrollooas;
--- ddl-end --
-
--- object: grant_325e8d543c | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE catalogo.subgrupo_catalogo
-   TO postgres;
--- ddl-end --
-
--- object: grant_62ff4de657 | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE
-   ON TABLE catalogo.subgrupo_catalogo
-   TO desarrollooas;
--- ddl-end --
-
--- object: grant_78272b60cd | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE catalogo.catalogo
-   TO postgres;
--- ddl-end --
-
--- object: grant_6aadc732b3 | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE
-   ON TABLE catalogo.catalogo
-   TO desarrollooas;
--- ddl-end --
-
--- object: grant_6de413bb0a | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE catalogo.subgrupo
-   TO postgres;
--- ddl-end --
-
--- object: grant_83829958b7 | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE
-   ON TABLE catalogo.subgrupo
-   TO desarrollooas;
--- ddl-end --
-
--- object: grant_7c20442439 | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE catalogo.subgrupo_subgrupo
-   TO postgres;
--- ddl-end --
-
--- object: grant_7f8e1e55d2 | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE
-   ON TABLE catalogo.subgrupo_subgrupo
-   TO desarrollooas;
--- ddl-end --
-
--- object: grant_2427a117bc | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE catalogo.cuentas_subgrupo
-   TO postgres;
--- ddl-end --
-
--- object: grant_fce2c5e8a5 | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE
-   ON TABLE catalogo.cuentas_subgrupo
-   TO desarrollooas;
 -- ddl-end --
 
 
