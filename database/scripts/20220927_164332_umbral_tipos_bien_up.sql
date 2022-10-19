@@ -1,3 +1,6 @@
+DELETE FROM catalogo.cuentas_subgrupo
+    WHERE id > 0;
+
 ALTER TABLE catalogo.cuentas_subgrupo
     ADD COLUMN IF NOT EXISTS tipo_bien_id INTEGER NOT NULL;
 
@@ -10,10 +13,17 @@ ALTER TABLE catalogo.cuentas_subgrupo
     ADD CONSTRAINT ec_subgrupo_tipo_bien_subtipo_movimiento
     EXCLUDE (subgrupo_id WITH =, tipo_bien_id WITH =, subtipo_movimiento_id WITH =) WHERE (activo);
 
+DELETE FROM catalogo.detalle_subgrupo
+    WHERE id > 0;
+
+DELETE FROM catalogo.tipo_bien
+    WHERE id > 0;
+
 ALTER TABLE catalogo.tipo_bien
     RENAME tipo_bien_padre TO tipo_bien_padre_id;
 
 ALTER TABLE catalogo.tipo_bien
+    ALTER COLUMN nombre TYPE VARCHAR(40),
     DROP COLUMN IF EXISTS orden,
     DROP COLUMN IF EXISTS codigo_abreviacion,
     ADD COLUMN IF NOT EXISTS limite_inferior INTEGER,
