@@ -79,6 +79,7 @@ func (c *DetalleSubgrupoController) GetOne() {
 // GetAll ...
 // @Title Get All
 // @Description get DetalleSubgrupo
+// @Param	compuesto	query	string	false	"Codigo - Nombre"
 // @Param	query	query	string	false	"Filter. e.g. col1:v1,col2:v2 ..."
 // @Param	fields	query	string	false	"Fields returned. e.g. col1,col2 ..."
 // @Param	sortby	query	string	false	"Sorted-by fields. e.g. col1,col2 ..."
@@ -89,6 +90,7 @@ func (c *DetalleSubgrupoController) GetOne() {
 // @Failure 404 not found resource
 // @router / [get]
 func (c *DetalleSubgrupoController) GetAll() {
+	var compuesto string
 	var fields []string
 	var sortby []string
 	var order []string
@@ -128,6 +130,23 @@ func (c *DetalleSubgrupoController) GetAll() {
 			k, v := kv[0], kv[1]
 			query[k] = v
 		}
+	}
+	// codigo + nombre
+	if v := c.GetString("compuesto"); v != "" {
+		compuesto = v
+
+		if ids, err := models.GetAllDetalleSubgrupoByCompuesto(compuesto); err != nil {
+			logs.Error(err)
+			//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
+			c.Data["system"] = err
+			c.Abort("404")
+		} else if len(ids) > 0 {
+			query["Id__in"] = models.ArrayToString(ids, "|")
+		} else {
+			c.Data["json"] = []interface{}{}
+			c.ServeJSON()
+		}
+
 	}
 
 	l, err := models.GetAllDetalleSubgrupo(query, fields, sortby, order, offset, limit)

@@ -132,6 +132,33 @@ func GetAllDetalleSubgrupo(query map[string]string, fields []string, sortby []st
 	return nil, err
 }
 
+func GetAllDetalleSubgrupoByCompuesto(compuesto string) (ml []int, err error) {
+
+	o := orm.NewOrm()
+	compuesto = "%" + compuesto + "%"
+	query :=
+		`
+	SELECT ds.id
+	FROM
+		detalle_subgrupo ds,
+		subgrupo s
+	WHERE
+		ds.subgrupo_id = s.id
+		AND ds.activo = TRUE
+		AND s.activo = TRUE
+		AND UPPER(s.codigo::text || ' - ' || s.nombre::text) LIKE UPPER($1);`
+
+	if _, err := o.Raw(query, compuesto).QueryRows(&ml); err != nil {
+		return nil, err
+	}
+
+	return
+}
+
+func ArrayToString(a []int, delim string) string {
+	return strings.Trim(strings.Replace(fmt.Sprint(a), " ", delim, -1), "[]")
+}
+
 // UpdateDetalleSubgrupo updates DetalleSubgrupo by Id and returns error if
 // the record to be updated doesn't exist
 func UpdateDetalleSubgrupoById(m *DetalleSubgrupo) (err error) {

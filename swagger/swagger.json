@@ -377,6 +377,12 @@
                 "parameters": [
                     {
                         "in": "query",
+                        "name": "compuesto",
+                        "description": "Codigo - Nombre",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
                         "name": "query",
                         "description": "Filter. e.g. col1:v1,col2:v2 ...",
                         "type": "string"
