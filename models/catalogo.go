@@ -47,6 +47,9 @@ func GetCatalogoById(id int) (v *Catalogo, err error) {
 	v = &Catalogo{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
+	} else if err.Error() == "<QuerySeter> no row found" {
+		v.Id = 0
+		return v, nil
 	}
 	return nil, err
 }
@@ -145,6 +148,9 @@ func UpdateCatalogoById(m *Catalogo) (err error) {
 		if num, err = o.Update(m, "Nombre", "Descripcion", "Activo"); err == nil {
 			fmt.Println("Number of records updated in database:", num)
 		}
+	} else if err.Error() == "<QuerySeter> no row found" {
+		m.Id = 0
+		return nil
 	}
 	return
 }
