@@ -19,6 +19,7 @@ type CuentasSubgrupo struct {
 	FechaModificacion   time.Time `orm:"column(fecha_modificacion);type(timestamp with time zone)"`
 	Activo              bool      `orm:"column(activo)"`
 	SubgrupoId          *Subgrupo `orm:"column(subgrupo_id);rel(fk)"`
+	TipoBienId          *TipoBien `orm:"column(tipo_bien_id);rel(fk)"`
 }
 
 func (t *CuentasSubgrupo) TableName() string {
@@ -60,7 +61,7 @@ func GetAllCuentasSubgrupo(query map[string]string, fields []string, sortby []st
 		k = strings.Replace(k, ".", "__", -1)
 		if strings.Contains(k, "isnull") {
 			qs = qs.Filter(k, (v == "true" || v == "1"))
-		} else if strings.Contains(k, "__in") {
+		} else if strings.HasSuffix(k, "__in") {
 			arr := strings.Split(v, "|")
 			qs = qs.Filter(k, arr)
 		} else {

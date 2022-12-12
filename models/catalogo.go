@@ -47,6 +47,9 @@ func GetCatalogoById(id int) (v *Catalogo, err error) {
 	v = &Catalogo{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
+	} else if err.Error() == "<QuerySeter> no row found" {
+		v.Id = 0
+		return v, nil
 	}
 	return nil, err
 }
@@ -63,6 +66,9 @@ func GetAllCatalogo(query map[string]string, fields []string, sortby []string, o
 		k = strings.Replace(k, ".", "__", -1)
 		if strings.Contains(k, "isnull") {
 			qs = qs.Filter(k, (v == "true" || v == "1"))
+		} else if strings.HasSuffix(k, "__in") {
+			arr := strings.Split(v, "|")
+			qs = qs.Filter(k, arr)
 		} else {
 			qs = qs.Filter(k, v)
 		}
@@ -142,6 +148,9 @@ func UpdateCatalogoById(m *Catalogo) (err error) {
 		if num, err = o.Update(m, "Nombre", "Descripcion", "Activo"); err == nil {
 			fmt.Println("Number of records updated in database:", num)
 		}
+	} else if err.Error() == "<QuerySeter> no row found" {
+		m.Id = 0
+		return nil
 	}
 	return
 }

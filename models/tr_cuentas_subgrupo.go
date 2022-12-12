@@ -9,28 +9,11 @@ import (
 func GetCuentasSubgrupoBySubgrupoId(subgrupoId int) (v []*CuentasSubgrupo, err error) {
 
 	o := orm.NewOrm()
-	if err != nil {
-		return
-	}
-
-	defer func() {
-		if r := recover(); r != nil {
-			o.Rollback()
-			logs.Error(r)
-		} else {
-			o.Commit()
-		}
-	}()
 
 	var cuentas []*CuentasSubgrupo
-	if _, err := o.QueryTable(new(CuentasSubgrupo)).Filter("SubgrupoId__Id", subgrupoId).Filter("Activo", true).Distinct().All(&cuentas, "SubtipoMovimientoId"); err != nil {
-		return nil, err
-	}
 
-	for _, id_ := range cuentas {
-		if err := o.QueryTable(new(CuentasSubgrupo)).Filter("SubgrupoId__Id", subgrupoId).Filter("Activo", true).Filter("SubtipoMovimientoId", id_.SubtipoMovimientoId).OrderBy("-FechaCreacion").One(id_); err != nil {
-			return nil, err
-		}
+	if _, err := o.QueryTable(new(CuentasSubgrupo)).Filter("SubgrupoId__Id", subgrupoId).Filter("Activo", true).OrderBy("-FechaCreacion").All(&cuentas); err != nil {
+		return nil, err
 	}
 
 	return cuentas, nil
@@ -57,7 +40,6 @@ func UpdateCuentasSubgrupo(m []*CuentasSubgrupo, id int) (n []*CuentasSubgrupo, 
 	}()
 
 	for _, v := range m {
-
 		if v.Id > 0 {
 
 			var q CuentasSubgrupo
@@ -70,42 +52,29 @@ func UpdateCuentasSubgrupo(m []*CuentasSubgrupo, id int) (n []*CuentasSubgrupo, 
 				v.SubtipoMovimientoId != q.SubtipoMovimientoId {
 
 				q.Activo = false
-				if _, err := o.Update(&q, "Activo"); err == nil {
-
-					var r CuentasSubgrupo
-					r.CuentaCreditoId = v.CuentaCreditoId
-					r.CuentaDebitoId = v.CuentaDebitoId
-					r.SubtipoMovimientoId = v.SubtipoMovimientoId
-					r.Activo = true
-					r.SubgrupoId = &Subgrupo{Id: id}
-
-					if id_, err := o.Insert(&r); err != nil {
-						panic(err.Error())
-					} else {
-						r.Id = int(id_)
-						n = append(n, &r)
-					}
-
-				} else {
+				if _, err := o.Update(&q, "Activo"); err != nil {
 					panic(err.Error())
 				}
-			}
-		} else {
-
-			var r CuentasSubgrupo
-			r.CuentaCreditoId = v.CuentaCreditoId
-			r.CuentaDebitoId = v.CuentaDebitoId
-			r.SubtipoMovimientoId = v.SubtipoMovimientoId
-			r.Activo = true
-			r.SubgrupoId = &Subgrupo{Id: id}
-
-			if id_, err := o.Insert(&r); err != nil {
-				panic(err.Error())
 			} else {
-				r.Id = int(id_)
-				n = append(n, &r)
+				continue
 			}
 		}
+
+		var r CuentasSubgrupo
+		r.CuentaCreditoId = v.CuentaCreditoId
+		r.CuentaDebitoId = v.CuentaDebitoId
+		r.SubtipoMovimientoId = v.SubtipoMovimientoId
+		r.SubgrupoId = &Subgrupo{Id: id}
+		r.TipoBienId = v.TipoBienId
+		r.Activo = true
+
+		if id_, err := o.Insert(&r); err != nil {
+			panic(err.Error())
+		} else {
+			r.Id = int(id_)
+			n = append(n, &r)
+		}
+
 	}
 
 	return n, nil

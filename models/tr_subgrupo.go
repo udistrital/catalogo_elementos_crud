@@ -6,11 +6,10 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-
 type TrSubgrupo struct {
-	SubgrupoPadre *Subgrupo
-	SubgrupoHijo  *Subgrupo
-        DetalleSubgrupo *DetalleSubgrupo
+	SubgrupoPadre   *Subgrupo
+	SubgrupoHijo    *Subgrupo
+	DetalleSubgrupo *DetalleSubgrupo
 }
 
 // AddTransaccionSubgrupo Transacción para registrar toda la información de un subgrupo asociándolo a un catálogo

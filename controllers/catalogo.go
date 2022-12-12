@@ -35,20 +35,24 @@ func (c *CatalogoController) URLMapping() {
 // @router / [post]
 func (c *CatalogoController) Post() {
 	var v models.Catalogo
-	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if _, err := models.AddCatalogo(&v); err == nil {
-			c.Ctx.Output.SetStatus(201)
-			c.Data["json"] = v
-		} else {
+	if len(c.Ctx.Input.RequestBody) > 4 {
+		if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err != nil {
 			logs.Error(err)
 			//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
 			c.Data["system"] = err
 			c.Abort("400")
+		} else {
+			if _, err := models.AddCatalogo(&v); err == nil {
+				c.Ctx.Output.SetStatus(201)
+				c.Data["json"] = v
+			} else {
+				logs.Error(err)
+				//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
+				c.Data["system"] = err
+				c.Abort("400")
+			}
 		}
 	} else {
-		logs.Error(err)
-		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
-		c.Data["system"] = err
 		c.Abort("400")
 	}
 	c.ServeJSON()
@@ -156,8 +160,9 @@ func (c *CatalogoController) GetAll() {
 func (c *CatalogoController) Put() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v := models.Catalogo{Id: id}
-	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
+	v := models.Catalogo{}
+	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil && v.Id > 0 {
+		v.Id = id
 		if err := models.UpdateCatalogoById(&v); err == nil {
 			c.Data["json"] = v
 		} else {
@@ -166,6 +171,8 @@ func (c *CatalogoController) Put() {
 			c.Data["system"] = err
 			c.Abort("400")
 		}
+	} else if v.Id == 0 {
+		c.Data["json"] = v
 	} else {
 		logs.Error(err)
 		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
