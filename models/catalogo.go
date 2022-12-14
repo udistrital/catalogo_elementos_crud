@@ -8,15 +8,12 @@ import (
 	"time"
 
 	"github.com/astaxie/beego/orm"
-	"github.com/udistrital/utils_oas/time_bogota"
 )
 
 type Catalogo struct {
 	Id                int       `orm:"column(id);pk;auto"`
 	Nombre            string    `orm:"column(nombre)"`
 	Descripcion       string    `orm:"column(descripcion)"`
-	FechaInicio       string    `orm:"column(fecha_inicio);type(timestamp without time zone)"`
-	FechaFin          string    `orm:"column(fecha_fin);type(timestamp without time zone);null"`
 	FechaCreacion     time.Time `orm:"column(fecha_creacion);type(timestamp with time zone)"`
 	FechaModificacion time.Time `orm:"column(fecha_modificacion);type(timestamp with time zone)"`
 	Activo            bool      `orm:"column(activo)"`
@@ -34,8 +31,6 @@ func init() {
 // last inserted Id on success.
 func AddCatalogo(m *Catalogo) (id int64, err error) {
 	o := orm.NewOrm()
-	m.FechaInicio = time_bogota.TiempoBogotaFormato()
-	m.FechaFin = time_bogota.TiempoBogotaFormato()
 	id, err = o.Insert(m)
 	return
 }
@@ -142,8 +137,6 @@ func UpdateCatalogoById(m *Catalogo) (err error) {
 	v := Catalogo{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
-		m.FechaInicio = v.FechaInicio
-		m.FechaFin = v.FechaFin
 		var num int64
 		if num, err = o.Update(m, "Nombre", "Descripcion", "Activo"); err == nil {
 			fmt.Println("Number of records updated in database:", num)
