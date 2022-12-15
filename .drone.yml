@@ -108,7 +108,7 @@ steps:
     - push
 
 - name: beego_migrate
-  image: golang:1.14
+  image: golang:1.18
   environment:
     PG_MIGRATION_USER:
       from_secret: PG_MIGRATION_USER
@@ -129,7 +129,7 @@ steps:
     - push
 
 - name: beego_rollback
-  image: golang:1.14
+  image: golang:1.18
   environment:
     PG_MIGRATION_USER:
       from_secret: PG_MIGRATION_USER
