@@ -31,7 +31,7 @@ func (m *UmbralTiposBien_20220927_164332) Up() {
 	}
 
 	requests := strings.Split(string(file), ";\n")
-
+	requests = []string{}
 	for _, request := range requests {
 		fmt.Println(request)
 		m.SQL(request)
@@ -47,7 +47,7 @@ func (m *UmbralTiposBien_20220927_164332) Down() {
 	}
 
 	requests := strings.Split(string(file), ";\n")
-
+	requests = []string{}
 	for _, request := range requests {
 		fmt.Println(request)
 		m.SQL(request)
