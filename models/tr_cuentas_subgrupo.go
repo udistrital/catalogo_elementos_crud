@@ -6,17 +6,26 @@ import (
 )
 
 // GetCuentasSubgrupoBySubgrupoId Consulta la última cuenta activa de cada movimiento para un subgrupo determinado. Retorna arreglo vacío si no hay cuentas
-func GetCuentasSubgrupoBySubgrupoId(subgrupoId int) (v []*CuentasSubgrupo, err error) {
+func GetCuentasSubgrupoBySubgrupoId(subgrupoId int, v *[]*CuentasSubgrupo) (err error) {
 
 	o := orm.NewOrm()
 
-	var cuentas []*CuentasSubgrupo
+	var detalle DetalleSubgrupo
 
-	if _, err := o.QueryTable(new(CuentasSubgrupo)).Filter("SubgrupoId__Id", subgrupoId).Filter("Activo", true).OrderBy("-FechaCreacion").All(&cuentas); err != nil {
-		return nil, err
+	if _, err := o.QueryTable(new(DetalleSubgrupo)).Filter("SubgrupoId__Id", subgrupoId).Filter("Activo", true).OrderBy("-FechaCreacion").All(&detalle); err != nil {
+		return err
 	}
 
-	return cuentas, nil
+	if detalle.Id == 0 {
+		return
+	}
+
+	if _, err := o.QueryTable(new(CuentasSubgrupo)).Filter("Activo", true).Filter("SubgrupoId__Id", subgrupoId).
+		Filter("TipoBienId__Activo", true).Filter("TipoBienId__TipoBienPadreId__Id", detalle.TipoBienId.Id).All(v); err != nil {
+		return err
+	}
+
+	return
 
 }
 
@@ -48,8 +57,7 @@ func UpdateCuentasSubgrupo(m []*CuentasSubgrupo, id int) (n []*CuentasSubgrupo, 
 			}
 
 			if (v.CuentaCreditoId != "" && v.CuentaCreditoId != q.CuentaCreditoId) ||
-				(v.CuentaDebitoId != "" && v.CuentaDebitoId != q.CuentaDebitoId) ||
-				v.SubtipoMovimientoId != q.SubtipoMovimientoId {
+				(v.CuentaDebitoId != "" && v.CuentaDebitoId != q.CuentaDebitoId) {
 
 				q.Activo = false
 				if _, err := o.Update(&q, "Activo"); err != nil {

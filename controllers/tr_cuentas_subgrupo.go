@@ -42,13 +42,14 @@ func (c *TrCuentasSubgrupoController) GetOne() {
 		id = v
 	}
 
-	if l, err := models.GetCuentasSubgrupoBySubgrupoId(id); err != nil {
+	var cuentas = make([]*models.CuentasSubgrupo, 0)
+	if err := models.GetCuentasSubgrupoBySubgrupoId(id, &cuentas); err != nil {
 		logs.Error(err)
 		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
 		c.Data["system"] = err
 		c.Abort("404")
 	} else {
-		c.Data["json"] = l
+		c.Data["json"] = cuentas
 	}
 	c.ServeJSON()
 }
