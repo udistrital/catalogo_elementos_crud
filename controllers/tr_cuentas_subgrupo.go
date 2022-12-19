@@ -30,8 +30,6 @@ func (c *TrCuentasSubgrupoController) URLMapping() {
 // @router /:id [get]
 func (c *TrCuentasSubgrupoController) GetOne() {
 
-	defer errorctrl.ErrorControlController(c.Controller, "TrCuentasSubgrupoController")
-
 	var id int
 	if v, err := c.GetInt(":id"); err != nil || v <= 0 {
 		if err == nil {
@@ -63,8 +61,6 @@ func (c *TrCuentasSubgrupoController) GetOne() {
 // @Failure 400 the request contains incorrect syntax
 // @router /:id [put]
 func (c *TrCuentasSubgrupoController) Put() {
-
-	defer errorctrl.ErrorControlController(c.Controller, "TrCuentasSubgrupoController")
 
 	var id int
 	if v, err := c.GetInt(":id"); err != nil || v <= 0 {
