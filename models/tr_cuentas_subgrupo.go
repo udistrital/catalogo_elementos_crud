@@ -71,6 +71,7 @@ func UpdateCuentasSubgrupo(m []*CuentasSubgrupo, id int) (n []*CuentasSubgrupo, 
 		var r CuentasSubgrupo
 		r.CuentaCreditoId = v.CuentaCreditoId
 		r.CuentaDebitoId = v.CuentaDebitoId
+		r.TipoMovimientoId = v.TipoMovimientoId
 		r.SubtipoMovimientoId = v.SubtipoMovimientoId
 		r.SubgrupoId = &Subgrupo{Id: id}
 		r.TipoBienId = v.TipoBienId
