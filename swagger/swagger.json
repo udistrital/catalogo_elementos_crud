@@ -2171,12 +2171,6 @@
                     "type": "string",
                     "format": "datetime"
                 },
-                "FechaFin": {
-                    "type": "string"
-                },
-                "FechaInicio": {
-                    "type": "string"
-                },
                 "FechaModificacion": {
                     "type": "string",
                     "format": "datetime"
@@ -2224,6 +2218,10 @@
                 },
                 "TipoBienId": {
                     "$ref": "#/definitions/models.TipoBien"
+                },
+                "TipoMovimientoId": {
+                    "type": "integer",
+                    "format": "int64"
                 }
             }
         },

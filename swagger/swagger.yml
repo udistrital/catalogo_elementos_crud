@@ -1451,10 +1451,6 @@ definitions:
       FechaCreacion:
         type: string
         format: datetime
-      FechaFin:
-        type: string
-      FechaInicio:
-        type: string
       FechaModificacion:
         type: string
         format: datetime
@@ -1489,6 +1485,9 @@ definitions:
         format: int64
       TipoBienId:
         $ref: '#/definitions/models.TipoBien'
+      TipoMovimientoId:
+        type: integer
+        format: int64
   models.DetalleSubgrupo:
     title: DetalleSubgrupo
     type: object
