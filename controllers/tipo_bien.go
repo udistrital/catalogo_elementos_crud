@@ -94,13 +94,13 @@ func (c *TipoBienController) GetOne() {
 // @router / [get]
 func (c *TipoBienController) GetAll() {
 
-	var min int
-	var max int
+	var min float64
+	var max float64
 	var padreId int
-	if v, err := c.GetInt("min"); err == nil {
+	if v, err := c.GetFloat("min"); err == nil {
 		min = v
 	}
-	if v, err := c.GetInt("max"); err == nil {
+	if v, err := c.GetFloat("max"); err == nil {
 		max = v
 	}
 	if v, err := c.GetInt("padre_id"); err == nil {

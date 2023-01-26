@@ -20,8 +20,8 @@ type TipoBien struct {
 	Reglas            string    `orm:"column(reglas);type(jsonb);null"`
 	NecesitaPlaca     bool      `orm:"column(necesita_placa)"`
 	NecesitaPoliza    bool      `orm:"column(necesita_poliza)"`
-	LimiteInferior    int       `orm:"column(limite_inferior)"`
-	LimiteSuperior    int       `orm:"column(limite_superior)"`
+	LimiteInferior    float64   `orm:"column(limite_inferior)"`
+	LimiteSuperior    float64   `orm:"column(limite_superior)"`
 	BodegaConsumo     bool      `orm:"column(bodega_consumo)"`
 	TipoBienPadreId   *TipoBien `orm:"column(tipo_bien_padre_id);rel(fk);null"`
 }
@@ -191,7 +191,7 @@ func DeleteTipoBien(id int) (err error) {
 	return
 }
 
-func CheckRangoTipoBien(id, padreId, min, max int) (t []*TipoBien, err error) {
+func CheckRangoTipoBien(id, padreId int, min, max float64) (t []*TipoBien, err error) {
 
 	if padreId == 0 {
 		return
