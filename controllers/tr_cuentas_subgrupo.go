@@ -41,7 +41,7 @@ func (c *TrCuentasSubgrupoController) GetOne() {
 		id = v
 	}
 
-	movimientoId, err := c.GetInt("movimientoId")
+	movimientoId, err := c.GetInt("movimientoId", 0)
 	if err != nil {
 		panic(errorctrl.Error(`GetOne - c.GetInt(":movimientoId")`, err, "400"))
 	}
