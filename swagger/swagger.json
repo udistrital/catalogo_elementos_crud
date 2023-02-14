@@ -1932,6 +1932,12 @@
                         "description": "subgrupoId del que se consultan las cuentas",
                         "required": true,
                         "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "movimientoId",
+                        "description": "TipoMovimientoId o SubtipoMovimientoId que se desea filtrar",
+                        "type": "string"
                     }
                 ],
                 "responses": {
@@ -2481,12 +2487,12 @@
                     "format": "int64"
                 },
                 "LimiteInferior": {
-                    "type": "integer",
-                    "format": "int64"
+                    "type": "number",
+                    "format": "double"
                 },
                 "LimiteSuperior": {
-                    "type": "integer",
-                    "format": "int64"
+                    "type": "number",
+                    "format": "double"
                 },
                 "NecesitaPlaca": {
                     "type": "boolean"
