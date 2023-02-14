@@ -6,27 +6,40 @@ import (
 )
 
 // GetCuentasSubgrupoBySubgrupoId Consulta la última cuenta activa de cada movimiento para un subgrupo determinado. Retorna arreglo vacío si no hay cuentas
-func GetCuentasSubgrupoBySubgrupoId(subgrupoId int, v *[]*CuentasSubgrupo) (err error) {
+func GetCuentasSubgrupoBySubgrupoId(subgrupoId, movimientoId int, v *[]*CuentasSubgrupo) (err error) {
 
 	o := orm.NewOrm()
 
 	var detalle DetalleSubgrupo
+	_, err = o.QueryTable(new(DetalleSubgrupo)).
+		Filter("SubgrupoId__Id", subgrupoId).
+		Filter("Activo", true).OrderBy("-FechaCreacion").All(&detalle)
 
-	if _, err := o.QueryTable(new(DetalleSubgrupo)).Filter("SubgrupoId__Id", subgrupoId).Filter("Activo", true).OrderBy("-FechaCreacion").All(&detalle); err != nil {
-		return err
-	}
-
-	if detalle.Id == 0 {
+	if err != nil || detalle.Id == 0 {
 		return
 	}
 
-	if _, err := o.QueryTable(new(CuentasSubgrupo)).Filter("Activo", true).Filter("SubgrupoId__Id", subgrupoId).
-		Filter("TipoBienId__Activo", true).Filter("TipoBienId__TipoBienPadreId__Id", detalle.TipoBienId.Id).All(v); err != nil {
-		return err
+	qs := o.QueryTable(new(CuentasSubgrupo)).RelatedSel().
+		Filter("Activo", true).
+		Filter("SubgrupoId__Id", subgrupoId).
+		Filter("TipoBienId__Activo", true).
+		Filter("TipoBienId__TipoBienPadreId__Id", detalle.TipoBienId.Id)
+
+	if movimientoId == 0 {
+		_, err = qs.All(v)
+		return
 	}
 
-	return
+	cond := qs.GetCond()
+	cond1 := orm.NewCondition()
+	cond2 := orm.NewCondition()
 
+	cond1 = cond1.And("tipo_movimiento_id", movimientoId)
+	cond2 = cond2.And("subtipo_movimiento_id", movimientoId)
+	cond = cond.AndCond(cond1.OrCond(cond2))
+	_, err = qs.SetCond(cond).All(v)
+
+	return
 }
 
 // UpdateCuentasGrupo actualiza las cuentas contables que hayan cambiado o crea los nuevos registros de ser necesario
