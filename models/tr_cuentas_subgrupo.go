@@ -62,22 +62,31 @@ func UpdateCuentasSubgrupo(m []*CuentasSubgrupo, id int) (n []*CuentasSubgrupo, 
 	}()
 
 	for _, v := range m {
-		if v.Id > 0 {
+		if v.CuentaCreditoId == "" || v.CuentaDebitoId == "" {
+			continue
+		}
 
-			var q CuentasSubgrupo
-			if err = o.QueryTable(new(CuentasSubgrupo)).RelatedSel().Filter("Id", v.Id).One(&q); err != nil {
-				panic(err.Error())
+		var q CuentasSubgrupo
+		_, err = o.QueryTable(new(CuentasSubgrupo)).RelatedSel().
+			Filter("Activo", true).
+			Filter("SubgrupoId__Id", id).
+			Filter("TipoBienId__Id", v.TipoBienId.Id).
+			Filter("SubtipoMovimientoId", v.SubtipoMovimientoId).
+			Filter("TipoMovimientoId", v.TipoMovimientoId).All(&q)
+
+		if err != nil {
+			return
+		}
+
+		if q.Id > 0 {
+			if v.CuentaCreditoId == q.CuentaCreditoId || v.CuentaDebitoId == q.CuentaDebitoId {
+				continue
 			}
 
-			if (v.CuentaCreditoId != "" && v.CuentaCreditoId != q.CuentaCreditoId) ||
-				(v.CuentaDebitoId != "" && v.CuentaDebitoId != q.CuentaDebitoId) {
-
-				q.Activo = false
-				if _, err = o.Update(&q, "Activo"); err != nil {
-					panic(err.Error())
-				}
-			} else {
-				continue
+			q.Activo = false
+			_, err = o.Update(&q, "Activo")
+			if err != nil {
+				return
 			}
 		}
 
@@ -92,12 +101,13 @@ func UpdateCuentasSubgrupo(m []*CuentasSubgrupo, id int) (n []*CuentasSubgrupo, 
 
 		if id_, err_ := o.Insert(&r); err_ != nil {
 			err = err_
-			panic(err.Error())
+			return
 		} else {
 			r.Id = int(id_)
 			n = append(n, &r)
 		}
 
+		n = append(n, &r)
 	}
 
 	return n, nil
