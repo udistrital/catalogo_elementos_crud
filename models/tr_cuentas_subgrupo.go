@@ -6,27 +6,40 @@ import (
 )
 
 // GetCuentasSubgrupoBySubgrupoId Consulta la última cuenta activa de cada movimiento para un subgrupo determinado. Retorna arreglo vacío si no hay cuentas
-func GetCuentasSubgrupoBySubgrupoId(subgrupoId int, v *[]*CuentasSubgrupo) (err error) {
+func GetCuentasSubgrupoBySubgrupoId(subgrupoId, movimientoId int, v *[]*CuentasSubgrupo) (err error) {
 
 	o := orm.NewOrm()
 
 	var detalle DetalleSubgrupo
+	_, err = o.QueryTable(new(DetalleSubgrupo)).
+		Filter("SubgrupoId__Id", subgrupoId).
+		Filter("Activo", true).OrderBy("-FechaCreacion").All(&detalle)
 
-	if _, err := o.QueryTable(new(DetalleSubgrupo)).Filter("SubgrupoId__Id", subgrupoId).Filter("Activo", true).OrderBy("-FechaCreacion").All(&detalle); err != nil {
-		return err
-	}
-
-	if detalle.Id == 0 {
+	if err != nil || detalle.Id == 0 {
 		return
 	}
 
-	if _, err := o.QueryTable(new(CuentasSubgrupo)).Filter("Activo", true).Filter("SubgrupoId__Id", subgrupoId).
-		Filter("TipoBienId__Activo", true).Filter("TipoBienId__TipoBienPadreId__Id", detalle.TipoBienId.Id).All(v); err != nil {
-		return err
+	qs := o.QueryTable(new(CuentasSubgrupo)).RelatedSel().
+		Filter("Activo", true).
+		Filter("SubgrupoId__Id", subgrupoId).
+		Filter("TipoBienId__Activo", true).
+		Filter("TipoBienId__TipoBienPadreId__Id", detalle.TipoBienId.Id)
+
+	if movimientoId == 0 {
+		_, err = qs.All(v)
+		return
 	}
 
-	return
+	cond := qs.GetCond()
+	cond1 := orm.NewCondition()
+	cond2 := orm.NewCondition()
 
+	cond1 = cond1.And("tipo_movimiento_id", movimientoId)
+	cond2 = cond2.And("subtipo_movimiento_id", movimientoId)
+	cond = cond.AndCond(cond1.OrCond(cond2))
+	_, err = qs.SetCond(cond).All(v)
+
+	return
 }
 
 // UpdateCuentasGrupo actualiza las cuentas contables que hayan cambiado o crea los nuevos registros de ser necesario
@@ -49,22 +62,31 @@ func UpdateCuentasSubgrupo(m []*CuentasSubgrupo, id int) (n []*CuentasSubgrupo, 
 	}()
 
 	for _, v := range m {
-		if v.Id > 0 {
+		if v.CuentaCreditoId == "" || v.CuentaDebitoId == "" {
+			continue
+		}
 
-			var q CuentasSubgrupo
-			if err = o.QueryTable(new(CuentasSubgrupo)).RelatedSel().Filter("Id", v.Id).One(&q); err != nil {
-				panic(err.Error())
+		var q CuentasSubgrupo
+		_, err = o.QueryTable(new(CuentasSubgrupo)).RelatedSel().
+			Filter("Activo", true).
+			Filter("SubgrupoId__Id", id).
+			Filter("TipoBienId__Id", v.TipoBienId.Id).
+			Filter("SubtipoMovimientoId", v.SubtipoMovimientoId).
+			Filter("TipoMovimientoId", v.TipoMovimientoId).All(&q)
+
+		if err != nil {
+			return
+		}
+
+		if q.Id > 0 {
+			if v.CuentaCreditoId == q.CuentaCreditoId || v.CuentaDebitoId == q.CuentaDebitoId {
+				continue
 			}
 
-			if (v.CuentaCreditoId != "" && v.CuentaCreditoId != q.CuentaCreditoId) ||
-				(v.CuentaDebitoId != "" && v.CuentaDebitoId != q.CuentaDebitoId) {
-
-				q.Activo = false
-				if _, err = o.Update(&q, "Activo"); err != nil {
-					panic(err.Error())
-				}
-			} else {
-				continue
+			q.Activo = false
+			_, err = o.Update(&q, "Activo")
+			if err != nil {
+				return
 			}
 		}
 
@@ -79,12 +101,13 @@ func UpdateCuentasSubgrupo(m []*CuentasSubgrupo, id int) (n []*CuentasSubgrupo, 
 
 		if id_, err_ := o.Insert(&r); err_ != nil {
 			err = err_
-			panic(err.Error())
+			return
 		} else {
 			r.Id = int(id_)
 			n = append(n, &r)
 		}
 
+		n = append(n, &r)
 	}
 
 	return n, nil

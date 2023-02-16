@@ -24,7 +24,8 @@ func (c *TrCuentasSubgrupoController) URLMapping() {
 // GetOne ...
 // @Title GetOne
 // @Description Consulta las cuentas asignadas a un determinado subgrupo
-// @Param	id		path 	string	true	"subgrupoId del que se consultan las cuentas"
+// @Param	id				path	string	true	"subgrupoId del que se consultan las cuentas"
+// @Param	movimientoId	query	string	false	"TipoMovimientoId o SubtipoMovimientoId que se desea filtrar"
 // @Success 200 {object} []models.CuentasSubgrupo
 // @Failure 403 :id is empty
 // @router /:id [get]
@@ -40,8 +41,13 @@ func (c *TrCuentasSubgrupoController) GetOne() {
 		id = v
 	}
 
+	movimientoId, err := c.GetInt("movimientoId", 0)
+	if err != nil {
+		panic(errorctrl.Error(`GetOne - c.GetInt(":movimientoId")`, err, "400"))
+	}
+
 	var cuentas = make([]*models.CuentasSubgrupo, 0)
-	if err := models.GetCuentasSubgrupoBySubgrupoId(id, &cuentas); err != nil {
+	if err := models.GetCuentasSubgrupoBySubgrupoId(id, movimientoId, &cuentas); err != nil {
 		logs.Error(err)
 		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
 		c.Data["system"] = err
