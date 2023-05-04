@@ -3,44 +3,111 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.1" last-position="0,0" last-zoom="1"
+<dbmodel pgmodeler-ver="0.9.3" use-changelog="false" last-position="0,0" last-zoom="0.7" max-obj-count="92"
 	 default-schema="public" default-owner="postgres">
-<role name="desarrollooas"
-      superuser="true"
-      createdb="true"
-      replication="true"
-      createrole="true"
+<role name="pg_monitor"
       inherit="true"
-      login="true"
       encrypted="true"
-      password="********">
+      password="********"
+      sql-disabled="true">
 </role>
 
-<database name="bd_oas" encoding="UTF8" lc-collate="en_US.UTF-8" lc-ctype="en_US.UTF-8" is-template="false" allow-conns="true">
+<role name="pg_read_all_settings"
+      inherit="true"
+      encrypted="true"
+      password="********"
+      sql-disabled="true">
+	<roles names="pg_monitor" role-type="member" />
+</role>
+
+<role name="pg_read_all_stats"
+      inherit="true"
+      encrypted="true"
+      password="********"
+      sql-disabled="true">
+	<roles names="pg_monitor" role-type="member" />
+</role>
+
+<role name="pg_stat_scan_tables"
+      inherit="true"
+      encrypted="true"
+      password="********"
+      sql-disabled="true">
+	<roles names="pg_monitor" role-type="member" />
+</role>
+
+<role name="pg_signal_backend"
+      inherit="true"
+      encrypted="true"
+      password="********"
+      sql-disabled="true">
+</role>
+
+<role name="pg_read_server_files"
+      inherit="true"
+      encrypted="true"
+      password="********"
+      sql-disabled="true">
+</role>
+
+<role name="pg_write_server_files"
+      inherit="true"
+      encrypted="true"
+      password="********"
+      sql-disabled="true">
+</role>
+
+<role name="pg_execute_server_program"
+      inherit="true"
+      encrypted="true"
+      password="********"
+      sql-disabled="true">
+</role>
+
+<role name="pg_database_owner"
+      inherit="true"
+      encrypted="true"
+      password="********"
+      sql-disabled="true">
+</role>
+
+<role name="pg_read_all_data"
+      inherit="true"
+      encrypted="true"
+      password="********"
+      sql-disabled="true">
+</role>
+
+<role name="pg_write_all_data"
+      inherit="true"
+      encrypted="true"
+      password="********"
+      sql-disabled="true">
+</role>
+
+<database name="postgres" encoding="UTF8" lc-collate="en_US.UTF-8" lc-ctype="en_US.UTF-8" is-template="false" allow-conns="true">
 	<role name="postgres"/>
 	<tablespace name="pg_default"/>
+	<comment><![CDATA[default administrative connection database]]></comment>
 </database>
 
-<schema name="public" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
+<schema name="public" layer="0" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
 </schema>
 
-<schema name="catalogo" rect-visible="true" fill-color="#cf2034">
+<schema name="catalogo" layer="0" rect-visible="true" fill-color="#62a0ea">
 	<role name="postgres"/>
 </schema>
 
-<sequence name="subgrupo_catalogo_id_seq"
-	 start="1" increment="1"
-	 min-value="1" max-value="2147483647"
-	 cache="1" cycle="false">
+<sequence name="subgrupo_catalogo_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
 	<schema name="catalogo"/>
 	<role name="postgres"/>
 </sequence>
 
-<table name="subgrupo_catalogo">
+<table name="subgrupo_catalogo" layer="0" collapse-mode="2" max-obj-count="7" z-value="0">
 	<schema name="catalogo"/>
 	<role name="postgres"/>
 	<comment><![CDATA[Tabla que almacena los subgrupos de catálogos disponibles en ARKA II en caso de existir más de uno.]]></comment>
-	<position x="660" y="60"/>
+	<position x="740" y="80"/>
 	<column name="id" not-null="true" sequence="catalogo.subgrupo_catalogo_id_seq">
 		<type name="integer" length="0"/>
 		<comment><![CDATA[Identificador único]]></comment>
@@ -68,19 +135,16 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<sequence name="catalogo_id_seq"
-	 start="1" increment="1"
-	 min-value="1" max-value="2147483647"
-	 cache="1" cycle="false">
+<sequence name="catalogo_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
 	<schema name="catalogo"/>
 	<role name="postgres"/>
 </sequence>
 
-<table name="catalogo">
+<table name="catalogo" layer="0" collapse-mode="2" max-obj-count="7" z-value="0">
 	<schema name="catalogo"/>
 	<role name="postgres"/>
 	<comment><![CDATA[Tabla que almacena los catálogos disponibles en ARKA II]]></comment>
-	<position x="40" y="80"/>
+	<position x="140" y="140"/>
 	<column name="id" not-null="true" sequence="catalogo.catalogo_id_seq">
 		<type name="integer" length="0"/>
 		<comment><![CDATA[Identificador único]]></comment>
@@ -92,14 +156,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="descripcion" not-null="true">
 		<type name="character varying" length="300"/>
 		<comment><![CDATA[Campo que almacena la información extra del catálogo.]]></comment>
-	</column>
-	<column name="fecha_inicio" not-null="true">
-		<type name="timestamp" length="0"/>
-		<comment><![CDATA[Campo que almacena cuando inicia el funcionamiento del catálogo.]]></comment>
-	</column>
-	<column name="fecha_fin">
-		<type name="timestamp" length="0"/>
-		<comment><![CDATA[Campo que almacena cuando deja de funcionar el catálogo.]]></comment>
 	</column>
 	<column name="fecha_creacion" not-null="true">
 		<type name="timestamp with time zone" length="0" with-timezone="true"/>
@@ -118,19 +174,16 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<sequence name="subgrupo_id_seq"
-	 start="1" increment="1"
-	 min-value="1" max-value="2147483647"
-	 cache="1" cycle="false">
+<sequence name="subgrupo_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
 	<schema name="catalogo"/>
 	<role name="postgres"/>
 </sequence>
 
-<table name="subgrupo">
+<table name="subgrupo" layer="0" collapse-mode="2" max-obj-count="9" z-value="0">
 	<schema name="catalogo"/>
 	<role name="postgres"/>
 	<comment><![CDATA[Tabla que almacena los subgrupos disponibles en ARKA II]]></comment>
-	<position x="1260" y="400"/>
+	<position x="1340" y="620"/>
 	<column name="id" not-null="true" sequence="catalogo.subgrupo_id_seq">
 		<type name="integer" length="0"/>
 		<comment><![CDATA[Identificador único]]></comment>
@@ -165,19 +218,16 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<sequence name="subgrupo_subgrupo_id_seq"
-	 start="1" increment="1"
-	 min-value="1" max-value="2147483647"
-	 cache="1" cycle="false">
+<sequence name="subgrupo_subgrupo_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
 	<schema name="catalogo"/>
 	<role name="postgres"/>
 </sequence>
 
-<table name="subgrupo_subgrupo">
+<table name="subgrupo_subgrupo" layer="0" collapse-mode="2" max-obj-count="7" z-value="0">
 	<schema name="catalogo"/>
 	<role name="postgres"/>
 	<comment><![CDATA[Tabla que almacena los subgrupos de los subgrupos disponibles en ARKA II en caso de que se pueda desagregar más un subgrupo.]]></comment>
-	<position x="660" y="340"/>
+	<position x="740" y="400"/>
 	<column name="id" not-null="true" sequence="catalogo.subgrupo_subgrupo_id_seq">
 		<type name="integer" length="0"/>
 		<comment><![CDATA[Identificador único]]></comment>
@@ -208,19 +258,16 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<sequence name="cuentas_grupo_id_seq"
-	 start="1" increment="1"
-	 min-value="1" max-value="2147483647"
-	 cache="1" cycle="false">
+<sequence name="cuentas_grupo_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
 	<schema name="catalogo"/>
 	<role name="postgres"/>
 </sequence>
 
-<table name="cuentas_subgrupo">
+<table name="cuentas_subgrupo" layer="0" collapse-mode="2" max-obj-count="12" z-value="0">
 	<schema name="catalogo"/>
 	<role name="postgres"/>
 	<comment><![CDATA[Tabla de rompimiento para asociar múltiples cuentas a un subgrupo de un catálogo dependiento el tipo de movimiento. Por ejemplo, donación pertenece a un tipo de movimiento entrada, pero no tiene las mismas cuentas que el tipo de movimiento.]]></comment>
-	<position x="1900" y="420"/>
+	<position x="2100" y="700"/>
 	<column name="id" not-null="true" sequence="catalogo.cuentas_grupo_id_seq">
 		<type name="integer" length="0"/>
 		<comment><![CDATA[Identificador único]]></comment>
@@ -255,24 +302,50 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="tipo_bien_id" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
+	<column name="tipo_movimiento_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
 	<constraint name="pk_movimiento_cuenta" type="pk-constr" table="catalogo.cuentas_subgrupo">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
+	<constraint name="ck_movimiento_id" type="ck-constr" table="catalogo.cuentas_subgrupo">
+			<expression><![CDATA[((subtipo_movimiento_id > 0) OR (tipo_movimiento_id > 0))]]></expression>
+	</constraint>
+	<constraint name="ec_subgrupo_tipo_bien_movimiento" type="ex-constr" index-type="btree" table="catalogo.cuentas_subgrupo">
+			<excelement use-sorting="false">
+			<column name="subgrupo_id"/>
+			<opclass  signature="pg_catalog.int4_ops USING btree"/>
+				<operator  signature="pg_catalog.=(integer,integer)"/>
+		</excelement>
+		<excelement use-sorting="false">
+			<column name="tipo_bien_id"/>
+			<opclass  signature="pg_catalog.int4_ops USING btree"/>
+				<operator  signature="pg_catalog.=(integer,integer)"/>
+		</excelement>
+		<excelement use-sorting="false">
+			<column name="subtipo_movimiento_id"/>
+			<opclass  signature="pg_catalog.int4_ops USING btree"/>
+				<operator  signature="pg_catalog.=(integer,integer)"/>
+		</excelement>
+		<excelement use-sorting="false">
+			<column name="tipo_movimiento_id"/>
+			<opclass  signature="pg_catalog.int4_ops USING btree"/>
+				<operator  signature="pg_catalog.=(integer,integer)"/>
+		</excelement>
+		<expression><![CDATA[activo]]></expression>
+	</constraint>
 </table>
 
-<sequence name="elemento_id_seq"
-	 start="1" increment="1"
-	 min-value="1" max-value="2147483647"
-	 cache="1" cycle="false">
+<sequence name="elemento_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
 	<schema name="catalogo"/>
 	<role name="postgres"/>
 </sequence>
 
-<table name="elemento">
+<table name="elemento" layer="0" collapse-mode="2" max-obj-count="9" z-value="0">
 	<schema name="catalogo"/>
 	<role name="postgres"/>
 	<comment><![CDATA[Tabla que almacena los catálogos disponibles en ARKA II]]></comment>
-	<position x="700" y="600"/>
+	<position x="760" y="700"/>
 	<column name="id" not-null="true" sequence="catalogo.elemento_id_seq">
 		<type name="integer" length="0"/>
 		<comment><![CDATA[Identificador único]]></comment>
@@ -308,23 +381,20 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<sequence name="tipo_bien_id_seq"
-	 start="1" increment="1"
-	 min-value="1" max-value="2147483647"
-	 cache="1" cycle="false">
+<sequence name="tipo_bien_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
 	<schema name="catalogo"/>
 	<role name="postgres"/>
 </sequence>
 
-<table name="tipo_bien">
+<table name="tipo_bien" layer="0" collapse-mode="2" max-obj-count="15" z-value="0">
 	<schema name="catalogo"/>
 	<role name="postgres"/>
-	<position x="1340" y="860"/>
+	<position x="1600" y="1040"/>
 	<column name="id" not-null="true" sequence="catalogo.tipo_bien_id_seq">
 		<type name="integer" length="0"/>
 	</column>
 	<column name="nombre" not-null="true">
-		<type name="character varying" length="20"/>
+		<type name="character varying" length="40"/>
 	</column>
 	<column name="descripcion">
 		<type name="character varying" length="250"/>
@@ -351,10 +421,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="boolean" length="0"/>
 	</column>
 	<column name="limite_inferior">
-		<type name="integer" length="0"/>
+		<type name="numeric" length="20" precision="7"/>
 	</column>
 	<column name="limite_superior">
-		<type name="integer" length="0"/>
+		<type name="numeric" length="20" precision="7"/>
 	</column>
 	<column name="bodega_consumo">
 		<type name="boolean" length="0"/>
@@ -369,22 +439,19 @@ CAUTION: Do not modify this file unless you know what you are doing.
 			<expression><![CDATA[(limite_superior >= limite_inferior)]]></expression>
 	</constraint>
 	<constraint name="ck_limite_inferior_tipo_bien" type="ck-constr" table="catalogo.tipo_bien">
-			<expression><![CDATA[(limite_inferior >= 0)]]></expression>
+			<expression><![CDATA[(limite_inferior >= (0)::numeric)]]></expression>
 	</constraint>
 </table>
 
-<sequence name="detalle_subgrupo_id_seq"
-	 start="1" increment="1"
-	 min-value="1" max-value="2147483647"
-	 cache="1" cycle="false">
+<sequence name="detalle_subgrupo_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
 	<schema name="catalogo"/>
 	<role name="postgres"/>
 </sequence>
 
-<table name="detalle_subgrupo">
+<table name="detalle_subgrupo" layer="0" collapse-mode="2" max-obj-count="13" z-value="0">
 	<schema name="catalogo"/>
 	<role name="postgres"/>
-	<position x="680" y="860"/>
+	<position x="760" y="1000"/>
 	<column name="id" not-null="true" sequence="catalogo.detalle_subgrupo_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -428,18 +495,15 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<sequence name="tipo_nivel_id_seq"
-	 start="1" increment="1"
-	 min-value="1" max-value="2147483647"
-	 cache="1" cycle="false">
+<sequence name="tipo_nivel_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
 	<schema name="catalogo"/>
 	<role name="postgres"/>
 </sequence>
 
-<table name="tipo_nivel">
+<table name="tipo_nivel" layer="0" collapse-mode="2" max-obj-count="9" z-value="0">
 	<schema name="catalogo"/>
 	<role name="postgres"/>
-	<position x="1840" y="40"/>
+	<position x="2000" y="260"/>
 	<column name="id" not-null="true" sequence="catalogo.tipo_nivel_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -469,18 +533,15 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<sequence name="relacion_nivel_id_seq"
-	 start="1" increment="1"
-	 min-value="1" max-value="2147483647"
-	 cache="1" cycle="false">
+<sequence name="relacion_nivel_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
 	<schema name="catalogo"/>
 	<role name="postgres"/>
 </sequence>
 
-<table name="relacion_nivel">
+<table name="relacion_nivel" layer="0" collapse-mode="2" max-obj-count="7" z-value="0">
 	<schema name="catalogo"/>
 	<role name="postgres"/>
-	<position x="2440" y="60"/>
+	<position x="1380" y="160"/>
 	<column name="id" not-null="true" sequence="catalogo.relacion_nivel_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -517,17 +578,15 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		row-amount="0">
 	<schema name="pg_catalog"/>
 	<role name="postgres"/>
-	<language name="plpgsql" sql-disabled="true"/>
+	<language name="plpgsql"/>
 	<return-type>
 	<type name="trigger" length="1"/>
 	</return-type>
-	<definition><![CDATA[
-BEGIN
+	<definition><![CDATA[BEGIN
   NEW.fecha_creacion = OLD.fecha_creacion;
   NEW.fecha_modificacion = NOW();
   RETURN NEW;
-END;
-]]></definition>
+END;]]></definition>
 </function>
 
 <trigger name="set_fecha_modificacion_detalle_subgrupo" firing-type="BEFORE" per-line="true" constraint="false"
@@ -546,17 +605,15 @@ END;
 		row-amount="0">
 	<schema name="pg_catalog"/>
 	<role name="postgres"/>
-	<language name="plpgsql" sql-disabled="true"/>
+	<language name="plpgsql"/>
 	<return-type>
 	<type name="trigger" length="1"/>
 	</return-type>
-	<definition><![CDATA[
-BEGIN
+	<definition><![CDATA[BEGIN
   NEW.fecha_creacion = NOW();
   NEW.fecha_modificacion = NOW();
   RETURN NEW;
-END;
-]]></definition>
+END;]]></definition>
 </function>
 
 <trigger name="set_fecha_creacion_detalle_subgrupo" firing-type="BEFORE" per-line="true" constraint="false"
@@ -673,6 +730,2691 @@ END;
 		<function signature="pg_catalog.trigger_set_fecha_creacion()"/>
 </trigger>
 
+<function name="btint2cmp" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[less-equal-greater]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="integer" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<definition><![CDATA[btint2cmp]]></definition>
+</function>
+
+<function name="btint2sortsupport" sql-disabled="true"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[sort support]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="void" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="internal" length="0"/>
+	</parameter>
+	<definition><![CDATA[btint2sortsupport]]></definition>
+</function>
+
+<function name="btequalimage" sql-disabled="true"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[equal image]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="oid" length="0"/>
+	</parameter>
+	<definition><![CDATA[btequalimage]]></definition>
+</function>
+
+<function name="btint24cmp" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[less-equal-greater]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="integer" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="integer" length="0"/>
+	</parameter>
+	<definition><![CDATA[btint24cmp]]></definition>
+</function>
+
+<function name="btint28cmp" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[less-equal-greater]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="integer" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<definition><![CDATA[btint28cmp]]></definition>
+</function>
+
+<function name="in_range" sql-disabled="true"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[window RANGE support]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<parameter name="_param3">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<parameter name="_param4">
+		<type name="boolean" length="0"/>
+	</parameter>
+	<parameter name="_param5">
+		<type name="boolean" length="0"/>
+	</parameter>
+	<definition><![CDATA[in_range_int2_int8]]></definition>
+</function>
+
+<function name="in_range" sql-disabled="true"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[window RANGE support]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<parameter name="_param3">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="_param4">
+		<type name="boolean" length="0"/>
+	</parameter>
+	<parameter name="_param5">
+		<type name="boolean" length="0"/>
+	</parameter>
+	<definition><![CDATA[in_range_int2_int4]]></definition>
+</function>
+
+<function name="in_range" sql-disabled="true"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[window RANGE support]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<parameter name="_param3">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<parameter name="_param4">
+		<type name="boolean" length="0"/>
+	</parameter>
+	<parameter name="_param5">
+		<type name="boolean" length="0"/>
+	</parameter>
+	<definition><![CDATA[in_range_int2_int2]]></definition>
+</function>
+
+<function name="btint4cmp" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[less-equal-greater]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="integer" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="integer" length="0"/>
+	</parameter>
+	<definition><![CDATA[btint4cmp]]></definition>
+</function>
+
+<function name="btint4sortsupport" sql-disabled="true"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[sort support]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="void" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="internal" length="0"/>
+	</parameter>
+	<definition><![CDATA[btint4sortsupport]]></definition>
+</function>
+
+<function name="btint48cmp" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[less-equal-greater]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="integer" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<definition><![CDATA[btint48cmp]]></definition>
+</function>
+
+<function name="btint42cmp" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[less-equal-greater]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="integer" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<definition><![CDATA[btint42cmp]]></definition>
+</function>
+
+<function name="in_range" sql-disabled="true"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[window RANGE support]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="_param3">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<parameter name="_param4">
+		<type name="boolean" length="0"/>
+	</parameter>
+	<parameter name="_param5">
+		<type name="boolean" length="0"/>
+	</parameter>
+	<definition><![CDATA[in_range_int4_int8]]></definition>
+</function>
+
+<function name="in_range" sql-disabled="true"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[window RANGE support]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="_param3">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="_param4">
+		<type name="boolean" length="0"/>
+	</parameter>
+	<parameter name="_param5">
+		<type name="boolean" length="0"/>
+	</parameter>
+	<definition><![CDATA[in_range_int4_int4]]></definition>
+</function>
+
+<function name="in_range" sql-disabled="true"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[window RANGE support]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="_param3">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<parameter name="_param4">
+		<type name="boolean" length="0"/>
+	</parameter>
+	<parameter name="_param5">
+		<type name="boolean" length="0"/>
+	</parameter>
+	<definition><![CDATA[in_range_int4_int2]]></definition>
+</function>
+
+<function name="btint8cmp" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[less-equal-greater]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="integer" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<definition><![CDATA[btint8cmp]]></definition>
+</function>
+
+<function name="btint8sortsupport" sql-disabled="true"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[sort support]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="void" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="internal" length="0"/>
+	</parameter>
+	<definition><![CDATA[btint8sortsupport]]></definition>
+</function>
+
+<function name="btint84cmp" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[less-equal-greater]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="integer" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="integer" length="0"/>
+	</parameter>
+	<definition><![CDATA[btint84cmp]]></definition>
+</function>
+
+<function name="btint82cmp" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[less-equal-greater]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="integer" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<definition><![CDATA[btint82cmp]]></definition>
+</function>
+
+<function name="in_range" sql-disabled="true"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[window RANGE support]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<parameter name="_param3">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<parameter name="_param4">
+		<type name="boolean" length="0"/>
+	</parameter>
+	<parameter name="_param5">
+		<type name="boolean" length="0"/>
+	</parameter>
+	<definition><![CDATA[in_range_int8_int8]]></definition>
+</function>
+
+<function name="int2lt" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of < operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<definition><![CDATA[int2lt]]></definition>
+</function>
+
+<function name="scalarltsel" sql-disabled="true"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="STABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[restriction selectivity of < and related operators on scalar datatypes]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="double precision" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="internal" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="oid" length="0"/>
+	</parameter>
+	<parameter name="_param3">
+		<type name="internal" length="0"/>
+	</parameter>
+	<parameter name="_param4">
+		<type name="integer" length="0"/>
+	</parameter>
+	<definition><![CDATA[scalarltsel]]></definition>
+</function>
+
+<function name="scalarltjoinsel" sql-disabled="true"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="STABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[join selectivity of < and related operators on scalar datatypes]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="double precision" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="internal" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="oid" length="0"/>
+	</parameter>
+	<parameter name="_param3">
+		<type name="internal" length="0"/>
+	</parameter>
+	<parameter name="_param4">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<parameter name="_param5">
+		<type name="internal" length="0"/>
+	</parameter>
+	<definition><![CDATA[scalarltjoinsel]]></definition>
+</function>
+
+<operator name="&lt;" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[less than]]></comment>
+	<type name="smallint" length="1" ref-type="left-type"/>
+	<type name="smallint" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int2lt(smallint,smallint)"/>
+	<function ref-type="join" signature="pg_catalog.scalarltjoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalarltsel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int2le" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of <= operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<definition><![CDATA[int2le]]></definition>
+</function>
+
+<function name="scalarlesel" sql-disabled="true"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="STABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[restriction selectivity of <= and related operators on scalar datatypes]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="double precision" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="internal" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="oid" length="0"/>
+	</parameter>
+	<parameter name="_param3">
+		<type name="internal" length="0"/>
+	</parameter>
+	<parameter name="_param4">
+		<type name="integer" length="0"/>
+	</parameter>
+	<definition><![CDATA[scalarlesel]]></definition>
+</function>
+
+<function name="scalarlejoinsel" sql-disabled="true"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="STABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[join selectivity of <= and related operators on scalar datatypes]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="double precision" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="internal" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="oid" length="0"/>
+	</parameter>
+	<parameter name="_param3">
+		<type name="internal" length="0"/>
+	</parameter>
+	<parameter name="_param4">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<parameter name="_param5">
+		<type name="internal" length="0"/>
+	</parameter>
+	<definition><![CDATA[scalarlejoinsel]]></definition>
+</function>
+
+<operator name="&lt;=" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[less than or equal]]></comment>
+	<type name="smallint" length="1" ref-type="left-type"/>
+	<type name="smallint" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int2le(smallint,smallint)"/>
+	<function ref-type="join" signature="pg_catalog.scalarlejoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalarlesel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int2eq" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of = operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<definition><![CDATA[int2eq]]></definition>
+</function>
+
+<function name="eqsel" sql-disabled="true"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="STABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[restriction selectivity of = and related operators]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="double precision" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="internal" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="oid" length="0"/>
+	</parameter>
+	<parameter name="_param3">
+		<type name="internal" length="0"/>
+	</parameter>
+	<parameter name="_param4">
+		<type name="integer" length="0"/>
+	</parameter>
+	<definition><![CDATA[eqsel]]></definition>
+</function>
+
+<function name="eqjoinsel" sql-disabled="true"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="STABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[join selectivity of = and related operators]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="double precision" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="internal" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="oid" length="0"/>
+	</parameter>
+	<parameter name="_param3">
+		<type name="internal" length="0"/>
+	</parameter>
+	<parameter name="_param4">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<parameter name="_param5">
+		<type name="internal" length="0"/>
+	</parameter>
+	<definition><![CDATA[eqjoinsel]]></definition>
+</function>
+
+<operator name="=" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[equal]]></comment>
+	<type name="smallint" length="1" ref-type="left-type"/>
+	<type name="smallint" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int2eq(smallint,smallint)"/>
+	<function ref-type="join" signature="pg_catalog.eqjoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.eqsel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int2ge" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of >= operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<definition><![CDATA[int2ge]]></definition>
+</function>
+
+<function name="scalargesel" sql-disabled="true"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="STABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[restriction selectivity of >= and related operators on scalar datatypes]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="double precision" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="internal" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="oid" length="0"/>
+	</parameter>
+	<parameter name="_param3">
+		<type name="internal" length="0"/>
+	</parameter>
+	<parameter name="_param4">
+		<type name="integer" length="0"/>
+	</parameter>
+	<definition><![CDATA[scalargesel]]></definition>
+</function>
+
+<function name="scalargejoinsel" sql-disabled="true"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="STABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[join selectivity of >= and related operators on scalar datatypes]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="double precision" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="internal" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="oid" length="0"/>
+	</parameter>
+	<parameter name="_param3">
+		<type name="internal" length="0"/>
+	</parameter>
+	<parameter name="_param4">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<parameter name="_param5">
+		<type name="internal" length="0"/>
+	</parameter>
+	<definition><![CDATA[scalargejoinsel]]></definition>
+</function>
+
+<operator name="&gt;=" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[greater than or equal]]></comment>
+	<type name="smallint" length="1" ref-type="left-type"/>
+	<type name="smallint" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int2ge(smallint,smallint)"/>
+	<function ref-type="join" signature="pg_catalog.scalargejoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalargesel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int2gt" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of > operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<definition><![CDATA[int2gt]]></definition>
+</function>
+
+<function name="scalargtsel" sql-disabled="true"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="STABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[restriction selectivity of > and related operators on scalar datatypes]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="double precision" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="internal" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="oid" length="0"/>
+	</parameter>
+	<parameter name="_param3">
+		<type name="internal" length="0"/>
+	</parameter>
+	<parameter name="_param4">
+		<type name="integer" length="0"/>
+	</parameter>
+	<definition><![CDATA[scalargtsel]]></definition>
+</function>
+
+<function name="scalargtjoinsel" sql-disabled="true"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="STABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[join selectivity of > and related operators on scalar datatypes]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="double precision" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="internal" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="oid" length="0"/>
+	</parameter>
+	<parameter name="_param3">
+		<type name="internal" length="0"/>
+	</parameter>
+	<parameter name="_param4">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<parameter name="_param5">
+		<type name="internal" length="0"/>
+	</parameter>
+	<definition><![CDATA[scalargtjoinsel]]></definition>
+</function>
+
+<operator name="&gt;" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[greater than]]></comment>
+	<type name="smallint" length="1" ref-type="left-type"/>
+	<type name="smallint" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int2gt(smallint,smallint)"/>
+	<function ref-type="join" signature="pg_catalog.scalargtjoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalargtsel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int24lt" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of < operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="integer" length="0"/>
+	</parameter>
+	<definition><![CDATA[int24lt]]></definition>
+</function>
+
+<operator name="&lt;" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[less than]]></comment>
+	<type name="smallint" length="1" ref-type="left-type"/>
+	<type name="integer" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int24lt(smallint,integer)"/>
+	<function ref-type="join" signature="pg_catalog.scalarltjoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalarltsel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int24le" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of <= operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="integer" length="0"/>
+	</parameter>
+	<definition><![CDATA[int24le]]></definition>
+</function>
+
+<operator name="&lt;=" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[less than or equal]]></comment>
+	<type name="smallint" length="1" ref-type="left-type"/>
+	<type name="integer" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int24le(smallint,integer)"/>
+	<function ref-type="join" signature="pg_catalog.scalarlejoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalarlesel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int24eq" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of = operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="integer" length="0"/>
+	</parameter>
+	<definition><![CDATA[int24eq]]></definition>
+</function>
+
+<operator name="=" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[equal]]></comment>
+	<type name="smallint" length="1" ref-type="left-type"/>
+	<type name="integer" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int24eq(smallint,integer)"/>
+	<function ref-type="join" signature="pg_catalog.eqjoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.eqsel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int24ge" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of >= operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="integer" length="0"/>
+	</parameter>
+	<definition><![CDATA[int24ge]]></definition>
+</function>
+
+<operator name="&gt;=" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[greater than or equal]]></comment>
+	<type name="smallint" length="1" ref-type="left-type"/>
+	<type name="integer" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int24ge(smallint,integer)"/>
+	<function ref-type="join" signature="pg_catalog.scalargejoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalargesel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int24gt" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of > operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="integer" length="0"/>
+	</parameter>
+	<definition><![CDATA[int24gt]]></definition>
+</function>
+
+<operator name="&gt;" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[greater than]]></comment>
+	<type name="smallint" length="1" ref-type="left-type"/>
+	<type name="integer" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int24gt(smallint,integer)"/>
+	<function ref-type="join" signature="pg_catalog.scalargtjoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalargtsel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int28lt" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of < operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<definition><![CDATA[int28lt]]></definition>
+</function>
+
+<operator name="&lt;" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[less than]]></comment>
+	<type name="smallint" length="1" ref-type="left-type"/>
+	<type name="bigint" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int28lt(smallint,bigint)"/>
+	<function ref-type="join" signature="pg_catalog.scalarltjoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalarltsel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int28le" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of <= operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<definition><![CDATA[int28le]]></definition>
+</function>
+
+<operator name="&lt;=" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[less than or equal]]></comment>
+	<type name="smallint" length="1" ref-type="left-type"/>
+	<type name="bigint" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int28le(smallint,bigint)"/>
+	<function ref-type="join" signature="pg_catalog.scalarlejoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalarlesel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int28eq" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of = operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<definition><![CDATA[int28eq]]></definition>
+</function>
+
+<operator name="=" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[equal]]></comment>
+	<type name="smallint" length="1" ref-type="left-type"/>
+	<type name="bigint" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int28eq(smallint,bigint)"/>
+	<function ref-type="join" signature="pg_catalog.eqjoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.eqsel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int28ge" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of >= operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<definition><![CDATA[int28ge]]></definition>
+</function>
+
+<operator name="&gt;=" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[greater than or equal]]></comment>
+	<type name="smallint" length="1" ref-type="left-type"/>
+	<type name="bigint" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int28ge(smallint,bigint)"/>
+	<function ref-type="join" signature="pg_catalog.scalargejoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalargesel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int28gt" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of > operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<definition><![CDATA[int28gt]]></definition>
+</function>
+
+<operator name="&gt;" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[greater than]]></comment>
+	<type name="smallint" length="1" ref-type="left-type"/>
+	<type name="bigint" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int28gt(smallint,bigint)"/>
+	<function ref-type="join" signature="pg_catalog.scalargtjoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalargtsel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int4lt" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of < operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="integer" length="0"/>
+	</parameter>
+	<definition><![CDATA[int4lt]]></definition>
+</function>
+
+<operator name="&lt;" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[less than]]></comment>
+	<type name="integer" length="1" ref-type="left-type"/>
+	<type name="integer" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int4lt(integer,integer)"/>
+	<function ref-type="join" signature="pg_catalog.scalarltjoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalarltsel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int4le" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of <= operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="integer" length="0"/>
+	</parameter>
+	<definition><![CDATA[int4le]]></definition>
+</function>
+
+<operator name="&lt;=" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[less than or equal]]></comment>
+	<type name="integer" length="1" ref-type="left-type"/>
+	<type name="integer" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int4le(integer,integer)"/>
+	<function ref-type="join" signature="pg_catalog.scalarlejoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalarlesel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int4eq" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of = operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="integer" length="0"/>
+	</parameter>
+	<definition><![CDATA[int4eq]]></definition>
+</function>
+
+<operator name="=" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[equal]]></comment>
+	<type name="integer" length="1" ref-type="left-type"/>
+	<type name="integer" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int4eq(integer,integer)"/>
+	<function ref-type="join" signature="pg_catalog.eqjoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.eqsel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int4ge" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of >= operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="integer" length="0"/>
+	</parameter>
+	<definition><![CDATA[int4ge]]></definition>
+</function>
+
+<operator name="&gt;=" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[greater than or equal]]></comment>
+	<type name="integer" length="1" ref-type="left-type"/>
+	<type name="integer" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int4ge(integer,integer)"/>
+	<function ref-type="join" signature="pg_catalog.scalargejoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalargesel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int4gt" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of > operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="integer" length="0"/>
+	</parameter>
+	<definition><![CDATA[int4gt]]></definition>
+</function>
+
+<operator name="&gt;" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[greater than]]></comment>
+	<type name="integer" length="1" ref-type="left-type"/>
+	<type name="integer" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int4gt(integer,integer)"/>
+	<function ref-type="join" signature="pg_catalog.scalargtjoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalargtsel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int42lt" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of < operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<definition><![CDATA[int42lt]]></definition>
+</function>
+
+<operator name="&lt;" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[less than]]></comment>
+	<type name="integer" length="1" ref-type="left-type"/>
+	<type name="smallint" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int42lt(integer,smallint)"/>
+	<function ref-type="join" signature="pg_catalog.scalarltjoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalarltsel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int42le" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of <= operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<definition><![CDATA[int42le]]></definition>
+</function>
+
+<operator name="&lt;=" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[less than or equal]]></comment>
+	<type name="integer" length="1" ref-type="left-type"/>
+	<type name="smallint" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int42le(integer,smallint)"/>
+	<function ref-type="join" signature="pg_catalog.scalarlejoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalarlesel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int42eq" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of = operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<definition><![CDATA[int42eq]]></definition>
+</function>
+
+<operator name="=" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[equal]]></comment>
+	<type name="integer" length="1" ref-type="left-type"/>
+	<type name="smallint" length="1" ref-type="right-type"/>
+	<operator  signature="pg_catalog.=(smallint,integer)"/>
+	<function ref-type="operfunc" signature="pg_catalog.int42eq(integer,smallint)"/>
+	<function ref-type="join" signature="pg_catalog.eqjoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.eqsel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int42ge" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of >= operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<definition><![CDATA[int42ge]]></definition>
+</function>
+
+<operator name="&gt;=" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[greater than or equal]]></comment>
+	<type name="integer" length="1" ref-type="left-type"/>
+	<type name="smallint" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int42ge(integer,smallint)"/>
+	<function ref-type="join" signature="pg_catalog.scalargejoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalargesel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int42gt" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of > operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<definition><![CDATA[int42gt]]></definition>
+</function>
+
+<operator name="&gt;" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[greater than]]></comment>
+	<type name="integer" length="1" ref-type="left-type"/>
+	<type name="smallint" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int42gt(integer,smallint)"/>
+	<function ref-type="join" signature="pg_catalog.scalargtjoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalargtsel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int48lt" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of < operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<definition><![CDATA[int48lt]]></definition>
+</function>
+
+<operator name="&lt;" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[less than]]></comment>
+	<type name="integer" length="1" ref-type="left-type"/>
+	<type name="bigint" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int48lt(integer,bigint)"/>
+	<function ref-type="join" signature="pg_catalog.scalarltjoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalarltsel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int48le" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of <= operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<definition><![CDATA[int48le]]></definition>
+</function>
+
+<operator name="&lt;=" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[less than or equal]]></comment>
+	<type name="integer" length="1" ref-type="left-type"/>
+	<type name="bigint" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int48le(integer,bigint)"/>
+	<function ref-type="join" signature="pg_catalog.scalarlejoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalarlesel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int48eq" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of = operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<definition><![CDATA[int48eq]]></definition>
+</function>
+
+<operator name="=" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[equal]]></comment>
+	<type name="integer" length="1" ref-type="left-type"/>
+	<type name="bigint" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int48eq(integer,bigint)"/>
+	<function ref-type="join" signature="pg_catalog.eqjoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.eqsel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int48ge" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of >= operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<definition><![CDATA[int48ge]]></definition>
+</function>
+
+<operator name="&gt;=" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[greater than or equal]]></comment>
+	<type name="integer" length="1" ref-type="left-type"/>
+	<type name="bigint" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int48ge(integer,bigint)"/>
+	<function ref-type="join" signature="pg_catalog.scalargejoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalargesel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int48gt" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of > operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<definition><![CDATA[int48gt]]></definition>
+</function>
+
+<operator name="&gt;" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[greater than]]></comment>
+	<type name="integer" length="1" ref-type="left-type"/>
+	<type name="bigint" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int48gt(integer,bigint)"/>
+	<function ref-type="join" signature="pg_catalog.scalargtjoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalargtsel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int8lt" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of < operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<definition><![CDATA[int8lt]]></definition>
+</function>
+
+<operator name="&lt;" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[less than]]></comment>
+	<type name="bigint" length="1" ref-type="left-type"/>
+	<type name="bigint" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int8lt(bigint,bigint)"/>
+	<function ref-type="join" signature="pg_catalog.scalarltjoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalarltsel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int8le" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of <= operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<definition><![CDATA[int8le]]></definition>
+</function>
+
+<operator name="&lt;=" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[less than or equal]]></comment>
+	<type name="bigint" length="1" ref-type="left-type"/>
+	<type name="bigint" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int8le(bigint,bigint)"/>
+	<function ref-type="join" signature="pg_catalog.scalarlejoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalarlesel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int8eq" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of = operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<definition><![CDATA[int8eq]]></definition>
+</function>
+
+<operator name="=" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[equal]]></comment>
+	<type name="bigint" length="1" ref-type="left-type"/>
+	<type name="bigint" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int8eq(bigint,bigint)"/>
+	<function ref-type="join" signature="pg_catalog.eqjoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.eqsel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int8ge" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of >= operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<definition><![CDATA[int8ge]]></definition>
+</function>
+
+<operator name="&gt;=" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[greater than or equal]]></comment>
+	<type name="bigint" length="1" ref-type="left-type"/>
+	<type name="bigint" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int8ge(bigint,bigint)"/>
+	<function ref-type="join" signature="pg_catalog.scalargejoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalargesel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int8gt" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of > operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<definition><![CDATA[int8gt]]></definition>
+</function>
+
+<operator name="&gt;" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[greater than]]></comment>
+	<type name="bigint" length="1" ref-type="left-type"/>
+	<type name="bigint" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int8gt(bigint,bigint)"/>
+	<function ref-type="join" signature="pg_catalog.scalargtjoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalargtsel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int82lt" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of < operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<definition><![CDATA[int82lt]]></definition>
+</function>
+
+<operator name="&lt;" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[less than]]></comment>
+	<type name="bigint" length="1" ref-type="left-type"/>
+	<type name="smallint" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int82lt(bigint,smallint)"/>
+	<function ref-type="join" signature="pg_catalog.scalarltjoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalarltsel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int82le" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of <= operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<definition><![CDATA[int82le]]></definition>
+</function>
+
+<operator name="&lt;=" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[less than or equal]]></comment>
+	<type name="bigint" length="1" ref-type="left-type"/>
+	<type name="smallint" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int82le(bigint,smallint)"/>
+	<function ref-type="join" signature="pg_catalog.scalarlejoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalarlesel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int82eq" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of = operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<definition><![CDATA[int82eq]]></definition>
+</function>
+
+<operator name="=" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[equal]]></comment>
+	<type name="bigint" length="1" ref-type="left-type"/>
+	<type name="smallint" length="1" ref-type="right-type"/>
+	<operator  signature="pg_catalog.=(smallint,bigint)"/>
+	<function ref-type="operfunc" signature="pg_catalog.int82eq(bigint,smallint)"/>
+	<function ref-type="join" signature="pg_catalog.eqjoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.eqsel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int82ge" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of >= operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<definition><![CDATA[int82ge]]></definition>
+</function>
+
+<operator name="&gt;=" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[greater than or equal]]></comment>
+	<type name="bigint" length="1" ref-type="left-type"/>
+	<type name="smallint" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int82ge(bigint,smallint)"/>
+	<function ref-type="join" signature="pg_catalog.scalargejoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalargesel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int82gt" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of > operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="smallint" length="0"/>
+	</parameter>
+	<definition><![CDATA[int82gt]]></definition>
+</function>
+
+<operator name="&gt;" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[greater than]]></comment>
+	<type name="bigint" length="1" ref-type="left-type"/>
+	<type name="smallint" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int82gt(bigint,smallint)"/>
+	<function ref-type="join" signature="pg_catalog.scalargtjoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalargtsel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int84lt" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of < operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="integer" length="0"/>
+	</parameter>
+	<definition><![CDATA[int84lt]]></definition>
+</function>
+
+<operator name="&lt;" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[less than]]></comment>
+	<type name="bigint" length="1" ref-type="left-type"/>
+	<type name="integer" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int84lt(bigint,integer)"/>
+	<function ref-type="join" signature="pg_catalog.scalarltjoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalarltsel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int84le" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of <= operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="integer" length="0"/>
+	</parameter>
+	<definition><![CDATA[int84le]]></definition>
+</function>
+
+<operator name="&lt;=" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[less than or equal]]></comment>
+	<type name="bigint" length="1" ref-type="left-type"/>
+	<type name="integer" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int84le(bigint,integer)"/>
+	<function ref-type="join" signature="pg_catalog.scalarlejoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalarlesel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int84eq" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of = operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="integer" length="0"/>
+	</parameter>
+	<definition><![CDATA[int84eq]]></definition>
+</function>
+
+<operator name="=" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[equal]]></comment>
+	<type name="bigint" length="1" ref-type="left-type"/>
+	<type name="integer" length="1" ref-type="right-type"/>
+	<operator  signature="pg_catalog.=(integer,bigint)"/>
+	<function ref-type="operfunc" signature="pg_catalog.int84eq(bigint,integer)"/>
+	<function ref-type="join" signature="pg_catalog.eqjoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.eqsel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int84ge" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of >= operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="integer" length="0"/>
+	</parameter>
+	<definition><![CDATA[int84ge]]></definition>
+</function>
+
+<operator name="&gt;=" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[greater than or equal]]></comment>
+	<type name="bigint" length="1" ref-type="left-type"/>
+	<type name="integer" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int84ge(bigint,integer)"/>
+	<function ref-type="join" signature="pg_catalog.scalargejoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalargesel(internal,oid,internal,integer)"/>
+</operator>
+
+<function name="int84gt" sql-disabled="true"
+		window-func="false"
+		leakproof="true"
+		returns-setof="false"
+		behavior-type="STRICT"
+		function-type="IMMUTABLE"
+		security-type="SECURITY INVOKER"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[implementation of > operator]]></comment>
+	<language name="internal"/>
+	<return-type>
+	<type name="boolean" length="1"/>
+	</return-type>
+	<parameter name="_param1">
+		<type name="bigint" length="0"/>
+	</parameter>
+	<parameter name="_param2">
+		<type name="integer" length="0"/>
+	</parameter>
+	<definition><![CDATA[int84gt]]></definition>
+</function>
+
+<operator name="&gt;" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<comment><![CDATA[greater than]]></comment>
+	<type name="bigint" length="1" ref-type="left-type"/>
+	<type name="integer" length="1" ref-type="right-type"/>
+	<function ref-type="operfunc" signature="pg_catalog.int84gt(bigint,integer)"/>
+	<function ref-type="join" signature="pg_catalog.scalargtjoinsel(internal,oid,internal,smallint,internal)"/>
+	<function ref-type="restriction" signature="pg_catalog.scalargtsel(internal,oid,internal,integer)"/>
+</operator>
+
+<opclass  name="int4_ops" index-type="btree" default="true" sql-disabled="true">
+	<schema name="pg_catalog"/>
+	<role name="postgres"/>
+	<type name="integer" length="1"/>
+	<element type="function" stg-number="1">
+		<function signature="pg_catalog.btint2cmp(smallint,smallint)"/>
+	</element>
+	<element type="function" stg-number="2">
+		<function signature="pg_catalog.btint2sortsupport(internal)"/>
+	</element>
+	<element type="function" stg-number="4">
+		<function signature="pg_catalog.btequalimage(oid)"/>
+	</element>
+	<element type="function" stg-number="1">
+		<function signature="pg_catalog.btint24cmp(smallint,integer)"/>
+	</element>
+	<element type="function" stg-number="1">
+		<function signature="pg_catalog.btint28cmp(smallint,bigint)"/>
+	</element>
+	<element type="function" stg-number="3">
+		<function signature="pg_catalog.in_range(smallint,smallint,bigint,boolean,boolean)"/>
+	</element>
+	<element type="function" stg-number="3">
+		<function signature="pg_catalog.in_range(smallint,smallint,integer,boolean,boolean)"/>
+	</element>
+	<element type="function" stg-number="3">
+		<function signature="pg_catalog.in_range(smallint,smallint,smallint,boolean,boolean)"/>
+	</element>
+	<element type="function" stg-number="1">
+		<function signature="pg_catalog.btint4cmp(integer,integer)"/>
+	</element>
+	<element type="function" stg-number="2">
+		<function signature="pg_catalog.btint4sortsupport(internal)"/>
+	</element>
+	<element type="function" stg-number="4">
+		<function signature="pg_catalog.btequalimage(oid)"/>
+	</element>
+	<element type="function" stg-number="1">
+		<function signature="pg_catalog.btint48cmp(integer,bigint)"/>
+	</element>
+	<element type="function" stg-number="1">
+		<function signature="pg_catalog.btint42cmp(integer,smallint)"/>
+	</element>
+	<element type="function" stg-number="3">
+		<function signature="pg_catalog.in_range(integer,integer,bigint,boolean,boolean)"/>
+	</element>
+	<element type="function" stg-number="3">
+		<function signature="pg_catalog.in_range(integer,integer,integer,boolean,boolean)"/>
+	</element>
+	<element type="function" stg-number="3">
+		<function signature="pg_catalog.in_range(integer,integer,smallint,boolean,boolean)"/>
+	</element>
+	<element type="function" stg-number="1">
+		<function signature="pg_catalog.btint8cmp(bigint,bigint)"/>
+	</element>
+	<element type="function" stg-number="2">
+		<function signature="pg_catalog.btint8sortsupport(internal)"/>
+	</element>
+	<element type="function" stg-number="4">
+		<function signature="pg_catalog.btequalimage(oid)"/>
+	</element>
+	<element type="function" stg-number="1">
+		<function signature="pg_catalog.btint84cmp(bigint,integer)"/>
+	</element>
+	<element type="function" stg-number="1">
+		<function signature="pg_catalog.btint82cmp(bigint,smallint)"/>
+	</element>
+	<element type="function" stg-number="3">
+		<function signature="pg_catalog.in_range(bigint,bigint,bigint,boolean,boolean)"/>
+	</element>
+	<element type="operator" stg-number="1">
+		<operator  signature="pg_catalog.&lt;(smallint,smallint)"/>
+	</element>
+	<element type="operator" stg-number="2">
+		<operator  signature="pg_catalog.&lt;=(smallint,smallint)"/>
+	</element>
+	<element type="operator" stg-number="3">
+		<operator  signature="pg_catalog.=(smallint,smallint)"/>
+	</element>
+	<element type="operator" stg-number="4">
+		<operator  signature="pg_catalog.&gt;=(smallint,smallint)"/>
+	</element>
+	<element type="operator" stg-number="5">
+		<operator  signature="pg_catalog.&gt;(smallint,smallint)"/>
+	</element>
+	<element type="operator" stg-number="1">
+		<operator  signature="pg_catalog.&lt;(smallint,integer)"/>
+	</element>
+	<element type="operator" stg-number="2">
+		<operator  signature="pg_catalog.&lt;=(smallint,integer)"/>
+	</element>
+	<element type="operator" stg-number="3">
+		<operator  signature="pg_catalog.=(smallint,integer)"/>
+	</element>
+	<element type="operator" stg-number="4">
+		<operator  signature="pg_catalog.&gt;=(smallint,integer)"/>
+	</element>
+	<element type="operator" stg-number="5">
+		<operator  signature="pg_catalog.&gt;(smallint,integer)"/>
+	</element>
+	<element type="operator" stg-number="1">
+		<operator  signature="pg_catalog.&lt;(smallint,bigint)"/>
+	</element>
+	<element type="operator" stg-number="2">
+		<operator  signature="pg_catalog.&lt;=(smallint,bigint)"/>
+	</element>
+	<element type="operator" stg-number="3">
+		<operator  signature="pg_catalog.=(smallint,bigint)"/>
+	</element>
+	<element type="operator" stg-number="4">
+		<operator  signature="pg_catalog.&gt;=(smallint,bigint)"/>
+	</element>
+	<element type="operator" stg-number="5">
+		<operator  signature="pg_catalog.&gt;(smallint,bigint)"/>
+	</element>
+	<element type="operator" stg-number="1">
+		<operator  signature="pg_catalog.&lt;(integer,integer)"/>
+	</element>
+	<element type="operator" stg-number="2">
+		<operator  signature="pg_catalog.&lt;=(integer,integer)"/>
+	</element>
+	<element type="operator" stg-number="3">
+		<operator  signature="pg_catalog.=(integer,integer)"/>
+	</element>
+	<element type="operator" stg-number="4">
+		<operator  signature="pg_catalog.&gt;=(integer,integer)"/>
+	</element>
+	<element type="operator" stg-number="5">
+		<operator  signature="pg_catalog.&gt;(integer,integer)"/>
+	</element>
+	<element type="operator" stg-number="1">
+		<operator  signature="pg_catalog.&lt;(integer,smallint)"/>
+	</element>
+	<element type="operator" stg-number="2">
+		<operator  signature="pg_catalog.&lt;=(integer,smallint)"/>
+	</element>
+	<element type="operator" stg-number="3">
+		<operator  signature="pg_catalog.=(integer,smallint)"/>
+	</element>
+	<element type="operator" stg-number="4">
+		<operator  signature="pg_catalog.&gt;=(integer,smallint)"/>
+	</element>
+	<element type="operator" stg-number="5">
+		<operator  signature="pg_catalog.&gt;(integer,smallint)"/>
+	</element>
+	<element type="operator" stg-number="1">
+		<operator  signature="pg_catalog.&lt;(integer,bigint)"/>
+	</element>
+	<element type="operator" stg-number="2">
+		<operator  signature="pg_catalog.&lt;=(integer,bigint)"/>
+	</element>
+	<element type="operator" stg-number="3">
+		<operator  signature="pg_catalog.=(integer,bigint)"/>
+	</element>
+	<element type="operator" stg-number="4">
+		<operator  signature="pg_catalog.&gt;=(integer,bigint)"/>
+	</element>
+	<element type="operator" stg-number="5">
+		<operator  signature="pg_catalog.&gt;(integer,bigint)"/>
+	</element>
+	<element type="operator" stg-number="1">
+		<operator  signature="pg_catalog.&lt;(bigint,bigint)"/>
+	</element>
+	<element type="operator" stg-number="2">
+		<operator  signature="pg_catalog.&lt;=(bigint,bigint)"/>
+	</element>
+	<element type="operator" stg-number="3">
+		<operator  signature="pg_catalog.=(bigint,bigint)"/>
+	</element>
+	<element type="operator" stg-number="4">
+		<operator  signature="pg_catalog.&gt;=(bigint,bigint)"/>
+	</element>
+	<element type="operator" stg-number="5">
+		<operator  signature="pg_catalog.&gt;(bigint,bigint)"/>
+	</element>
+	<element type="operator" stg-number="1">
+		<operator  signature="pg_catalog.&lt;(bigint,smallint)"/>
+	</element>
+	<element type="operator" stg-number="2">
+		<operator  signature="pg_catalog.&lt;=(bigint,smallint)"/>
+	</element>
+	<element type="operator" stg-number="3">
+		<operator  signature="pg_catalog.=(bigint,smallint)"/>
+	</element>
+	<element type="operator" stg-number="4">
+		<operator  signature="pg_catalog.&gt;=(bigint,smallint)"/>
+	</element>
+	<element type="operator" stg-number="5">
+		<operator  signature="pg_catalog.&gt;(bigint,smallint)"/>
+	</element>
+	<element type="operator" stg-number="1">
+		<operator  signature="pg_catalog.&lt;(bigint,integer)"/>
+	</element>
+	<element type="operator" stg-number="2">
+		<operator  signature="pg_catalog.&lt;=(bigint,integer)"/>
+	</element>
+	<element type="operator" stg-number="3">
+		<operator  signature="pg_catalog.=(bigint,integer)"/>
+	</element>
+	<element type="operator" stg-number="4">
+		<operator  signature="pg_catalog.&gt;=(bigint,integer)"/>
+	</element>
+	<element type="operator" stg-number="5">
+		<operator  signature="pg_catalog.&gt;(bigint,integer)"/>
+	</element>
+</opclass>
+
 <constraint name="fk_subgrupo_catalogo_subgrupo" type="fk-constr" comparison-type="MATCH FULL"
 	 upd-action="CASCADE" del-action="RESTRICT" ref-table="catalogo.subgrupo" table="catalogo.subgrupo_catalogo">
 	<columns names="subgrupo_id" ref-type="src-columns"/>
@@ -751,88 +3493,88 @@ END;
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
-<relationship name="rel_subgrupo_catalogo_subgrupo" type="relfk"
-	 custom-color="#905c2b"
+<relationship name="rel_subgrupo_catalogo_subgrupo" type="relfk" layer="0"
+	 custom-color="#c12b73"
 	 src-table="catalogo.subgrupo_catalogo"
 	 dst-table="catalogo.subgrupo" reference-fk="fk_subgrupo_catalogo_subgrupo"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="true"/>
 
-<relationship name="rel_subgrupo_catalogo_catalogo" type="relfk"
-	 custom-color="#616bf6"
+<relationship name="rel_subgrupo_catalogo_catalogo" type="relfk" layer="0"
+	 custom-color="#3f7c94"
 	 src-table="catalogo.subgrupo_catalogo"
 	 dst-table="catalogo.catalogo" reference-fk="fk_subgrupo_catalogo_catalogo"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="true"/>
 
-<relationship name="rel_subgrupo_tipo_nivel" type="relfk"
-	 custom-color="#eb0be5"
+<relationship name="rel_subgrupo_tipo_nivel" type="relfk" layer="0"
+	 custom-color="#bc83bb"
 	 src-table="catalogo.subgrupo"
 	 dst-table="catalogo.tipo_nivel" reference-fk="fk_subgrupo_tipo_nivel"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="true"/>
 
-<relationship name="rel_subgrupo_subgrupo_subgrupo" type="relfk"
-	 custom-color="#7d1863"
+<relationship name="rel_subgrupo_subgrupo_subgrupo" type="relfk" layer="0"
+	 custom-color="#5953a8"
 	 src-table="catalogo.subgrupo_subgrupo"
 	 dst-table="catalogo.subgrupo" reference-fk="fk_subgrupo_subgrupo_subgrupo_padre"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="true"/>
 
-<relationship name="rel_subgrupo_subgrupo_subgrupo1" type="relfk"
-	 custom-color="#dfe5b4"
+<relationship name="rel_subgrupo_subgrupo_subgrupo1" type="relfk" layer="0"
+	 custom-color="#8c210b"
 	 src-table="catalogo.subgrupo_subgrupo"
 	 dst-table="catalogo.subgrupo" reference-fk="fk_subgrupo_subgrupo_subgrupo_hijo"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="true"/>
 
-<relationship name="rel_cuentas_subgrupo_subgrupo" type="relfk"
-	 custom-color="#ce8371"
+<relationship name="rel_cuentas_subgrupo_subgrupo" type="relfk" layer="0"
+	 custom-color="#f1bda9"
 	 src-table="catalogo.cuentas_subgrupo"
 	 dst-table="catalogo.subgrupo" reference-fk="fk_cuentas_grupo_subgrupo"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="true"/>
 
-<relationship name="rel_cuentas_subgrupo_tipo_bien" type="relfk"
-	 custom-color="#92809d"
+<relationship name="rel_cuentas_subgrupo_tipo_bien" type="relfk" layer="0"
+	 custom-color="#20e250"
 	 src-table="catalogo.cuentas_subgrupo"
 	 dst-table="catalogo.tipo_bien" reference-fk="fk_cuentas_subgrupo_tipo_bien"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="true"/>
 
-<relationship name="rel_elemento_subgrupo" type="relfk"
-	 custom-color="#204fab"
+<relationship name="rel_elemento_subgrupo" type="relfk" layer="0"
+	 custom-color="#d2e84c"
 	 src-table="catalogo.elemento"
 	 dst-table="catalogo.subgrupo" reference-fk="fk_elemento_subgrupo"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="true"/>
 
-<relationship name="rel_tipo_bien_tipo_bien" type="relfk"
-	 custom-color="#62c0dc"
+<relationship name="rel_tipo_bien_tipo_bien" type="relfk" layer="0"
+	 custom-color="#0ddb87"
 	 src-table="catalogo.tipo_bien"
 	 dst-table="catalogo.tipo_bien" reference-fk="fk_tipo_bien_tipo_bien_padre"
 	 src-required="false" dst-required="false">
 	<line>
-		<position x="1728.11" y="973.417"/>
-	<position x="1728.11" y="849"/>
-	<position x="1591.41" y="849"/>
+		<position x="1985.11" y="1165.8"/>
+	<position x="1985.11" y="1030.1"/>
+	<position x="1850.14" y="1030.1"/>
 	</line>
 </relationship>
 
-<relationship name="rel_detalle_subgrupo_tipo_bien" type="relfk"
-	 custom-color="#410d54"
+<relationship name="rel_detalle_subgrupo_tipo_bien" type="relfk" layer="0"
+	 custom-color="#e3da15"
 	 src-table="catalogo.detalle_subgrupo"
 	 dst-table="catalogo.tipo_bien" reference-fk="fk_detalle_subgrupo_tipo_bien"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="true"/>
 
-<relationship name="rel_detalle_subgrupo_subgrupo" type="relfk"
-	 custom-color="#d46a50"
+<relationship name="rel_detalle_subgrupo_subgrupo" type="relfk" layer="0"
+	 custom-color="#b43cf9"
 	 src-table="catalogo.detalle_subgrupo"
 	 dst-table="catalogo.subgrupo" reference-fk="fk_detalle_subgrupo_subgrupo"
 	 src-required="false" dst-required="false"/>
 
-<relationship name="rel_relacion_nivel_tipo_nivel" type="relfk"
-	 custom-color="#637fb5"
+<relationship name="rel_relacion_nivel_tipo_nivel" type="relfk" layer="0"
+	 custom-color="#ddcf53"
 	 src-table="catalogo.relacion_nivel"
 	 dst-table="catalogo.tipo_nivel" reference-fk="fk_tipo_nivel_nivel_padre"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="true"/>
 
-<relationship name="rel_relacion_nivel_tipo_nivel1" type="relfk"
-	 custom-color="#5cb352"
+<relationship name="rel_relacion_nivel_tipo_nivel1" type="relfk" layer="0"
+	 custom-color="#434961"
 	 src-table="catalogo.relacion_nivel"
 	 dst-table="catalogo.tipo_nivel" reference-fk="fk_tipo_nivel_nivel_hijo"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="true"/>
 
 </dbmodel>
