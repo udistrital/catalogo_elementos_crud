@@ -107,6 +107,7 @@ func (c *TipoBienController) GetAll() {
 	if v, err := c.GetInt("padre_id"); err == nil {
 		padreId = v
 	}
+	logs.Info("Consulta tipo bien padre")
 
 	if padreId > 0 && max > 0 && min >= 0 {
 		l := make([]*models.TipoBien, 0)
