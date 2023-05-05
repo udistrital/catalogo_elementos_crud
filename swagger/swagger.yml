@@ -945,13 +945,13 @@ paths:
       - in: query
         name: min
         description: Límite minimo a verificar
-        type: integer
-        format: int64
+        type: number
+        format: double
       - in: query
         name: max
         description: Limite maximo a verificar
-        type: integer
-        format: int64
+        type: number
+        format: double
       - in: query
         name: id
         description: Tipo de bien a verificar
