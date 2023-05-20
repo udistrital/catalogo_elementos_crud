@@ -2159,10 +2159,6 @@
         }
     },
     "definitions": {
-        "36595.0xc00085e2a0.false": {
-            "title": "false",
-            "type": "object"
-        },
         "models.Catalogo": {
             "title": "Catalogo",
             "type": "object",
@@ -2589,6 +2585,10 @@
                     "$ref": "#/definitions/models.Subgrupo"
                 }
             }
+        },
+        "models.interface": {
+            "title": "interface",
+            "type": "object"
         }
     },
     "tags": [
