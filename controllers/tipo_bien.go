@@ -79,8 +79,8 @@ func (c *TipoBienController) GetOne() {
 // GetAll ...
 // @Title Get All
 // @Description get TipoBien
-// @Param	min	query	int	false	"Límite minimo a verificar"
-// @Param	max	query	int	false	"Limite maximo a verificar"
+// @Param	min	query	float64	false	"Límite minimo a verificar"
+// @Param	max	query	float64	false	"Limite maximo a verificar"
 // @Param	id	query	int	false	"Tipo de bien a verificar"
 // @Param	padre_id	query	int	false	"Tipo bien padre a verificar"
 // @Param	query	query	string	false	"Filter. e.g. col1:v1,col2:v2 ..."
@@ -97,6 +97,7 @@ func (c *TipoBienController) GetAll() {
 	var min float64
 	var max float64
 	var padreId int
+
 	if v, err := c.GetFloat("min"); err == nil {
 		min = v
 	}
