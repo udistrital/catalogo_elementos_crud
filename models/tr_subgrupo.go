@@ -31,38 +31,35 @@ func AddTransaccionSubgrupo(m *TrSubgrupo) (err error) {
 		}
 	}()
 
-//	for _, v := range *m.SubgrupoHijo {
+	//	for _, v := range *m.SubgrupoHijo {
 
-		// SE INSERTA SUBGRUPO
-		if idSubgrupoHijo, err := o.Insert(m.SubgrupoHijo); err == nil {
-			m.SubgrupoHijo.Id = int(idSubgrupoHijo)
+	// SE INSERTA SUBGRUPO
+	if idSubgrupoHijo, err := o.Insert(m.SubgrupoHijo); err == nil {
+		m.SubgrupoHijo.Id = int(idSubgrupoHijo)
 
-			// SE INSERTA SUBGRUPO_SUBGRUO
-			var subGrupoSubgrupo SubgrupoSubgrupo
-			subGrupoSubgrupo.Activo = true
-			subGrupoSubgrupo.SubgrupoPadreId = m.SubgrupoPadre
-			subGrupoSubgrupo.SubgrupoHijoId = m.SubgrupoHijo
+		// SE INSERTA SUBGRUPO_SUBGRUO
+		var subGrupoSubgrupo SubgrupoSubgrupo
+		subGrupoSubgrupo.Activo = true
+		subGrupoSubgrupo.SubgrupoPadreId = m.SubgrupoPadre
+		subGrupoSubgrupo.SubgrupoHijoId = m.SubgrupoHijo
 
-			if _, err = o.Insert(&subGrupoSubgrupo); err != nil {
-				panic(err.Error())
-			}
-
-
-                        if (m.DetalleSubgrupo != nil) {
-				m.DetalleSubgrupo.SubgrupoId = m.SubgrupoHijo 
-				m.DetalleSubgrupo.Activo = true
-				if _, err = o.Insert(m.DetalleSubgrupo); err != nil {
-					panic(err.Error())
-				}
-                        }
-
-
-
-		} else {
+		if _, err = o.Insert(&subGrupoSubgrupo); err != nil {
 			panic(err.Error())
 		}
 
-//	}
+		if m.DetalleSubgrupo != nil {
+			m.DetalleSubgrupo.SubgrupoId = m.SubgrupoHijo
+			m.DetalleSubgrupo.Activo = true
+			if _, err = o.Insert(m.DetalleSubgrupo); err != nil {
+				panic(err.Error())
+			}
+		}
+
+	} else {
+		panic(err.Error())
+	}
+
+	//	}
 
 	return
 }
