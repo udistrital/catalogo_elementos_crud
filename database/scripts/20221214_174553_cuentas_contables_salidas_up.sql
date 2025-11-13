@@ -11,3 +11,6 @@ ALTER TABLE catalogo.cuentas_subgrupo
 ALTER TABLE catalogo.catalogo
     DROP COLUMN IF EXISTS fecha_inicio,
     DROP COLUMN IF EXISTS fecha_fin;
+
+COMMENT ON COLUMN catalogo.cuentas_subgrupo.tipo_movimiento_id
+    IS 'Tipo de entrada en la parametrización de las cuentas contables de las salidas.';
