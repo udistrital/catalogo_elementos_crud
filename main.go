@@ -29,15 +29,16 @@ func main() {
 		return
 	}
 
-	AllowedOrigins := []string{"*.udistrital.edu.co"}
+	allowedOrigins := []string{"*.udistrital.edu.co"}
 	if beego.BConfig.RunMode == "dev" {
-		AllowedOrigins = []string{"*"}
+		allowedOrigins = []string{"*"}
 		orm.Debug = true
 		beego.BConfig.WebConfig.DirectoryIndex = true
 		beego.BConfig.WebConfig.StaticDir["/swagger"] = "swagger"
 	}
+
 	beego.InsertFilter("*", beego.BeforeRouter, cors.Allow(&cors.Options{
-		AllowOrigins: AllowedOrigins,
+		AllowOrigins: allowedOrigins,
 		AllowMethods: []string{"PUT", "PATCH", "GET", "POST", "OPTIONS", "DELETE"},
 		AllowHeaders: []string{"Origin", "x-requested-with",
 			"content-type",
