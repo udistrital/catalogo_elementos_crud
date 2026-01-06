@@ -30,7 +30,7 @@ func main() {
 	}
 
 	allowedOrigins := []string{"*.udistrital.edu.co"}
-	if beego.BConfig.RunMode == "dev" {
+	if beego.BConfig.RunMode == beego.DEV {
 		allowedOrigins = []string{"*"}
 		orm.Debug = true
 		beego.BConfig.WebConfig.DirectoryIndex = true
@@ -39,13 +39,13 @@ func main() {
 
 	beego.InsertFilter("*", beego.BeforeRouter, cors.Allow(&cors.Options{
 		AllowOrigins: allowedOrigins,
-		AllowMethods: []string{"PUT", "PATCH", "GET", "POST", "OPTIONS", "DELETE"},
-		AllowHeaders: []string{"Origin", "x-requested-with",
-			"content-type",
-			"accept",
-			"origin",
-			"authorization",
-			"x-csrftoken"},
+		AllowMethods: []string{"DELETE", "GET", "OPTIONS", "POST", "PUT"},
+		AllowHeaders: []string{
+			"Accept",
+			"Authorization",
+			"Content-Type",
+			"User-Agent",
+			"X-Amzn-Trace-Id"},
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
 	}))
