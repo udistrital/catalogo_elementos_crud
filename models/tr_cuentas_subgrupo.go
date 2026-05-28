@@ -5,44 +5,23 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-// GetCuentasSubgrupoBySubgrupoId Consulta la última cuenta activa de cada movimiento para un subgrupo determinado. Retorna arreglo vacío si no hay cuentas
+// GetCuentasSubgrupoBySubgrupoId consulta las cuentas activas asociadas a un subgrupo,
+// cuyo tipo de bien asociado también esté activo.
+// Retorna arreglo vacío si no hay cuentas.
 func GetCuentasSubgrupoBySubgrupoId(subgrupoId, movimientoId int, v *[]*CuentasSubgrupo) (err error) {
 
 	o := orm.NewOrm()
 
-	var detalle DetalleSubgrupo
-	_, err = o.QueryTable(new(DetalleSubgrupo)).
-		Filter("SubgrupoId__Id", subgrupoId).
-		Filter("Activo", true).OrderBy("-FechaCreacion").All(&detalle)
-
-	if err != nil || detalle.Id == 0 {
-		return
-	}
-
-	qs := o.QueryTable(new(CuentasSubgrupo)).RelatedSel().
+	_, err = o.QueryTable(new(CuentasSubgrupo)).RelatedSel().
 		Filter("Activo", true).
 		Filter("SubgrupoId__Id", subgrupoId).
 		Filter("TipoBienId__Activo", true).
-		Filter("TipoBienId__TipoBienPadreId__Id", detalle.TipoBienId.Id)
-
-	if movimientoId == 0 {
-		_, err = qs.All(v)
-		return
-	}
-
-	cond := qs.GetCond()
-	cond1 := orm.NewCondition()
-	cond2 := orm.NewCondition()
-
-	cond1 = cond1.And("tipo_movimiento_id", movimientoId)
-	cond2 = cond2.And("subtipo_movimiento_id", movimientoId)
-	cond = cond.AndCond(cond1.OrCond(cond2))
-	_, err = qs.SetCond(cond).All(v)
+		All(v)
 
 	return
 }
 
-// UpdateCuentasGrupo actualiza las cuentas contables que hayan cambiado o crea los nuevos registros de ser necesario
+// UpdateCuentasSubgrupo actualiza las cuentas contables que hayan cambiado o crea los nuevos registros de ser necesario
 func UpdateCuentasSubgrupo(m []*CuentasSubgrupo, id int) (n []*CuentasSubgrupo, err error) {
 
 	o := orm.NewOrm()
@@ -72,7 +51,8 @@ func UpdateCuentasSubgrupo(m []*CuentasSubgrupo, id int) (n []*CuentasSubgrupo, 
 			Filter("SubgrupoId__Id", id).
 			Filter("TipoBienId__Id", v.TipoBienId.Id).
 			Filter("SubtipoMovimientoId", v.SubtipoMovimientoId).
-			Filter("TipoMovimientoId", v.TipoMovimientoId).All(&q)
+			Filter("TipoMovimientoId", v.TipoMovimientoId).
+			All(&q)
 
 		if err != nil {
 			return
